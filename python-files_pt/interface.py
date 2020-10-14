@@ -1,5 +1,6 @@
 from tkinter import *
 from time import sleep
+from backend import bot
 
 palet = [{'bg':'#141414', 'fg':'#f1f1f1', 'exit_bg':'#ff2f2f', 'df_bg':'#676767'}]
 cont_maximizado = 0
@@ -109,6 +110,8 @@ def start():
 
     w1_lbl = Label(w, text = 'O bot está sendo iniciado', font = ('Antipasto', 18), bg = palet[0]['bg'], fg = palet[0]['fg'], pady = 70)
     w1_lbl.pack(anchor = S, side = BOTTOM)
+    top.update()
+    sleep(1)
 
     for ani1 in range(0, 2):
         for ani in range(0, 4):
@@ -118,6 +121,8 @@ def start():
             print(w1_lbl['text'])
 
     w1_lbl.config(text = 'O bot está sendo iniciado')
+    bot(top, w)
+
 
 def program():
     global cont_show_pass;global comment_radio_var;global user_entry;global passw_entry;global link_entry;global v_comment;global r1;global r2;global comentarios;global comment_entry;global welcome;global avançar;global ig_wallp_lbl;global r3;global r4;global lbl;global bt_iniciar_bot;global quant_comments_spinbox;global remove_coment;global comments_list;global view;global lbl1;global lbl2;global lbl3
@@ -318,7 +323,7 @@ def program():
         add_comment.bind('<Enter>', add_comment_enter)
         add_comment.bind('<Leave>', add_comment_leave)
 
-        c_list_f = Frame(top)
+        c_list_f = Frame(top, bg = palet[0]['bg'])
         c_list_f.place(x = 450, y = 130)
 
         sb = Scrollbar(c_list_f)
@@ -338,9 +343,11 @@ def program():
         remove_coment.bind('<Leave>', remove_coment_leave)
 
     def quant_coment():
-        global limit2;global s2;global s1;global quant_comments_spinbox;global quant_comentarios
+        global limit2;global s2;global s1;global quant_comments_spinbox;global quant_comentarios;global r3;global r4
         s1, s2 = '', ''
         quant_comentarios = True
+        r3.config(state = DISABLED)
+        r4.config(state = ACTIVE)
         def write2(*args):
             global s2;global s1
 
@@ -385,7 +392,7 @@ def program():
             varios_c()
 
     def sel_ncom():
-        global quant_comentarios
+        global quant_comentarios;global r3;global r4
         if ncom_radio_var.get() == 1:
             quant_coment()
         elif ncom_radio_var.get() == 2:
@@ -394,6 +401,8 @@ def program():
             except:
                 pass
             quant_comentarios = False
+            r4.config(state = DISABLED)
+            r3.config(state = ACTIVE)
 
     r1 = Radiobutton(top, text = 'Comentário único', font = ('Antipasto', 16), variable = comment_radio_var, value = 1, bg = palet[0]['bg'], fg = palet[0]['fg'], activebackground = palet[0]['bg'], activeforeground = palet[0]['fg'], command = sel_comment)
     r1.place(x = 60, y = 300)
@@ -451,7 +460,7 @@ def program():
         question_window.mainloop()
 
     def iniciar_bot():
-        global lbl;global user_entry;global passw_entry;global view;global link_entry;global r1;global r2;global comment_entry;global add_comment;global sb;global lbl_list;global comments_list;global remove_coment;global quant_comments_spinbox;global r3;global r4;global bt_iniciar_bot
+        global lbl;global user_entry;global passw_entry;global view;global link_entry;global r1;global r2;global comment_entry;global add_comment;global sb;global lbl_list;global comments_list;global remove_coment;global quant_comments_spinbox;global r3;global r4;global bt_iniciar_bot;global comentarios;global c_list_f
         # 
             # print(f'Nome de usuário: {user_entry.get()}')
             # print(f'Senha: {passw_entry.get()}')
@@ -469,6 +478,21 @@ def program():
         if user_entry.get() == '' or passw_entry.get() == '' or link_entry.get() == '' or v_comment == None or quant_comentarios == None or v_comment == True and comentarios == [] or v_comment == False and comment_entry.get() == '':
             error('Houve algum erro, insira os dados \nCORRETAMENTE e tente de novo   ')
         else:
+            def var():
+                variaveis = open('C:\\Users\\Paulo Thiago\\Documents\\MeusProjetos\\InstagramBot\\python-files_pt\\variables.txt', 'w')
+                variaveis.write(f'{user_entry.get()}\n') # Nome de usuário
+                variaveis.write(f'{passw_entry.get()}\n') # Senha
+                variaveis.write(f'{link_entry.get()}\n') # Link do post
+                variaveis.write(f'{v_comment}\n') # Comentário único ou vários
+                variaveis.write(f'{quant_comentarios}\n') # Comentários limitados ou ilimitados
+                variaveis.write(f'{comentarios}\n') # Lista de comentários
+                variaveis.write(f'{comment_entry.get()}\n') # Comentário único
+                try:
+                    variaveis.write(f'{quant_comments_spinbox.get()}') # Número de comentários
+                except:
+                    variaveis.write('')
+
+            var()
             user_entry.destroy()
             passw_entry.destroy()
             view.destroy()
@@ -488,14 +512,14 @@ def program():
                 quant_comments_spinbox.destroy()
             except:
                 pass
-            try:
+            if v_comment == True:
+                c_list_f.destroy()
                 sb.destroy()
                 lbl_list.destroy()
                 comments_list.destroy()
                 remove_coment.destroy()
                 add_comment.destroy()
-            except:
-                pass        
+            start()
 
     def iniciar_bot_enter(e):
         bt_iniciar_bot.config(bg = palet[0]['df_bg'])
@@ -542,7 +566,8 @@ def welcome_interface():
     avançar.bind('<Enter>', com_enter)
     avançar.bind('<Leave>', com_leave)
 
-# welcome_interface()
-start()
+welcome_interface()
+program()
+# start()
 
 top.mainloop()

@@ -1,0 +1,7 @@
+paulothiago.py
+i5775666162023
+https://instagram.com
+True
+False
+['asd', 'asd21e']
+
