@@ -87,14 +87,40 @@ managment_window()
 ig = PhotoImage(file = 'C:\\Users\\Paulo Thiago\\Documents\\MeusProjetos\\InstagramBot\\python-files_pt\\media\\instagram.png')
 ig = ig.subsample(13, 13)
 
+warning = PhotoImage(file = 'C:\\Users\\Paulo Thiago\\Documents\\MeusProjetos\\InstagramBot\\python-files_pt\\media\\warning.png')
+warning = warning.subsample(4, 4)
+
 ig_icon = Label(top, image = ig, bg = palet[0]['bg'], height = 38, width = 40)
 ig_icon.pack(anchor = NW, side = LEFT)
 
 ig_lbl = Label(top, text = 'Instagram Bot', font = ('Antipasto', 16), bg = palet[0]['bg'], fg = palet[0]['fg'], pady = 7)
 ig_lbl.pack(anchor = NW)
 
+def start():
+    global warning_lbl
+    w = Frame(top, bg = palet[0]['bg'])
+    w.pack()
+
+    warning_lbl = Label(w, image = warning, bg = palet[0]['bg'])
+    warning_lbl.pack()
+
+    w_lbl = Message(w, text = 'Não interrompa o bot enquanto ele estiver em execução. Se quiser encerrá-lo clique no botão "Parar"', bg = palet[0]['bg'], fg = palet[0]['fg'], font = ('Antipasto', 20), justify = CENTER, width = 500)
+    w_lbl.pack()
+
+    w1_lbl = Label(w, text = 'O bot está sendo iniciado', font = ('Antipasto', 18), bg = palet[0]['bg'], fg = palet[0]['fg'], pady = 70)
+    w1_lbl.pack(anchor = S, side = BOTTOM)
+
+    for ani1 in range(0, 2):
+        for ani in range(0, 4):
+            w1_lbl.config(text = f'O bot está sendo iniciado{" ." * ani}')
+            top.update()
+            sleep(.3)
+            print(w1_lbl['text'])
+
+    w1_lbl.config(text = 'O bot está sendo iniciado')
+
 def program():
-    global cont_show_pass;global comment_radio_var;global user_entry;global passw_entry;global link_entry;global v_comment;global r1;global r2;global comentarios;global comment_entry;global welcome;global avançar;global ig_wallp_lbl
+    global cont_show_pass;global comment_radio_var;global user_entry;global passw_entry;global link_entry;global v_comment;global r1;global r2;global comentarios;global comment_entry;global welcome;global avançar;global ig_wallp_lbl;global r3;global r4;global lbl;global bt_iniciar_bot;global quant_comments_spinbox;global remove_coment;global comments_list;global view;global lbl1;global lbl2;global lbl3
     cont_show_pass = 0
     comment_radio_var = IntVar()
     ncom_radio_var = IntVar()
@@ -116,14 +142,14 @@ def program():
     lbl = Label(top, text = 'Nome de usuário', bg = palet[0]['bg'], fg = palet[0]['fg'], font = ('Antipasto', 16))
     lbl.place(x = 60, y = 100)
 
-    lbl = Label(top, text = '@', bg = palet[0]['bg'], fg = palet[0]['fg'], font = ('Antipasto', 16))
-    lbl.place(x = 37, y = 125)
+    lbl1 = Label(top, text = '@', bg = palet[0]['bg'], fg = palet[0]['fg'], font = ('Antipasto', 16))
+    lbl1.place(x = 37, y = 125)
 
     user_entry = Entry(top, bg = palet[0]['fg'], bd = 0, width = 30, font = ('Antipasto'), fg = palet[0]['bg'], selectbackground = palet[0]['df_bg'])
     user_entry.place(x = 60, y = 130)
 
-    lbl = Label(top, text = 'Senha', bg = palet[0]['bg'], fg = palet[0]['fg'], font = ('Antipasto', 16))
-    lbl.place(x = 60, y = 165)
+    lbl2 = Label(top, text = 'Senha', bg = palet[0]['bg'], fg = palet[0]['fg'], font = ('Antipasto', 16))
+    lbl2.place(x = 60, y = 165)
 
     passw_entry = Entry(top, bg = palet[0]['fg'], bd = 0, width = 20, font = ('Antipasto'), fg = palet[0]['bg'], selectbackground = palet[0]['df_bg'], show = '*')
     passw_entry.place(x = 60, y = 195)
@@ -131,14 +157,14 @@ def program():
     view = Button(top, text = 'ø', bd = 0, bg = palet[0]['bg'], activebackground = palet[0]['bg'], activeforeground = palet[0]['fg'], fg = palet[0]['fg'], font = ('Antipasto', 20), command = pass_show)
     view.place(x = 310, y = 177)
 
-    lbl = Label(top, text = 'Link da publicação', bg = palet[0]['bg'], fg = palet[0]['fg'], font = ('Antipasto', 16))
-    lbl.place(x = 60, y = 230)
+    lbl3 = Label(top, text = 'Link da publicação', bg = palet[0]['bg'], fg = palet[0]['fg'], font = ('Antipasto', 16))
+    lbl3.place(x = 60, y = 230)
 
     link_entry = Entry(top, bg = palet[0]['fg'], bd = 0, width = 30, font = ('Antipasto'), fg = palet[0]['bg'], selectbackground = palet[0]['df_bg'])
     link_entry.place(x = 60, y = 260)
 
     def c_unico():
-        global comentarios;global v_comment;global r1;global r2;global comment_entry
+        global comentarios;global v_comment;global r1;global r2;global comment_entry;global lbl4
 
         v_comment = False
         r1.config(state = DISABLED)
@@ -159,14 +185,14 @@ def program():
         except:
             pass
         
-        lbl = Label(top, text = 'Comentário', bg = palet[0]['bg'], fg = palet[0]['fg'], font = ('Antipasto', 16))
-        lbl.place(x = 60, y = 340)
+        lbl4 = Label(top, text = 'Comentário', bg = palet[0]['bg'], fg = palet[0]['fg'], font = ('Antipasto', 16))
+        lbl4.place(x = 60, y = 340)
 
         comment_entry = Entry(top, bg = palet[0]['fg'], bd = 0, width = 24, font = ('Antipasto'), fg = palet[0]['bg'], selectbackground = palet[0]['df_bg'])
         comment_entry.place(x = 60, y = 375)
 
     def varios_c():
-        global add_comment;global comments_list;global c_list_f;global sb;global lbl_list;global comment_entry_verify;global sb;global idx;global remove_coment;global v_comment;global comment_entry;global r1;global r2
+        global add_comment;global comments_list;global c_list_f;global sb;global lbl_list;global comment_entry_verify;global sb;global idx;global remove_coment;global v_comment;global comment_entry;global r1;global r2;global lbl4
 
         idx = 0
         v_comment = True
@@ -277,8 +303,8 @@ def program():
             remove_coment.config(bg = palet[0]['bg'])
             
         
-        lbl = Label(top, text = 'Comentário', bg = palet[0]['bg'], fg = palet[0]['fg'], font = ('Antipasto', 16))
-        lbl.place(x = 60, y = 340)
+        lbl4 = Label(top, text = 'Comentário', bg = palet[0]['bg'], fg = palet[0]['fg'], font = ('Antipasto', 16))
+        lbl4.place(x = 60, y = 340)
 
         comment_entry_verify = StringVar()
         comment_entry_verify.trace('w', write_comment)
@@ -425,6 +451,7 @@ def program():
         question_window.mainloop()
 
     def iniciar_bot():
+        global lbl;global user_entry;global passw_entry;global view;global link_entry;global r1;global r2;global comment_entry;global add_comment;global sb;global lbl_list;global comments_list;global remove_coment;global quant_comments_spinbox;global r3;global r4;global bt_iniciar_bot
         # 
             # print(f'Nome de usuário: {user_entry.get()}')
             # print(f'Senha: {passw_entry.get()}')
@@ -441,7 +468,34 @@ def program():
 
         if user_entry.get() == '' or passw_entry.get() == '' or link_entry.get() == '' or v_comment == None or quant_comentarios == None or v_comment == True and comentarios == [] or v_comment == False and comment_entry.get() == '':
             error('Houve algum erro, insira os dados \nCORRETAMENTE e tente de novo   ')
-        
+        else:
+            user_entry.destroy()
+            passw_entry.destroy()
+            view.destroy()
+            link_entry.destroy()
+            r1.destroy()
+            r2.destroy()
+            comment_entry.destroy()
+            r3.destroy()
+            r4.destroy()
+            bt_iniciar_bot.destroy()
+            lbl.destroy()
+            lbl1.destroy()
+            lbl2.destroy()
+            lbl3.destroy()
+            lbl4.destroy()
+            try:
+                quant_comments_spinbox.destroy()
+            except:
+                pass
+            try:
+                sb.destroy()
+                lbl_list.destroy()
+                comments_list.destroy()
+                remove_coment.destroy()
+                add_comment.destroy()
+            except:
+                pass        
 
     def iniciar_bot_enter(e):
         bt_iniciar_bot.config(bg = palet[0]['df_bg'])
@@ -488,6 +542,7 @@ def welcome_interface():
     avançar.bind('<Enter>', com_enter)
     avançar.bind('<Leave>', com_leave)
 
-welcome_interface()
+# welcome_interface()
+start()
 
 top.mainloop()
