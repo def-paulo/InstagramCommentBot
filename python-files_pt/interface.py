@@ -125,10 +125,11 @@ def start():
 
 
 def program():
-    global cont_show_pass;global comment_radio_var;global user_entry;global passw_entry;global link_entry;global v_comment;global r1;global r2;global comentarios;global comment_entry;global welcome;global avançar;global ig_wallp_lbl;global r3;global r4;global lbl;global bt_iniciar_bot;global quant_comments_spinbox;global remove_coment;global comments_list;global view;global lbl1;global lbl2;global lbl3
+    global cont_show_pass;global comment_radio_var;global user_entry;global passw_entry;global link_entry;global v_comment;global r1;global r2;global comentarios;global comment_entry;global welcome;global avançar;global ig_wallp_lbl;global r3;global r4;global lbl;global bt_iniciar_bot;global quant_comments_spinbox;global remove_coment;global comments_list;global view;global lbl1;global lbl2;global lbl3;global a
     cont_show_pass = 0
     comment_radio_var = IntVar()
     ncom_radio_var = IntVar()
+    a.destroy()
     welcome.destroy()
     avançar.destroy()
     ig_wallp_lbl.destroy()
@@ -169,7 +170,7 @@ def program():
     link_entry.place(x = 60, y = 260)
 
     def c_unico():
-        global comentarios;global v_comment;global r1;global r2;global comment_entry;global lbl4
+        global comentarios;global v_comment;global r1;global r2;global comment_entry;global lbl4;global comment_entry_verify
 
         v_comment = False
         r1.config(state = DISABLED)
@@ -189,12 +190,22 @@ def program():
             comentarios = []
         except:
             pass
+
+        def write_comment(*args):
+            a = comment_entry.get()
+
+            if a[len(a) - 1:] == '-':
+                comment_entry.delete(len(a) - 1)
         
+        comment_entry_verify = StringVar()
+        comment_entry_verify.trace('w', write_comment)
+
         lbl4 = Label(top, text = 'Comentário', bg = palet[0]['bg'], fg = palet[0]['fg'], font = ('Antipasto', 16))
         lbl4.place(x = 60, y = 340)
 
-        comment_entry = Entry(top, bg = palet[0]['fg'], bd = 0, width = 24, font = ('Antipasto'), fg = palet[0]['bg'], selectbackground = palet[0]['df_bg'])
+        comment_entry = Entry(top, bg = palet[0]['fg'], bd = 0, width = 24, font = ('Antipasto'), fg = palet[0]['bg'], selectbackground = palet[0]['df_bg'], textvariable = comment_entry_verify)
         comment_entry.place(x = 60, y = 375)
+
 
     def varios_c():
         global add_comment;global comments_list;global c_list_f;global sb;global lbl_list;global comment_entry_verify;global sb;global idx;global remove_coment;global v_comment;global comment_entry;global r1;global r2;global lbl4
@@ -295,6 +306,11 @@ def program():
             else:
                 add_comment.config(state = ACTIVE)
 
+            a = comment_entry.get()
+
+            if a[len(a) - 1:] == '-':
+                comment_entry.delete(len(a) - 1)
+
         def add_comment_enter(e):
             add_comment.config(bg = palet[0]['df_bg'])
 
@@ -349,39 +365,39 @@ def program():
         r3.config(state = DISABLED)
         r4.config(state = ACTIVE)
         def write2(*args):
-            global s2;global s1
+            global s2;global s1;global quant_comments_spinbox
 
-            if s1 == '':
-                s1 = '00'
-            s2 = limit2.get()
             if len(s2) > 0:
                 if not s2[-1].isdigit():
                     limit2.set(s2[:-1])
                 else:
                     limit2.set(s2[:9])
-            try:
-                s2 = list(s2)
-                if s2 != []:
-                    if len(s2) > 1 and int(s2[0]) > 5:
-                        s2.pop(0)
-                        s2.insert(0, '5')
-                    if int(s2[0]) >= 5:
-                        if len(s2) >= 2 and int(s2[1]) > 9:
-                            s2.pop(1)
-                            s2.insert(1, '9')
-                    if len(s2) == 1:
-                        s2.insert(0, '0')
-                else:
-                    s2 = ['0', '0']
+            # try:
+            #     s2 = list(s2)
+            #     if s2 != []:
+            #         if len(s2) > 1 and int(s2[0]) > 5:
+            #             s2.pop(0)
+            #             s2.insert(0, '5')
+            #         if int(s2[0]) >= 5:
+            #             if len(s2) >= 2 and int(s2[1]) > 9:
+            #                 s2.pop(1)
+            #                 s2.insert(1, '9')
+            #         if len(s2) == 1:
+            #             s2.insert(0, '0')
+            #     else:
+            #         s2 = ['0', '0']
 
-            except:
-                pass
+            # except:
+            #     pass
+
+            
 
         limit2 = StringVar()
-        limit2.trace('w', write2)
 
         quant_comments_spinbox = Spinbox(top, from_ = 1, to_ = 100000000, width = 6, bg = palet[0]['bg'], fg = palet[0]['fg'], activebackground = palet[0]['bg'], textvariable = limit2, font = ('Antipasto', 25), selectbackground = palet[0]['bg'], selectforeground = palet[0]['df_bg'], bd = 0, buttonbackground = palet[0]['bg'])
         quant_comments_spinbox.place(x = 60, y = 480)
+
+        limit2.trace('w', write2)
 
 
     def sel_comment():
@@ -485,12 +501,21 @@ def program():
                 variaveis.write(f'{link_entry.get()}\n') # Link do post
                 variaveis.write(f'{v_comment}\n') # Comentário único ou vários
                 variaveis.write(f'{quant_comentarios}\n') # Comentários limitados ou ilimitados
-                variaveis.write(f'{comentarios}\n') # Lista de comentários
+                if comentarios == []:
+                    variaveis.write(f'{comentarios}\n')
+                else:
+                    for i, item in enumerate(comentarios):
+                        if i == len(comentarios) - 1:
+                            variaveis.write(f'{item}\n')
+                        else:
+                            variaveis.write(f'{item}-')
+
                 variaveis.write(f'{comment_entry.get()}\n') # Comentário único
                 try:
                     variaveis.write(f'{quant_comments_spinbox.get()}') # Número de comentários
                 except:
                     variaveis.write('')
+                variaveis.close()
 
             var()
             user_entry.destroy()
@@ -535,7 +560,7 @@ def program():
     bt_iniciar_bot.bind('<Leave>', iniciar_bot_leave)
 
 def welcome_interface():
-    global ig_wallp;global welcome;global avançar;global ig_wallp_lbl
+    global ig_wallp;global welcome;global avançar;global ig_wallp_lbl;global a
     welcome = Frame(top, bg = palet[0]['bg'])
     welcome.pack(anchor = CENTER, side = RIGHT)
 
@@ -567,7 +592,7 @@ def welcome_interface():
     avançar.bind('<Leave>', com_leave)
 
 welcome_interface()
-program()
+# program()
 # start()
 
 top.mainloop()
