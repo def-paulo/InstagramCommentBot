@@ -26,7 +26,7 @@ def bot(window, tela_aviso):
         link = file[2]
         print(f'Usuário: {usuario}\nSenha: {senha}\nLink do post: {link}')
 
-        if file[3] == True:
+        if file[3].strip() == 'True':
             coments = file[5]
             idx_coments = ''
             for c in range(0, len(coments)):
@@ -36,11 +36,11 @@ def bot(window, tela_aviso):
                 else:
                     idx_coments += coments[c]
             print(f'Lista de comentários: {comentarios}')
-        elif file[3] == False:
+        elif file[3].strip() == 'False':
             comentario_unico = file[6]
             print(f'Comentário: {comentario_unico}')
 
-        if file[4] == False:
+        if file[4].strip() == 'False':
             num_comentarios = file[7]
             print(f'Número de comentários: {num_comentarios} ')
 
