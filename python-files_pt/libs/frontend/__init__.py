@@ -1,6 +1,6 @@
 from tkinter import *
 from time import sleep
-from backend import bot
+from libs.backend import bot
 
 palet = [{'bg':'#141414', 'fg':'#f1f1f1', 'exit_bg':'#ff2f2f', 'df_bg':'#676767'}]
 cont_maximizado = 0

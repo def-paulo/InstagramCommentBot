@@ -3,7 +3,7 @@ import time
 from random import choice, randint
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
-from pythonFiles_pt import program
+from libs.frontend import program
 
 def bot(window, imagem_aviso, mensagem_aviso, mensagem_iniciando, paleta):
     global comentarios;global cont_coment
@@ -91,7 +91,7 @@ def bot(window, imagem_aviso, mensagem_aviso, mensagem_iniciando, paleta):
         def stop_leave(e):
             stop.config(bg = palet[0]['fg'])
 
-        stop = Button(window, text = 'Parar e sair', bg = paleta[0]['fg'], fg = paleta[0]['bg'], fong = ('Antipasto', 16))
+        stop = Button(window, text = 'Parar e sair', bg = paleta[0]['fg'], fg = paleta[0]['bg'], fong = ('Antipasto', 16), command = program)
         stop.pack(anchor = SE, side = RIGHT)
 
         stop.bind('<Enter>', stop_enter)
