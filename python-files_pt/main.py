@@ -1,3 +1,3 @@
-from libs.frontend import main
+from bibliotecas import interface
 
-main()
+interface.main()

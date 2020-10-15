@@ -3,7 +3,7 @@ import time
 from random import choice, randint
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
-from libs.frontend import program
+from bibliotecas.interface import program
 
 def bot(window, imagem_aviso, mensagem_aviso, mensagem_iniciando, paleta):
     global comentarios;global cont_coment

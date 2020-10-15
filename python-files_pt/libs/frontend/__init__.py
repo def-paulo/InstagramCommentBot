@@ -1,6 +1,6 @@
 from tkinter import *
 from time import sleep
-from libs.backend import bot
+from bibliotecas.bot import bot
 
 def main():
     global palet;global comentarios;global v_comment;global quant_comentarios;global root;global top;global ig_icon;global ig;global ig_lbl;global warning
