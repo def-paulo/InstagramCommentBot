@@ -3,6 +3,7 @@ import time
 from random import choice, randint
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
+from pythonFiles_pt import program
 
 def bot(window, imagem_aviso, mensagem_aviso, mensagem_iniciando, paleta):
     global comentarios;global cont_coment
@@ -83,6 +84,18 @@ def bot(window, imagem_aviso, mensagem_aviso, mensagem_iniciando, paleta):
         
         contador = Label(window, text = 'Comentários publicados', bg = paleta[0]['bg'], fg = paleta[0]['fg'], font = ('Antipasto', 22))
         contador.place(x = 195, y = 320)
+
+        def stop_enter(e):
+            stop.config(bg = palet[0]['df_bg'])
+
+        def stop_leave(e):
+            stop.config(bg = palet[0]['fg'])
+
+        stop = Button(window, text = 'Parar e sair', bg = paleta[0]['fg'], fg = paleta[0]['bg'], fong = ('Antipasto', 16))
+        stop.pack(anchor = SE, side = RIGHT)
+
+        stop.bind('<Enter>', stop_enter)
+        stop.bind('<Leave>', stop_leave)
 
         window.update()
 
