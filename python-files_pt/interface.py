@@ -1,6 +1,6 @@
 from tkinter import *
 from time import sleep
-from bibliotecas.bot import bot
+from libs.backend import bot
 
 def main():
     global palet;global comentarios;global v_comment;global quant_comentarios;global root;global top;global ig_icon;global ig;global ig_lbl;global warning
@@ -12,6 +12,7 @@ def main():
     quant_comentarios = None
 
     def managment_window():
+        global cont_maximizado;global maximizar;global top;global fechar;global maximize;global resize_maximize;global minimizar;global palet
 
         def x_enter(e):
             fechar.config(bg = palet[0]['exit_bg'])
@@ -19,11 +20,11 @@ def main():
         def x_leave(e):
             fechar.config(bg = palet[0]['bg'])
 
-        def max_enter(e):
-            maximizar.config(bg = palet[0]['df_bg'])
+        # def max_enter(e):
+        #     maximizar.config(bg = palet[0]['df_bg'])
 
-        def max_leave(e):
-            maximizar.config(bg = palet[0]['bg'])
+        # def max_leave(e):
+        #     maximizar.config(bg = palet[0]['bg'])
 
         def min_enter(e):
             minimizar.config(bg = palet[0]['df_bg'])
@@ -31,15 +32,15 @@ def main():
         def min_leave(e):
             minimizar.config(bg = palet[0]['bg'])
             
-        def maxi():
-            global cont_maximizado
-            cont_maximizado += 1
-            if cont_maximizado % 2 != 0:
-                top.geometry(f'{top.winfo_screenwidth()}x{top.winfo_screenheight()}+0+0')
-                maximizar.config(image = resize_maximize)
-            else:
-                top.geometry('700x530+360+160')
-                maximizar.config(image = maximize)
+        # def maxi():
+        #     global cont_maximizado
+        #     cont_maximizado += 1
+        #     if cont_maximizado % 2 != 0:
+        #         top.geometry(f'{top.winfo_screenwidth()}x{top.winfo_screenheight()}+0+0')
+        #         maximizar.config(image = resize_maximize)
+        #     else:
+        #         top.geometry('700x530+360+160')
+        #         maximizar.config(image = maximize)
 
         def minimizing():
             top.withdraw()
@@ -48,14 +49,14 @@ def main():
         fechar = Button(top, text = 'X', bd = 0, bg = palet[0]['bg'], fg = palet[0]['fg'], width = 3, font = ('Antipasto', 15), activebackground = palet[0]['exit_bg'], activeforeground = palet[0]['fg'], highlightcolor = palet[0]['exit_bg'], command = top.destroy)
         fechar.pack(anchor = NE, side = RIGHT)
 
-        maximize = PhotoImage(file = 'C:\\Users\\Paulo Thiago\\Documents\\MeusProjetos\\InstagramBot\\python-files_pt\\media\\max.png')
-        maximize = maximize.subsample(45, 45)
+        # maximize = PhotoImage(file = 'C:\\Users\\Paulo Thiago\\Documents\\MeusProjetos\\InstagramBot\\python-files_pt\\media\\max.png')
+        # maximize = maximize.subsample(45, 45)
 
-        resize_maximize = PhotoImage(file = 'C:\\Users\\Paulo Thiago\\Documents\\MeusProjetos\\InstagramBot\\python-files_pt\\media\\res_max.png')
-        resize_maximize = resize_maximize.subsample(45, 45)
+        # resize_maximize = PhotoImage(file = 'C:\\Users\\Paulo Thiago\\Documents\\MeusProjetos\\InstagramBot\\python-files_pt\\media\\res_max.png')
+        # resize_maximize = resize_maximize.subsample(45, 45)
 
-        maximizar = Button(top, image = maximize, compound = CENTER, pady = 100, height = 36, width = 40, bd = 0, activebackground = palet[0]['df_bg'], bg = palet[0]['bg'], highlightcolor = palet[0]['exit_bg'], command = maxi, state = DISABLED)
-        maximizar.pack(anchor = NE, side = RIGHT)
+        # maximizar = Button(top, image = maximize, compound = CENTER, pady = 100, height = 36, width = 40, bd = 0, activebackground = palet[0]['df_bg'], bg = palet[0]['bg'], highlightcolor = palet[0]['exit_bg'], state = DISABLED)
+        # maximizar.pack(anchor = NE, side = RIGHT)
 
         minimizar = Button(top, text = '-', bd = 0, bg = palet[0]['bg'], fg = palet[0]['fg'], width = 3, font = ('Antipasto', 15, 'bold'), activebackground = palet[0]['df_bg'], activeforeground = palet[0]['fg'], highlightcolor = palet[0]['exit_bg'], command = minimizing)
         minimizar.pack(anchor = NE, side = RIGHT)

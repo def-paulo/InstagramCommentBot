@@ -3,9 +3,9 @@ import time
 from random import choice, randint
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
-from bibliotecas.interface import program
 
 def bot(window, imagem_aviso, mensagem_aviso, mensagem_iniciando, paleta):
+    import libs
     global comentarios;global cont_coment
     comentarios = []
     cont_coment = 0
@@ -86,12 +86,15 @@ def bot(window, imagem_aviso, mensagem_aviso, mensagem_iniciando, paleta):
         contador.place(x = 195, y = 320)
 
         def stop_enter(e):
-            stop.config(bg = palet[0]['df_bg'])
+            stop.config(bg = paleta[0]['df_bg'])
 
         def stop_leave(e):
-            stop.config(bg = palet[0]['fg'])
+            stop.config(bg = paleta[0]['fg'])
 
-        stop = Button(window, text = 'Parar e sair', bg = paleta[0]['fg'], fg = paleta[0]['bg'], fong = ('Antipasto', 16), command = program)
+        def parar():
+            libs.frontend.main()
+
+        stop = Button(window, text = 'Parar e sair', bg = paleta[0]['fg'], fg = paleta[0]['bg'], bd = 0, font = ('Antipasto', 16), command = parar)
         stop.pack(anchor = SE, side = RIGHT)
 
         stop.bind('<Enter>', stop_enter)
