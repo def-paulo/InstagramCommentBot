@@ -3,9 +3,9 @@ import time
 from random import choice, randint
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
+import os
 
-def bot(window, imagem_aviso, mensagem_aviso, mensagem_iniciando, paleta):
-    import libs
+def bot(main_window, window, imagem_aviso, mensagem_aviso, mensagem_iniciando, paleta):
     global comentarios;global cont_coment
     comentarios = []
     cont_coment = 0
@@ -86,16 +86,23 @@ def bot(window, imagem_aviso, mensagem_aviso, mensagem_iniciando, paleta):
         contador.place(x = 195, y = 320)
 
         def stop_enter(e):
-            stop.config(bg = paleta[0]['df_bg'])
+            stop.config(image = stop2)
 
         def stop_leave(e):
-            stop.config(bg = paleta[0]['fg'])
+            stop.config(image = stop1)
 
         def parar():
-            libs.frontend.main()
+            main_window.destroy()
+            os.system('python python-files_pt\\interface.py')
 
-        stop = Button(window, text = 'Parar e sair', bg = paleta[0]['fg'], fg = paleta[0]['bg'], bd = 0, font = ('Antipasto', 16), command = parar)
-        stop.pack(anchor = SE, side = RIGHT)
+        stop1 = PhotoImage(file = 'C:\\Users\\Paulo Thiago\\Documents\\MeusProjetos\\InstagramBot\\python-files_pt\\media\\stop_1.png')
+        stop1 = stop1.subsample(4, 4)
+
+        stop2 = PhotoImage(file = 'C:\\Users\\Paulo Thiago\\Documents\\MeusProjetos\\InstagramBot\\python-files_pt\\media\\stop_2.png')
+        stop2 = stop2.subsample(4, 4)
+
+        stop = Button(window, image = stop1, bg = paleta[0]['bg'], bd = 0, font = ('Antipasto', 16), command = parar, activebackground = paleta[0]['bg'])
+        stop.pack(anchor = S, side = BOTTOM)
 
         stop.bind('<Enter>', stop_enter)
         stop.bind('<Leave>', stop_leave)
