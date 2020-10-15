@@ -99,6 +99,7 @@ ig_lbl.pack(anchor = NW)
 
 def start():
     global warning_lbl
+
     w = Frame(top, bg = palet[0]['bg'])
     w.pack()
 
@@ -122,7 +123,6 @@ def start():
 
     w1_lbl.config(text = 'O bot está sendo iniciado')
     bot(top, w)
-
 
 def program():
     global cont_show_pass;global comment_radio_var;global user_entry;global passw_entry;global link_entry;global v_comment;global r1;global r2;global comentarios;global comment_entry;global welcome;global avançar;global ig_wallp_lbl;global r3;global r4;global lbl;global bt_iniciar_bot;global quant_comments_spinbox;global remove_coment;global comments_list;global view;global lbl1;global lbl2;global lbl3;global a
@@ -477,6 +477,7 @@ def program():
 
     def iniciar_bot():
         global lbl;global user_entry;global passw_entry;global view;global link_entry;global r1;global r2;global comment_entry;global add_comment;global sb;global lbl_list;global comments_list;global remove_coment;global quant_comments_spinbox;global r3;global r4;global bt_iniciar_bot;global comentarios;global c_list_f
+        global ig_wallp;global ig_wallp_lbl;global avançar;global a;global welcome;global bt_start_1;global bt_start_2
         # 
             # print(f'Nome de usuário: {user_entry.get()}')
             # print(f'Senha: {passw_entry.get()}')
@@ -490,6 +491,14 @@ def program():
 
             # if quant_comentarios == True:
             #     print(f'Quantidade de comentários: {quant_comments_spinbox.get()}')
+
+        ig_wallp_lbl.destroy()
+        avançar.destroy()
+        a.destroy()
+        welcome.destroy()
+        ig_wallp = None
+        bt_start_1 = None
+        bt_start_2 = None
 
         if user_entry.get() == '' or passw_entry.get() == '' or link_entry.get() == '' or v_comment == None or quant_comentarios == None or v_comment == True and comentarios == [] or v_comment == False and comment_entry.get() == '':
             error('Houve algum erro, insira os dados \nCORRETAMENTE e tente de novo   ')
@@ -514,7 +523,7 @@ def program():
                 try:
                     variaveis.write(f'{quant_comments_spinbox.get()}') # Número de comentários
                 except:
-                    variaveis.write('')
+                    variaveis.write('\n')
                 variaveis.close()
 
             var()
@@ -559,39 +568,36 @@ def program():
     bt_iniciar_bot.bind('<Enter>', iniciar_bot_enter)
     bt_iniciar_bot.bind('<Leave>', iniciar_bot_leave)
 
-def welcome_interface():
-    global ig_wallp;global welcome;global avançar;global ig_wallp_lbl;global a
-    welcome = Frame(top, bg = palet[0]['bg'])
-    welcome.pack(anchor = CENTER, side = RIGHT)
+welcome = Frame(top, bg = palet[0]['bg'])
+welcome.pack(anchor = CENTER, side = RIGHT)
 
-    ig_wallp = PhotoImage(file = 'C:\\Users\\Paulo Thiago\\Documents\\MeusProjetos\\InstagramBot\\python-files_pt\\media\\title.png')
-    ig_wallp = ig_wallp.subsample(6, 6)
+ig_wallp = PhotoImage(file = 'C:\\Users\\Paulo Thiago\\Documents\\MeusProjetos\\InstagramBot\\python-files_pt\\media\\title.png')
+ig_wallp = ig_wallp.subsample(6, 6)
 
-    bt_start_1 = PhotoImage(file = 'C:\\Users\\Paulo Thiago\\Documents\\MeusProjetos\\InstagramBot\\python-files_pt\\media\\bt_start_1.png')
-    bt_start_1 = bt_start_1.subsample(3, 3)
+bt_start_1 = PhotoImage(file = 'C:\\Users\\Paulo Thiago\\Documents\\MeusProjetos\\InstagramBot\\python-files_pt\\media\\bt_start_1.png')
+bt_start_1 = bt_start_1.subsample(3, 3)
 
-    bt_start_2 = PhotoImage(file = 'C:\\Users\\Paulo Thiago\\Documents\\MeusProjetos\\InstagramBot\\python-files_pt\\media\\bt_start_2.png')
-    bt_start_2 = bt_start_2.subsample(3, 3)
+bt_start_2 = PhotoImage(file = 'C:\\Users\\Paulo Thiago\\Documents\\MeusProjetos\\InstagramBot\\python-files_pt\\media\\bt_start_2.png')
+bt_start_2 = bt_start_2.subsample(3, 3)
 
-    ig_wallp_lbl = Label(welcome, image = ig_wallp, bg = palet[0]['bg'])
-    ig_wallp_lbl.pack()
+ig_wallp_lbl = Label(welcome, image = ig_wallp, bg = palet[0]['bg'])
+ig_wallp_lbl.pack()
 
-    def com_enter(e):
-        avançar.config(image = bt_start_2)
+def com_enter(e):
+    avançar.config(image = bt_start_2)
 
-    def com_leave(e):
-        avançar.config(image = bt_start_1)
+def com_leave(e):
+    avançar.config(image = bt_start_1)
 
-    avançar = Button(top, image = bt_start_1, compound = CENTER, bd = 0, bg = palet[0]['bg'], activebackground = palet[0]['bg'], command = program)
-    avançar.pack(anchor = CENTER, side = BOTTOM, before = ig_wallp_lbl)
+avançar = Button(top, image = bt_start_1, compound = CENTER, bd = 0, bg = palet[0]['bg'], activebackground = palet[0]['bg'], command = program)
+avançar.pack(anchor = CENTER, side = BOTTOM, before = ig_wallp_lbl)
 
-    a = welcome = Frame(welcome, bg = palet[0]['bg'], height = 80)
-    a.pack(anchor = S, side = BOTTOM, before = ig_wallp_lbl)
+a = welcome = Frame(welcome, bg = palet[0]['bg'], height = 80)
+a.pack(anchor = S, side = BOTTOM, before = ig_wallp_lbl)
 
-    avançar.bind('<Enter>', com_enter)
-    avançar.bind('<Leave>', com_leave)
+avançar.bind('<Enter>', com_enter)
+avançar.bind('<Leave>', com_leave)
 
-welcome_interface()
 # program()
 # start()
 

@@ -21,13 +21,13 @@ def bot(window, tela_aviso):
         f = open('C:\\Users\\Paulo Thiago\\Documents\\MeusProjetos\\InstagramBot\\python-files_pt\\variables.txt', 'r')
         file = f.readlines()
         
-        usuario = file[0]
-        senha = file[1]
-        link = file[2]
+        usuario = file[0].strip()
+        senha = file[1].strip()
+        link = file[2].strip()
         print(f'Usuário: {usuario}\nSenha: {senha}\nLink do post: {link}')
 
-        if file[3].strip() == 'True':
-            coments = file[5]
+        if file[3] == 'True\n':
+            coments = file[5].strip()
             idx_coments = ''
             for c in range(0, len(coments)):
                 if coments[c] == '-':
@@ -36,13 +36,13 @@ def bot(window, tela_aviso):
                 else:
                     idx_coments += coments[c]
             print(f'Lista de comentários: {comentarios}')
-        elif file[3].strip() == 'False':
-            comentario_unico = file[6]
+        elif file[3] == 'False\n':
+            comentario_unico = file[6].strip()
             print(f'Comentário: {comentario_unico}')
 
-        if file[4].strip() == 'False':
-            num_comentarios = file[7]
-            print(f'Número de comentários: {num_comentarios} ')
+        if file[4] == 'True\n':
+            num_comentarios = file[7].strip()
+            print(f'Número de comentários: {num_comentarios}')
 
 
 
