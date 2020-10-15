@@ -1,13 +1,14 @@
 from tkinter import *
-from time import sleep
+import time
 from random import choice, randint
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 
-def bot(window, imagem_aviso, mensagem_aviso, mensagem_iniciando):
-    global comentarios
+def bot(window, imagem_aviso, mensagem_aviso, mensagem_iniciando, paleta):
+    global comentarios;global cont_coment
     comentarios = []
-    
+    cont_coment = 0
+
     def obtendo_variaveis():
         global file
         global idx_comentarios
@@ -51,7 +52,7 @@ def bot(window, imagem_aviso, mensagem_aviso, mensagem_iniciando):
         driver.get('https://instagram.com')
 
     def logando():
-        global campo_usuario;global campo_senha
+        global campo_usuario;global campo_senha;global usuario;global senha
         campo_usuario = driver.find_element_by_xpath('//input[@name = \'username\']')
         campo_usuario.click()
         campo_usuario.clear()
@@ -63,4 +64,33 @@ def bot(window, imagem_aviso, mensagem_aviso, mensagem_iniciando):
         campo_senha.send_keys(senha)
         campo_senha.send_keys(Keys.RETURN)
 
+    def abrir_post():
+        global driver;global link
+        driver.get(link)
+        time.sleep(randint(8, 16))
+
+    def new_window(window, imagem_aviso, mensagem_aviso, mensagem_iniciando, paleta):
+        imagem_aviso.destroy()
+        mensagem_aviso.destroy()
+        mensagem_iniciando.destroy()
+
+        contador = Frame(window, bg = paleta[0]['bg'], width = 20)
+        contador.pack(anchor = W, side = LEFT)
+
+        contador = Label(window, text = cont_coment, bg = paleta[0]['bg'], fg = paleta[0]['fg'], font = ('Antipasto', 128), pady = 40, padx = 1200)
+        # contador.place(x = 280, y = 120)
+        contador.pack(anchor = CENTER)
+        
+        contador = Label(window, text = 'Comentários publicados', bg = paleta[0]['bg'], fg = paleta[0]['fg'], font = ('Antipasto', 22))
+        contador.place(x = 195, y = 320)
+
+        window.update()
+
+
     obtendo_variaveis()
+    # abrindo_instagram()
+    # time.sleep(10)
+    # logando()
+    # time.sleep(12)
+    # abrir_post()
+    new_window(window, imagem_aviso, mensagem_aviso, mensagem_iniciando, paleta)

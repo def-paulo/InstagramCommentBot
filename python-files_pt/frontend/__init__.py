@@ -98,7 +98,7 @@ ig_lbl = Label(top, text = 'Instagram Bot', font = ('Antipasto', 16), bg = palet
 ig_lbl.pack(anchor = NW)
 
 def start():
-    global warning_lbl
+    global warning_lbl;global palet
     # w = Frame(top, bg = palet[0]['bg'])
     # w.pack()
 
@@ -114,30 +114,29 @@ def start():
     top.update()
     sleep(1)
 
-    for ani1 in range(0, 2):
-        for ani in range(0, 4):
-            w1_lbl.config(text = f'O bot está sendo iniciado{" ." * ani}')
-            top.update()
-            sleep(.3)
+    # for ani1 in range(0, 2):
+    #     for ani in range(0, 4):
+    #         w1_lbl.config(text = f'O bot está sendo iniciado{" ." * ani}')
+    #         top.update()
+    #         sleep(.3)
 
-    w1_lbl.config(text = 'O bot está sendo iniciado')
-    bot(top, warning_lbl, w_lbl, w1_lbl)
-
+    # w1_lbl.config(text = 'O bot está sendo iniciado')
+    bot(top, warning_lbl, w_lbl, w1_lbl, palet)
 
 def program():
     global cont_show_pass;global comment_radio_var;global user_entry;global passw_entry;global link_entry;global v_comment;global r1;global r2;global comentarios;global comment_entry;global r3;global r4;global lbl;global bt_iniciar_bot;global quant_comments_spinbox;global remove_coment;global comments_list;global view;global lbl1;global lbl2;global lbl3
     cont_show_pass = 0
     comment_radio_var = IntVar()
     ncom_radio_var = IntVar()
-    # global welcome
-    # global avançar
-    # global ig_wallp_lbl
-    # global a
-    
-    # a.destroy()
-    # welcome.destroy()
-    # avançar.destroy()
-    # ig_wallp_lbl.destroy()
+    global welcome
+    global avançar
+    global ig_wallp_lbl
+    global a
+
+    a.destroy()
+    welcome.destroy()
+    avançar.destroy()
+    ig_wallp_lbl.destroy()
 
     def pass_show():
         global cont_show_pass
@@ -185,6 +184,11 @@ def program():
             comment_entry.destroy()
         except:
             pass
+        
+        try:
+            lbl4.destroy()
+        except:
+            pass
 
         try:
             add_comment.destroy()
@@ -222,6 +226,11 @@ def program():
 
         try:
             comment_entry.destroy()
+        except:
+            pass
+        
+        try:
+            lbl4.destroy()
         except:
             pass
 
@@ -566,7 +575,7 @@ def program():
 
 def welcome_interface():
     global ig_wallp
-    # global welcome;global avançar;global ig_wallp_lbl;global a
+    global welcome;global avançar;global ig_wallp_lbl;global a
     welcome = Frame(top, bg = palet[0]['bg'])
     welcome.pack(anchor = CENTER, side = RIGHT)
 
@@ -605,7 +614,7 @@ def welcome_interface():
     avançar.bind('<Leave>', com_leave)
 
 welcome_interface()
-# program()
+program()
 # start()
 
 top.mainloop()
