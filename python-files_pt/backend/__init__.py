@@ -4,9 +4,10 @@ from random import choice, randint
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 
-def bot(window, tela_aviso):
+def bot(window, imagem_aviso, mensagem_aviso, mensagem_iniciando):
     global comentarios
     comentarios = []
+    
     def obtendo_variaveis():
         global file
         global idx_comentarios
@@ -43,8 +44,6 @@ def bot(window, tela_aviso):
         if file[4] == 'True\n':
             num_comentarios = file[7].strip()
             print(f'Número de comentários: {num_comentarios}')
-
-
 
     def abrindo_instagram():
         global driver
