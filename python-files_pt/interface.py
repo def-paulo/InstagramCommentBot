@@ -574,7 +574,10 @@ def program():
                 remove_coment.destroy()
                 add_comment.destroy()
             else:
-                loop.destroy()
+                try:
+                    loop.destroy()
+                except:
+                    pass
             start()
 
     def iniciar_bot_enter(e):
