@@ -51,6 +51,7 @@ def bot(main_window, window, imagem_aviso, mensagem_aviso, mensagem_iniciando, p
         global driver
         driver = webdriver.Firefox(executable_path = 'C:\\Users\\Paulo Thiago\\Documents\\MeusProjetos\\InstagramBot\\python-files_pt\\geckodrive\\geckodriver.exe')
         driver.get('https://instagram.com')
+        window.update()
 
     def logando():
         global campo_usuario;global campo_senha;global usuario;global senha
@@ -71,19 +72,20 @@ def bot(main_window, window, imagem_aviso, mensagem_aviso, mensagem_iniciando, p
         time.sleep(randint(8, 16))
 
     def new_window(window, imagem_aviso, mensagem_aviso, mensagem_iniciando, paleta):
+        global contador
         imagem_aviso.destroy()
         mensagem_aviso.destroy()
         mensagem_iniciando.destroy()
 
-        contador = Frame(window, bg = paleta[0]['bg'], width = 20)
-        contador.pack(anchor = W, side = LEFT)
+        space_contador = Frame(window, bg = paleta[0]['bg'], width = 20)
+        space_contador.pack(anchor = W, side = LEFT)
 
         contador = Label(window, text = cont_coment, bg = paleta[0]['bg'], fg = paleta[0]['fg'], font = ('Antipasto', 128), pady = 40, padx = 1200)
         # contador.place(x = 280, y = 120)
         contador.pack(anchor = CENTER)
         
-        contador = Label(window, text = 'Comentários publicados', bg = paleta[0]['bg'], fg = paleta[0]['fg'], font = ('Antipasto', 22))
-        contador.place(x = 195, y = 320)
+        lbl_contador = Label(window, text = 'Comentários publicados', bg = paleta[0]['bg'], fg = paleta[0]['fg'], font = ('Antipasto', 22))
+        lbl_contador.place(x = 195, y = 320)
 
         def stop_enter(e):
             stop.config(image = stop2)
@@ -111,9 +113,12 @@ def bot(main_window, window, imagem_aviso, mensagem_aviso, mensagem_iniciando, p
 
 
     obtendo_variaveis()
-    # abrindo_instagram()
-    # time.sleep(10)
-    # logando()
-    # time.sleep(12)
-    # abrir_post()
+    abrindo_instagram()
+    time.sleep(10)
+    logando()
+    time.sleep(12)
+    abrir_post()
     new_window(window, imagem_aviso, mensagem_aviso, mensagem_iniciando, paleta)
+
+if __name__ == '__main__':
+    os.system('python python-files_pt\\interface.py')
