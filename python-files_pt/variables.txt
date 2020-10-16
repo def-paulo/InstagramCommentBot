@@ -1,8 +1,8 @@
 paulothiago.py
 i5775666162023
 https://www.instagram.com/p/CAYfX_jlXGb/
+False
 True
-True
-Good job!-Beautiful!-Test bot
-
-4
+[]
+good
+1
