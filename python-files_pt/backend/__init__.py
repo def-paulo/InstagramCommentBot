@@ -4,6 +4,7 @@ from random import choice, randint
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 import os
+import threading
 
 def bot(main_window, window, imagem_aviso, mensagem_aviso, mensagem_iniciando, paleta):
     global comentarios;global cont_coment
@@ -25,7 +26,7 @@ def bot(main_window, window, imagem_aviso, mensagem_aviso, mensagem_iniciando, p
         global comentario_unico
         global num_comentarios
 
-        f = open('C:\\Users\\Paulo Thiago\\Documents\\MeusProjetos\\InstagramBot\\python-files_pt\\variables.txt', 'r')
+        f = open('C:\\Users\\Paulo Thiago\\Downloads\\scripts\\python_curso_em_video\\Exercicios e Ideias\\Exercicios extras\\InstagramBot\\python-files_pt\\variables.txt', 'r')
         file = f.readlines()
         
         usuario = file[0].strip()
@@ -53,34 +54,27 @@ def bot(main_window, window, imagem_aviso, mensagem_aviso, mensagem_iniciando, p
 
     def abrindo_instagram():
         global driver
-        atualizar_janela()
-        driver = webdriver.Firefox(executable_path = 'C:\\Users\\Paulo Thiago\\Documents\\MeusProjetos\\InstagramBot\\python-files_pt\\geckodrive\\geckodriver.exe')
-        atualizar_janela()
+        driver = webdriver.Firefox(executable_path = 'C:\\Users\\Paulo Thiago\\Downloads\\scripts\\python_curso_em_video\\Exercicios e Ideias\\Exercicios extras\\InstagramBot\\python-files_pt\\geckodrive\\geckodriver.exe')
         driver.get('https://instagram.com')
-        atualizar_janela()
+        time.sleep(10)
+        logando()
+        time.sleep(12)
+        abrir_post()
+        time.sleep(randint(7, 14))
+        comentando()
 
     def logando():
         global campo_usuario;global campo_senha;global usuario;global senha
-        atualizar_janela()
         campo_usuario = driver.find_element_by_xpath('//input[@name = \'username\']')
-        atualizar_janela()
         campo_usuario.click()
-        atualizar_janela()
         campo_usuario.clear()
-        atualizar_janela()
         campo_usuario.send_keys(usuario)
-        atualizar_janela()
 
         campo_senha = driver.find_element_by_xpath('//input[@name = \'password\']')
-        atualizar_janela()
         campo_senha.click()
-        atualizar_janela()
         campo_senha.clear()
-        atualizar_janela()
         campo_senha.send_keys(senha)
-        atualizar_janela()
         campo_senha.send_keys(Keys.RETURN)
-        atualizar_janela()
 
     def abrir_post():
         global driver;global link
@@ -89,24 +83,19 @@ def bot(main_window, window, imagem_aviso, mensagem_aviso, mensagem_iniciando, p
 
     def new_window(window, imagem_aviso, mensagem_aviso, mensagem_iniciando, paleta):
         global contador
-        atualizar_janela()
         imagem_aviso.destroy()
         mensagem_aviso.destroy()
         mensagem_iniciando.destroy()
 
-        atualizar_janela()
         space_contador = Frame(window, bg = paleta[0]['bg'], width = 20)
         space_contador.pack(anchor = W, side = LEFT)
-        atualizar_janela()
 
         contador = Label(window, text = cont_coment, bg = paleta[0]['bg'], fg = paleta[0]['fg'], font = ('Antipasto', 128), pady = 40, padx = 1200)
         # contador.place(x = 280, y = 120)
         contador.pack(anchor = CENTER)
-        atualizar_janela()
         
         lbl_contador = Label(window, text = 'Comentários publicados', bg = paleta[0]['bg'], fg = paleta[0]['fg'], font = ('Antipasto', 22))
         lbl_contador.place(x = 195, y = 320)
-        atualizar_janela()
 
         def stop_enter(e):
             stop.config(image = stop2)
@@ -119,22 +108,19 @@ def bot(main_window, window, imagem_aviso, mensagem_aviso, mensagem_iniciando, p
         def parar():
             main_window.destroy()
             os.system('python python-files_pt\\interface.py')
+            driver.close()
 
-        stop1 = PhotoImage(file = 'C:\\Users\\Paulo Thiago\\Documents\\MeusProjetos\\InstagramBot\\python-files_pt\\media\\stop_1.png')
+        stop1 = PhotoImage(file = 'C:\\Users\\Paulo Thiago\\Downloads\\scripts\\python_curso_em_video\\Exercicios e Ideias\\Exercicios extras\\InstagramBot\\python-files_pt\\media\\stop_1.png')
         stop1 = stop1.subsample(4, 4)
 
-        stop2 = PhotoImage(file = 'C:\\Users\\Paulo Thiago\\Documents\\MeusProjetos\\InstagramBot\\python-files_pt\\media\\stop_2.png')
+        stop2 = PhotoImage(file = 'C:\\Users\\Paulo Thiago\\Downloads\\scripts\\python_curso_em_video\\Exercicios e Ideias\\Exercicios extras\\InstagramBot\\python-files_pt\\media\\stop_2.png')
         stop2 = stop2.subsample(4, 4)
         
-        atualizar_janela()
         stop = Button(window, image = stop1, bg = paleta[0]['bg'], bd = 0, font = ('Antipasto', 16), command = parar, activebackground = paleta[0]['bg'])
         stop.pack(anchor = S, side = BOTTOM)
-        atualizar_janela()
 
         stop.bind('<Enter>', stop_enter)
-        atualizar_janela()
         stop.bind('<Leave>', stop_leave)
-        atualizar_janela()
 
         window.update()
 
@@ -207,23 +193,8 @@ def bot(main_window, window, imagem_aviso, mensagem_aviso, mensagem_iniciando, p
                     pass
 
     obtendo_variaveis()
-    atualizar_janela()
-    abrindo_instagram()
-    atualizar_janela()
-    time.sleep(10)
-    atualizar_janela()
-    logando()
-    atualizar_janela()
-    time.sleep(12)
-    atualizar_janela()
-    abrir_post()
-    atualizar_janela()
+    threading.Thread(target = abrindo_instagram).start()
     new_window(window, imagem_aviso, mensagem_aviso, mensagem_iniciando, paleta)
-    atualizar_janela()
-    time.sleep(randint(7, 14))
-    atualizar_janela()
-    comentando()
-    atualizar_janela()
 
 if __name__ == '__main__':
     os.system('python python-files_pt\\interface.py')
