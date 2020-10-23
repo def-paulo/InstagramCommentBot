@@ -72,6 +72,7 @@ root.attributes('-alpha', 0.0)
 root.title('Instagram Bot')
 root.config(bg = palet[0]['bg'])
 top = Toplevel(root)
+# top.grab_set()
 top.geometry(f'{width}x{height}+360+120')
 top.config(bg = palet[0]['bg'])
 top.overrideredirect(True)
@@ -491,7 +492,7 @@ def program():
         n = Button(w2, text = 'Ok', bg = palet[0]['bg'], fg = palet[0]['fg'], activebackground = palet[0]['df_bg'], activeforeground = palet[0]['fg'], bd = 0, width = 10, font = ('Antipasto', 18), pady = 6, padx = 6, command = question_window.destroy)
         n.pack(anchor = SE, side = RIGHT)
         
-        lbl_warning1 = Label(question_window, text = msg, bg = palet[0]['bg'], fg = palet[0]['fg'], font = ('Antipasto', 17), pady = 25, padx = 16)
+        lbl_warning1 = Message(question_window, text = msg, width = 310, bg = palet[0]['bg'], fg = palet[0]['fg'], font = ('Antipasto', 17), pady = 25, padx = 16)
         lbl_warning1.pack(anchor = NW, side = LEFT, expand = False)
         
         fechar_popup = Button(question_window, text = 'X', bd = 0, bg = palet[0]['bg'], fg = palet[0]['fg'], width = 3, font = ('Antipasto', 15), activebackground = palet[0]['exit_bg'], activeforeground = palet[0]['fg'], highlightcolor = palet[0]['exit_bg'], command = question_window.destroy)
@@ -521,7 +522,7 @@ def program():
             #     print(f'Quantidade de comentários: {quant_comments_spinbox.get()}')
 
         if user_entry.get() == '' or passw_entry.get() == '' or link_entry.get() == '' or v_comment == None or quant_comentarios == None or v_comment == True and comentarios == [] or v_comment == False and comment_entry.get() == '':
-            error('Houve algum erro, insira os dados \nCORRETAMENTE e tente de novo   ')
+            error('Houve algum erro, insira os dados CORRETAMENTE e tente de novo')
         else:
             def var():
                 variaveis = open('C:\\Users\\Paulo Thiago\\Documents\\MeusProjetos\\InstagramBot\\python-files_pt\\variables.txt', 'w')

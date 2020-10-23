@@ -15,6 +15,47 @@ def bot(main_window, window, imagem_aviso, mensagem_aviso, mensagem_iniciando, p
         main_window.update()
         window.update()
 
+    def error(msg):
+        question_window = Toplevel(top)
+        question_window.config(bg = palet[0]['bg'])
+        question_window.geometry('380x210+466+265')
+        question_window.grab_set()
+        question_window.overrideredirect(True)
+        question_window.attributes('-alpha', 0.95)
+
+        w1 = Frame(question_window, bg = palet[0]['bg'])
+        w1.pack(anchor = NW)
+        w2 = Frame(question_window, bg = palet[0]['bg'])
+        w2.pack(anchor = SE, side = BOTTOM)
+
+        def x_pop_enter(e):
+                fechar_popup.config(bg = palet[0]['exit_bg'])
+
+        def x_pop_leave(e):
+            fechar_popup.config(bg = palet[0]['bg'])
+
+        def n_enter(e):
+            n.config(bg = palet[0]['df_bg'])
+
+        def n_leave(e):
+            n.config(bg = palet[0]['bg'])
+        
+        n = Button(w2, text = 'Ok', bg = palet[0]['bg'], fg = palet[0]['fg'], activebackground = palet[0]['df_bg'], activeforeground = palet[0]['fg'], bd = 0, width = 10, font = ('Antipasto', 18), pady = 6, padx = 6, command = question_window.destroy)
+        n.pack(anchor = SE, side = RIGHT)
+        
+        lbl_warning1 = Message(question_window, text = msg, width = 310, bg = palet[0]['bg'], fg = palet[0]['fg'], font = ('Antipasto', 17), pady = 25, padx = 16)
+        lbl_warning1.pack(anchor = NW, side = LEFT, expand = False)
+        
+        fechar_popup = Button(question_window, text = 'X', bd = 0, bg = palet[0]['bg'], fg = palet[0]['fg'], width = 3, font = ('Antipasto', 15), activebackground = palet[0]['exit_bg'], activeforeground = palet[0]['fg'], highlightcolor = palet[0]['exit_bg'], command = question_window.destroy)
+        fechar_popup.pack(anchor = NE, side = RIGHT, before = lbl_warning1)
+        
+        fechar_popup.bind('<Enter>', x_pop_enter)
+        fechar_popup.bind('<Leave>', x_pop_leave)
+        n.bind('<Enter>', n_enter)
+        n.bind('<Leave>', n_leave)
+
+        question_window.mainloop()
+
     def obtendo_variaveis():
         global file
         global idx_comentarios
@@ -57,11 +98,23 @@ def bot(main_window, window, imagem_aviso, mensagem_aviso, mensagem_iniciando, p
         driver = webdriver.Firefox(executable_path = 'C:\\Users\\Paulo Thiago\\Downloads\\scripts\\python_curso_em_video\\Exercicios e Ideias\\Exercicios extras\\InstagramBot\\python-files_pt\\geckodrive\\geckodriver.exe')
         driver.get('https://instagram.com')
         time.sleep(10)
-        logando()
-        time.sleep(12)
-        abrir_post()
-        time.sleep(randint(7, 14))
-        comentando()
+        try:
+            logando()
+        except:
+            error('Usuário ou senha incorretos. Insira os dados CORRETAMENTE e tente de novo')
+            driver.close()
+            os.system('python python-files_pt\\interface.py')
+        finally:
+            time.sleep(12)
+            try:
+                abrir_post()
+            except:
+                error('Link da publicação incorreto. Insira os dados CORRETAMENTE e tente de novo')
+                driver.close()
+                os.system('python python-files_pt\\interface.py')
+            finally:
+                time.sleep(randint(7, 14))
+                comentando()
 
     def logando():
         global campo_usuario;global campo_senha;global usuario;global senha
@@ -82,7 +135,7 @@ def bot(main_window, window, imagem_aviso, mensagem_aviso, mensagem_iniciando, p
         time.sleep(randint(7, 14))
 
     def new_window(window, imagem_aviso, mensagem_aviso, mensagem_iniciando, paleta):
-        global contador
+        global contador;global driver
         imagem_aviso.destroy()
         mensagem_aviso.destroy()
         mensagem_iniciando.destroy()
@@ -99,16 +152,15 @@ def bot(main_window, window, imagem_aviso, mensagem_aviso, mensagem_iniciando, p
 
         def stop_enter(e):
             stop.config(image = stop2)
-            atualizar_janela()
 
         def stop_leave(e):
             stop.config(image = stop1)
-            atualizar_janela()
 
         def parar():
+            global driver
             main_window.destroy()
-            os.system('python python-files_pt\\interface.py')
             driver.close()
+            os.system('python python-files_pt\\interface.py')
 
         stop1 = PhotoImage(file = 'C:\\Users\\Paulo Thiago\\Downloads\\scripts\\python_curso_em_video\\Exercicios e Ideias\\Exercicios extras\\InstagramBot\\python-files_pt\\media\\stop_1.png')
         stop1 = stop1.subsample(4, 4)
@@ -128,67 +180,43 @@ def bot(main_window, window, imagem_aviso, mensagem_aviso, mensagem_iniciando, p
         global cont_coment;global campo_comentario;global driver;global file;global bt_publicar;global comentarios;global top;global contador
 
         def digitando(frase, local):
-            atualizar_janela()
             for letra in frase:
-                atualizar_janela()
                 local.send_keys(letra)
-                atualizar_janela()
                 time.sleep(randint(1, 3) / 80)
-                atualizar_janela()
 
         while True:
-            atualizar_janela()
             time.sleep(randint(3, 6) / 4)
             try:
                 time.sleep(4)
-                atualizar_janela()
                 if file[4].strip() == 'True':
                     if cont_coment == num_comentarios:
                         break
                         driver.close()
 
-                atualizar_janela()
                 driver.find_element_by_class_name('Ypffh').click()
-                atualizar_janela()
                 campo_comentario = driver.find_element_by_class_name('Ypffh')
-                atualizar_janela()
                 campo_comentario.clear()
-                atualizar_janela()
                 # campo_comentario.send_keys(username)
                 time.sleep(randint(3, 6))
-                atualizar_janela()
                 
                 if file[3].strip() == 'True':
                     digitando(choice(comentarios), campo_comentario)
                 elif file[3].strip() == 'False':
                     digitando(comentario_unico, campo_comentario)
 
-                atualizar_janela()
                 time.sleep(randint(4, 8) / 4)
-                atualizar_janela()
 
                 bt_publicar = driver.find_element_by_xpath('//button[contains(text(), \'Publicar\')]')
-                atualizar_janela()
                 bt_publicar.click()
-                atualizar_janela()
                 cont_coment += 1
-                atualizar_janela()
                 contador.config(text = cont_coment)
                 atualizar_janela()
-                print(cont_coment)
-                atualizar_janela()
                 time.sleep(1)
-                atualizar_janela()
             except:
-                atualizar_janela()
                 time.sleep(randint(12, 16))
-                atualizar_janela()
                 try:
-                    atualizar_janela()
                     driver.find_element_by_xpath('//button[contains(text(), \'Publicar\')]').click()
-                    atualizar_janela()
                     time.sleep(randint(4, 8) / 4)
-                    atualizar_janela()
                 except:
                     pass
 

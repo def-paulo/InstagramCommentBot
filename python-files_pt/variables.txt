@@ -1,8 +1,8 @@
-paulothiago.py
+paulothiago
 i5775666162023
 https://www.instagram.com/p/CAYfX_jlXGb/
+False
 True
-True
-Good job-Beautiful-Test bot-Bom trabalho
-
-6
+[]
+test bot
+3
