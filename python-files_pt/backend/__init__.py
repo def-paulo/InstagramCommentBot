@@ -15,47 +15,6 @@ def bot(main_window, window, imagem_aviso, mensagem_aviso, mensagem_iniciando, p
         main_window.update()
         window.update()
 
-    def error(msg):
-        question_window = Toplevel(top)
-        question_window.config(bg = palet[0]['bg'])
-        question_window.geometry('380x210+466+265')
-        question_window.grab_set()
-        question_window.overrideredirect(True)
-        question_window.attributes('-alpha', 0.95)
-
-        w1 = Frame(question_window, bg = palet[0]['bg'])
-        w1.pack(anchor = NW)
-        w2 = Frame(question_window, bg = palet[0]['bg'])
-        w2.pack(anchor = SE, side = BOTTOM)
-
-        def x_pop_enter(e):
-                fechar_popup.config(bg = palet[0]['exit_bg'])
-
-        def x_pop_leave(e):
-            fechar_popup.config(bg = palet[0]['bg'])
-
-        def n_enter(e):
-            n.config(bg = palet[0]['df_bg'])
-
-        def n_leave(e):
-            n.config(bg = palet[0]['bg'])
-        
-        n = Button(w2, text = 'Ok', bg = palet[0]['bg'], fg = palet[0]['fg'], activebackground = palet[0]['df_bg'], activeforeground = palet[0]['fg'], bd = 0, width = 10, font = ('Antipasto', 18), pady = 6, padx = 6, command = question_window.destroy)
-        n.pack(anchor = SE, side = RIGHT)
-        
-        lbl_warning1 = Message(question_window, text = msg, width = 310, bg = palet[0]['bg'], fg = palet[0]['fg'], font = ('Antipasto', 17), pady = 25, padx = 16)
-        lbl_warning1.pack(anchor = NW, side = LEFT, expand = False)
-        
-        fechar_popup = Button(question_window, text = 'X', bd = 0, bg = palet[0]['bg'], fg = palet[0]['fg'], width = 3, font = ('Antipasto', 15), activebackground = palet[0]['exit_bg'], activeforeground = palet[0]['fg'], highlightcolor = palet[0]['exit_bg'], command = question_window.destroy)
-        fechar_popup.pack(anchor = NE, side = RIGHT, before = lbl_warning1)
-        
-        fechar_popup.bind('<Enter>', x_pop_enter)
-        fechar_popup.bind('<Leave>', x_pop_leave)
-        n.bind('<Enter>', n_enter)
-        n.bind('<Leave>', n_leave)
-
-        question_window.mainloop()
-
     def obtendo_variaveis():
         global file
         global idx_comentarios
@@ -67,7 +26,7 @@ def bot(main_window, window, imagem_aviso, mensagem_aviso, mensagem_iniciando, p
         global comentario_unico
         global num_comentarios
 
-        f = open('C:\\Users\\Paulo Thiago\\Downloads\\scripts\\python_curso_em_video\\Exercicios e Ideias\\Exercicios extras\\InstagramBot\\python-files_pt\\variables.txt', 'r')
+        f = open('C:\\Users\\Paulo Thiago\\Documents\\MeusProjetos\\InstagramBot\\python-files_pt\\variables.txt', 'r')
         file = f.readlines()
         
         usuario = file[0].strip()
@@ -93,31 +52,122 @@ def bot(main_window, window, imagem_aviso, mensagem_aviso, mensagem_iniciando, p
             num_comentarios = int(file[7].strip())
             print(f'Número de comentários: {num_comentarios}')
 
+    def error(msg):
+        question_window = Toplevel(main_window)
+        question_window.overrideredirect(True)
+        question_window.config(bg = paleta[0]['bg'])
+        question_window.geometry('380x210+466+265')
+        question_window.grab_set()
+        question_window.attributes('-alpha', 0.95)
+
+        w1 = Frame(question_window, bg = paleta[0]['bg'])
+        w1.pack(anchor = NW)
+        w2 = Frame(question_window, bg = paleta[0]['bg'])
+        w2.pack(anchor = SE, side = BOTTOM)
+
+        def x_pop_enter(e):
+                fechar_popup.config(bg = paleta[0]['exit_bg'])
+
+        def x_pop_leave(e):
+            fechar_popup.config(bg = paleta[0]['bg'])
+
+        def n_enter(e):
+            ok.config(bg = paleta[0]['df_bg'])
+
+        def n_leave(e):
+            ok.config(bg = paleta[0]['bg'])
+
+        def sair(event = ''):
+            main_window.destroy()
+            os.system('python python-files_pt\\interface.py')
+
+        def last_click(event):
+            global click_x;global click_y
+            click_x = event.x
+            click_y = event.y
+
+        def move_window(event):
+            if 32 >= click_y >= 0:
+                x, y = event.x - click_x + question_window.winfo_x(), event.y - click_y + question_window.winfo_y()
+                question_window.geometry(f'+{x}+{y}')
+        
+        ok = Button(w2, text = 'Ok', bg = paleta[0]['bg'], fg = paleta[0]['fg'], activebackground = paleta[0]['df_bg'], activeforeground = paleta[0]['fg'], bd = 0, width = 10, font = ('Antipasto', 18), pady = 6, padx = 6, command = sair)
+        ok.pack(anchor = SE, side = RIGHT)
+        
+        lbl_warning1 = Message(question_window, text = msg, width = 310, bg = paleta[0]['bg'], fg = paleta[0]['fg'], font = ('Antipasto', 17), pady = 25, padx = 16)
+        lbl_warning1.pack(anchor = NW, side = LEFT, expand = False)
+        
+        fechar_popup = Button(question_window, text = 'X', bd = 0, bg = paleta[0]['bg'], fg = paleta[0]['fg'], width = 3, font = ('Antipasto', 15), activebackground = paleta[0]['exit_bg'], activeforeground = paleta[0]['fg'], highlightcolor = paleta[0]['exit_bg'], command = sair)
+        fechar_popup.pack(anchor = NE, side = RIGHT, before = lbl_warning1)
+        
+        fechar_popup.bind('<Enter>', x_pop_enter)
+        fechar_popup.bind('<Leave>', x_pop_leave)
+        ok.bind('<Enter>', n_enter)
+        ok.bind('<Leave>', n_leave)
+        ok.bind_all('<Return>', sair)
+        question_window.bind('<Button-1>', last_click)
+        question_window.bind('<B1-Motion>', move_window)
+
+        try:
+            question_window.mainloop()
+        except:
+            pass
+
     def abrindo_instagram():
         global driver
+        global campo_usuario
+        global campo_senha
+        global usuario
+        global senha
+        global driver
+        global link
+        global cont_coment
+        global campo_comentario
+        global driver
+        global file
+        global bt_publicar
+        global comentarios
+        global top
+        global contador
+        global aviso_senha
+        global post_id
+
+        post_id = None
         driver = webdriver.Firefox(executable_path = 'C:\\Users\\Paulo Thiago\\Downloads\\scripts\\python_curso_em_video\\Exercicios e Ideias\\Exercicios extras\\InstagramBot\\python-files_pt\\geckodrive\\geckodriver.exe')
+        print(f'Usuário: {usuario} | Senha: {senha}')
         driver.get('https://instagram.com')
         time.sleep(10)
+        logando()
         try:
-            logando()
+            aviso_senha = driver.find_element_by_class_name('eiCW-')
         except:
-            error('Usuário ou senha incorretos. Insira os dados CORRETAMENTE e tente de novo')
-            driver.close()
-            os.system('python python-files_pt\\interface.py')
+            pass
         finally:
+            error('!USUÁRIO OU SENHA INCORRETOS! Insira os dados CORRETAMENTE e tente de novo')
+            # window.attributes('-alpha', 0.0)
+            window.destroy()
+            driver.close()
+        
+        if not aviso_senha:
             time.sleep(12)
             try:
                 abrir_post()
+                post_id = True
             except:
-                error('Link da publicação incorreto. Insira os dados CORRETAMENTE e tente de novo')
+                error('!LINK DA PUBLICAÇÃO INCORRETO! Insira os dados CORRETAMENTE e tente de novo')
+                # window.attributes('-alpha', 0.0)
+                window.destroy()
                 driver.close()
-                os.system('python python-files_pt\\interface.py')
             finally:
                 time.sleep(randint(7, 14))
                 comentando()
 
     def logando():
-        global campo_usuario;global campo_senha;global usuario;global senha
+        global campo_usuario
+        global campo_senha
+        global usuario
+        global senha
+
         campo_usuario = driver.find_element_by_xpath('//input[@name = \'username\']')
         campo_usuario.click()
         campo_usuario.clear()
@@ -128,14 +178,24 @@ def bot(main_window, window, imagem_aviso, mensagem_aviso, mensagem_iniciando, p
         campo_senha.clear()
         campo_senha.send_keys(senha)
         campo_senha.send_keys(Keys.RETURN)
+        time.sleep(randint(3, 4))
+        
+        try:
+            aviso_senha = driver.find_element_by_class_name('eiCW-')
+        except:
+            pass
 
     def abrir_post():
-        global driver;global link
+        global driver
+        global link
+
         driver.get(link)
         time.sleep(randint(7, 14))
 
     def new_window(window, imagem_aviso, mensagem_aviso, mensagem_iniciando, paleta):
-        global contador;global driver
+        global contador
+        global driver
+        
         imagem_aviso.destroy()
         mensagem_aviso.destroy()
         mensagem_iniciando.destroy()
@@ -162,6 +222,7 @@ def bot(main_window, window, imagem_aviso, mensagem_aviso, mensagem_iniciando, p
             driver.close()
             os.system('python python-files_pt\\interface.py')
 
+
         stop1 = PhotoImage(file = 'C:\\Users\\Paulo Thiago\\Downloads\\scripts\\python_curso_em_video\\Exercicios e Ideias\\Exercicios extras\\InstagramBot\\python-files_pt\\media\\stop_1.png')
         stop1 = stop1.subsample(4, 4)
 
@@ -177,7 +238,14 @@ def bot(main_window, window, imagem_aviso, mensagem_aviso, mensagem_iniciando, p
         window.update()
 
     def comentando():
-        global cont_coment;global campo_comentario;global driver;global file;global bt_publicar;global comentarios;global top;global contador
+        global cont_coment
+        global campo_comentario
+        global driver
+        global file
+        global bt_publicar
+        global comentarios
+        global top
+        global contador
 
         def digitando(frase, local):
             for letra in frase:
@@ -222,6 +290,8 @@ def bot(main_window, window, imagem_aviso, mensagem_aviso, mensagem_iniciando, p
 
     obtendo_variaveis()
     threading.Thread(target = abrindo_instagram).start()
+    atualizar_janela()
+    time.sleep(randint(3, 6))
     new_window(window, imagem_aviso, mensagem_aviso, mensagem_iniciando, paleta)
 
 if __name__ == '__main__':

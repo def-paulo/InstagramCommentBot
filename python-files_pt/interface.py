@@ -8,9 +8,10 @@ comentarios = []
 v_comment = None
 width, height = 700, 550
 quant_comentarios = None
+click_x, click_y = 0, 0
 
 def managment_window():
-    global cont_maximizado;global maximizar;global top;global fechar;global maximize;global resize_maximize;global minimizar;global palet
+    global cont_maximizado;global maximizar;global top;global fechar;global maximize;global resize_maximize;global minimizar;global palet;global click_x;global click_y
 
     def x_enter(e):
         fechar.config(bg = palet[0]['exit_bg'])
@@ -44,6 +45,17 @@ def managment_window():
         top.withdraw()
         # top.deiconify()
 
+    def last_click(event):
+        global click_x;global click_y
+        click_x = event.x
+        click_y = event.y
+
+    def move_window(event):
+        if click_y <= 56:
+            x, y = event.x - click_x + top.winfo_x(), event.y - click_y + top.winfo_y()
+            top.geometry(f'+{x}+{y}')
+
+
     fechar = Button(top, text = 'X', bd = 0, bg = palet[0]['bg'], fg = palet[0]['fg'], width = 3, font = ('Antipasto', 15), activebackground = palet[0]['exit_bg'], activeforeground = palet[0]['fg'], highlightcolor = palet[0]['exit_bg'], command = root.destroy)
     fechar.pack(anchor = NE, side = RIGHT)
 
@@ -65,6 +77,8 @@ def managment_window():
     # maximizar.bind('<Leave>', max_leave)
     minimizar.bind('<Enter>', min_enter)
     minimizar.bind('<Leave>', min_leave)
+    top.bind('<Button-1>', last_click)
+    top.bind('<B1-Motion>', move_window)
 
 root = Tk()
 root.iconbitmap('C:\\Users\\Paulo Thiago\\Documents\\MeusProjetos\\InstagramBot\\python-files_pt\\media\\instagram.ico')
@@ -85,6 +99,59 @@ def off(event):
     top.deiconify()
 root.bind("<Map>", off)
 
+def about():
+    about_window = Toplevel(top)
+    about_window.config(bg = palet[0]['bg'])
+    about_window.geometry('380x210+466+265')
+    about_window.grab_set()
+    about_window.overrideredirect(True)
+    about_window.attributes('-alpha', 0.95)
+
+    w1 = Frame(about_window, bg = palet[0]['bg'])
+    w1.pack(anchor = NW)
+    w2 = Frame(about_window, bg = palet[0]['bg'])
+    w2.pack(anchor = SE, side = BOTTOM)
+
+    def x_pop_enter(e):
+            fechar_popup.config(bg = palet[0]['exit_bg'])
+
+    def x_pop_leave(e):
+        fechar_popup.config(bg = palet[0]['bg'])
+
+    def n_enter(e):
+        n.config(bg = palet[0]['df_bg'])
+
+    def n_leave(e):
+        n.config(bg = palet[0]['bg'])
+
+    def last_click(event):
+        global click_x;global click_y
+        click_x = event.x
+        click_y = event.y
+
+    def move_window(event):
+        if 32 >= click_y >= 0:
+            x, y = event.x - click_x + about_window.winfo_x(), event.y - click_y + about_window.winfo_y()
+            about_window.geometry(f'+{x}+{y}')
+    
+    n = Button(w2, text = 'Ok', bg = palet[0]['bg'], fg = palet[0]['fg'], activebackground = palet[0]['df_bg'], activeforeground = palet[0]['fg'], bd = 0, width = 10, font = ('Antipasto', 18), pady = 6, padx = 6, command = about_window.destroy)
+    n.pack(anchor = SE, side = RIGHT)
+    
+    lbl_warning1 = Message(about_window, text = msg, width = 310, bg = palet[0]['bg'], fg = palet[0]['fg'], font = ('Antipasto', 17), pady = 25, padx = 16)
+    lbl_warning1.pack(anchor = NW, side = LEFT, expand = False)
+    
+    fechar_popup = Button(about_window, text = 'X', bd = 0, bg = palet[0]['bg'], fg = palet[0]['fg'], width = 3, font = ('Antipasto', 15), activebackground = palet[0]['exit_bg'], activeforeground = palet[0]['fg'], highlightcolor = palet[0]['exit_bg'], command = about_window.destroy)
+    fechar_popup.pack(anchor = NE, side = RIGHT, before = lbl_warning1)
+    
+    fechar_popup.bind('<Enter>', x_pop_enter)
+    fechar_popup.bind('<Leave>', x_pop_leave)
+    n.bind('<Enter>', n_enter)
+    n.bind('<Leave>', n_leave)
+    about_window.bind('<Button-1>', last_click)
+    about_window.bind('<B1-Motion>', move_window)
+
+    about_window.mainloop()
+
 managment_window()
 
 ig = PhotoImage(file = 'C:\\Users\\Paulo Thiago\\Documents\\MeusProjetos\\InstagramBot\\python-files_pt\\media\\instagram.png')
@@ -99,10 +166,10 @@ in_bot1 = in_bot1.subsample(6, 6)
 in_bot2 = PhotoImage(file = 'C:\\Users\\Paulo Thiago\\Documents\\MeusProjetos\\InstagramBot\\python-files_pt\\media\\bt_bot_2.png')
 in_bot2 = in_bot2.subsample(6, 6)
 
-ig_icon = Label(top, image = ig, bg = palet[0]['bg'], height = 38, width = 40)
+ig_icon = Button(top, image = ig, bg = palet[0]['bg'], bd = 0, height = 38, width = 40, activebackground = palet[0]['bg'], activeforeground = palet[0]['fg'], command = about)
 ig_icon.pack(anchor = NW, side = LEFT)
 
-ig_lbl = Label(top, text = 'Instagram Bot', font = ('Antipasto', 16), bg = palet[0]['bg'], fg = palet[0]['fg'], pady = 7)
+ig_lbl = Button(top, text = 'Instagram Bot', bd = 0, font = ('Antipasto', 16), bg = palet[0]['bg'], fg = palet[0]['fg'], pady = 2, activebackground = palet[0]['bg'], activeforeground = palet[0]['fg'], command = about)
 ig_lbl.pack(anchor = NW)
 
 def start():
@@ -113,7 +180,7 @@ def start():
     warning_lbl = Label(top, image = warning, bg = palet[0]['bg'])
     warning_lbl.place(x = 180, y = 50)
 
-    w_lbl = Message(top, text = 'Não interrompa o bot enquanto ele estiver em execução. Se quiser encerrá-lo clique no botão "Parar"', bg = palet[0]['bg'], fg = palet[0]['fg'], font = ('Antipasto', 20), justify = CENTER, width = 500)
+    w_lbl = Message(top, text = 'Não interrompa o bot enquanto ele estiver em execução. Se quiser encerrá-lo clique no botão "Parar e Voltar ao início"', bg = palet[0]['bg'], fg = palet[0]['fg'], font = ('Antipasto', 20), justify = CENTER, width = 500)
     w_lbl.place(x = 76, y = 298)
 
     w1_lbl = Label(top, text = 'O bot está sendo iniciado', font = ('Antipasto', 18), bg = palet[0]['bg'], fg = palet[0]['fg'], pady = 70)
@@ -122,13 +189,13 @@ def start():
     top.update()
     sleep(1)
 
-    # for ani1 in range(0, 2):
-    #     for ani in range(0, 4):
-    #         w1_lbl.config(text = f'O bot está sendo iniciado{" ." * ani}')
-    #         top.update()
-    #         sleep(.3)
+    for ani1 in range(0, 2):
+        for ani in range(0, 4):
+            w1_lbl.config(text = f'O bot está sendo iniciado{" ." * ani}')
+            top.update()
+            sleep(.3)
 
-    # w1_lbl.config(text = 'O bot está sendo iniciado')
+    w1_lbl.config(text = 'O bot está sendo iniciado')
     bot(root, top, warning_lbl, w_lbl, w1_lbl, palet)
 
 def program():
@@ -488,6 +555,16 @@ def program():
 
         def n_leave(e):
             n.config(bg = palet[0]['bg'])
+
+        def last_click(event):
+            global click_x;global click_y
+            click_x = event.x
+            click_y = event.y
+
+        def move_window(event):
+            if 32 >= click_y >= 0:
+                x, y = event.x - click_x + question_window.winfo_x(), event.y - click_y + question_window.winfo_y()
+                question_window.geometry(f'+{x}+{y}')
         
         n = Button(w2, text = 'Ok', bg = palet[0]['bg'], fg = palet[0]['fg'], activebackground = palet[0]['df_bg'], activeforeground = palet[0]['fg'], bd = 0, width = 10, font = ('Antipasto', 18), pady = 6, padx = 6, command = question_window.destroy)
         n.pack(anchor = SE, side = RIGHT)
@@ -502,6 +579,8 @@ def program():
         fechar_popup.bind('<Leave>', x_pop_leave)
         n.bind('<Enter>', n_enter)
         n.bind('<Leave>', n_leave)
+        question_window.bind('<Button-1>', last_click)
+        question_window.bind('<B1-Motion>', move_window)
 
         question_window.mainloop()
 
@@ -521,7 +600,7 @@ def program():
             # if quant_comentarios == True:
             #     print(f'Quantidade de comentários: {quant_comments_spinbox.get()}')
 
-        if user_entry.get() == '' or passw_entry.get() == '' or link_entry.get() == '' or v_comment == None or quant_comentarios == None or v_comment == True and comentarios == [] or v_comment == False and comment_entry.get() == '':
+        if user_entry.get() == '' or passw_entry.get() == '' or link_entry.get() == '' or v_comment == None or quant_comentarios == None or v_comment == True and comentarios == [] or v_comment == False and comment_entry.get() == '' or len(passw_entry.get()) < 6:
             error('Houve algum erro, insira os dados CORRETAMENTE e tente de novo')
         else:
             def var():
@@ -604,10 +683,10 @@ def welcome_interface():
     ig_wallp = ig_wallp.subsample(6, 6)
 
     bt_start_1 = PhotoImage(file = 'C:\\Users\\Paulo Thiago\\Documents\\MeusProjetos\\InstagramBot\\python-files_pt\\media\\bt_start_1.png')
-    bt_start_1 = bt_start_1.subsample(3, 3)
+    bt_start_1 = bt_start_1.subsample(5, 5)
 
     bt_start_2 = PhotoImage(file = 'C:\\Users\\Paulo Thiago\\Documents\\MeusProjetos\\InstagramBot\\python-files_pt\\media\\bt_start_2.png')
-    bt_start_2 = bt_start_2.subsample(3, 3)
+    bt_start_2 = bt_start_2.subsample(5, 5)
 
     ig_wallp_lbl = Label(welcome, image = ig_wallp, bg = palet[0]['bg'])
     ig_wallp_lbl.pack()
@@ -635,7 +714,7 @@ def welcome_interface():
     avançar.bind('<Leave>', com_leave)
 
 welcome_interface()
-program()
+# program()
 # start()
 
 top.mainloop()
