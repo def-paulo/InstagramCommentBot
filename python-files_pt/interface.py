@@ -1,6 +1,8 @@
 from tkinter import *
 from time import sleep
 from backend import bot
+from selenium import webdriver
+import threading
 
 palet = [{'bg':'#141414', 'fg':'#f1f1f1', 'exit_bg':'#ff2f2f', 'df_bg':'#676767'}]
 cont_maximizado = 0
@@ -49,12 +51,14 @@ def managment_window():
         global click_x;global click_y
         click_x = event.x
         click_y = event.y
+        print(click_y)
 
     def move_window(event):
-        if click_y <= 56:
-            x, y = event.x - click_x + top.winfo_x(), event.y - click_y + top.winfo_y()
-            top.geometry(f'+{x}+{y}')
+        x, y = event.x - click_x + top.winfo_x(), event.y - click_y + top.winfo_y()
+        top.geometry(f'+{x}+{y}')
 
+    move_area = Label(top, bg = palet[0]['bg'], width = 150, height = 4)
+    move_area.place(x = 0, y = 0)
 
     fechar = Button(top, text = 'X', bd = 0, bg = palet[0]['bg'], fg = palet[0]['fg'], width = 3, font = ('Antipasto', 15), activebackground = palet[0]['exit_bg'], activeforeground = palet[0]['fg'], highlightcolor = palet[0]['exit_bg'], command = root.destroy)
     fechar.pack(anchor = NE, side = RIGHT)
@@ -77,8 +81,8 @@ def managment_window():
     # maximizar.bind('<Leave>', max_leave)
     minimizar.bind('<Enter>', min_enter)
     minimizar.bind('<Leave>', min_leave)
-    top.bind('<Button-1>', last_click)
-    top.bind('<B1-Motion>', move_window)
+    move_area.bind('<Button-1>', last_click)
+    move_area.bind('<B1-Motion>', move_window)
 
 root = Tk()
 root.iconbitmap('C:\\Users\\Paulo Thiago\\Documents\\MeusProjetos\\InstagramBot\\python-files_pt\\media\\instagram.ico')
@@ -86,11 +90,16 @@ root.attributes('-alpha', 0.0)
 root.title('Instagram Bot')
 root.config(bg = palet[0]['bg'])
 top = Toplevel(root)
-# top.grab_set()
+top.grab_set()
 top.geometry(f'{width}x{height}+360+120')
 top.config(bg = palet[0]['bg'])
 top.overrideredirect(True)
 top.attributes('-toolwindow')
+
+def mouse(event):
+    print(f'X: {event.x}, Y: {event.y}')
+
+top.bind('<Motion>', mouse)
 
 def on(event):
     top.withdraw()
@@ -102,10 +111,16 @@ root.bind("<Map>", off)
 def about():
     about_window = Toplevel(top)
     about_window.config(bg = palet[0]['bg'])
-    about_window.geometry('380x210+466+265')
+    about_window.geometry('456x302+460+240')
     about_window.grab_set()
     about_window.overrideredirect(True)
-    about_window.attributes('-alpha', 0.95)
+    about_window.config(highlightbackground = palet[0]['fg'])
+    # about_window.attributes('-alpha', 0.95)
+
+    bg_img = PhotoImage(file = 'C:\\Users\\Paulo Thiago\\Documents\\MeusProjetos\\InstagramBot\\python-files_pt\\media\\about_bg.png')
+
+    bg = Label(about_window, image = bg_img, bg = palet[0]['bg'])
+    bg.place(x = 0, y = 0)
 
     w1 = Frame(about_window, bg = palet[0]['bg'])
     w1.pack(anchor = NW)
@@ -118,11 +133,11 @@ def about():
     def x_pop_leave(e):
         fechar_popup.config(bg = palet[0]['bg'])
 
-    def n_enter(e):
-        n.config(bg = palet[0]['df_bg'])
+    def link_enter(e):
+            profile_link.config(font = ('Antipasto', 22, 'underline'))
 
-    def n_leave(e):
-        n.config(bg = palet[0]['bg'])
+    def link_leave(e):
+        profile_link.config(font = ('Antipasto', 22))
 
     def last_click(event):
         global click_x;global click_y
@@ -133,22 +148,36 @@ def about():
         if 32 >= click_y >= 0:
             x, y = event.x - click_x + about_window.winfo_x(), event.y - click_y + about_window.winfo_y()
             about_window.geometry(f'+{x}+{y}')
-    
-    n = Button(w2, text = 'Ok', bg = palet[0]['bg'], fg = palet[0]['fg'], activebackground = palet[0]['df_bg'], activeforeground = palet[0]['fg'], bd = 0, width = 10, font = ('Antipasto', 18), pady = 6, padx = 6, command = about_window.destroy)
-    n.pack(anchor = SE, side = RIGHT)
-    
-    lbl_warning1 = Message(about_window, text = msg, width = 310, bg = palet[0]['bg'], fg = palet[0]['fg'], font = ('Antipasto', 17), pady = 25, padx = 16)
-    lbl_warning1.pack(anchor = NW, side = LEFT, expand = False)
-    
+
+    def profile():
+        def tg():
+            driver = webdriver.Firefox(executable_path = 'C:\\Users\\Paulo Thiago\\Documents\\MeusProjetos\\InstagramBot\\python-files_pt\\geckodrive\\geckodriver.exe')
+            driver.get('https://github.com/def-paulo')
+        
+        threading.Thread(target = tg).start()
+
     fechar_popup = Button(about_window, text = 'X', bd = 0, bg = palet[0]['bg'], fg = palet[0]['fg'], width = 3, font = ('Antipasto', 15), activebackground = palet[0]['exit_bg'], activeforeground = palet[0]['fg'], highlightcolor = palet[0]['exit_bg'], command = about_window.destroy)
-    fechar_popup.pack(anchor = NE, side = RIGHT, before = lbl_warning1)
+    fechar_popup.pack(anchor = NE, side = RIGHT)
+
+    ig_icon = Label(about_window, image = ig, bg = palet[0]['bg'], bd = 0, height = 38, width = 40)
+    ig_icon.pack(anchor = NW, side = TOP)
+
+    ig_lbl = Label(about_window, text = 'Instagram Bot', bd = 0, font = ('Antipasto', 16), bg = palet[0]['bg'], fg = palet[0]['fg'], pady = 3)
+    # ig_lbl.pack(anchor = NW)
+    ig_lbl.place(x = 40, y = 5)
+    
+    lbl_info = Message(about_window, text = 'InstagramBot       v0.0.1\nPython                v3.8.1\nTkinter                vx.x.x\nPyInstaller            v4.0\nCriado por: Paulo Thiago\nPerfil GitHub:', width = 450, justify = LEFT, bg = palet[0]['bg'], fg = palet[0]['fg'], font = ('Antipasto', 16), pady = 25, padx = 16)
+    lbl_info.pack(anchor = NW, side = TOP, expand = False)
+
+    profile_link = Button(about_window, bd = 0, text = 'github.com/def-paulo', font = ('Antipasto', 22), bg = palet[0]['bg'], fg = '#4f5bd5', padx = 8, cursor = 'hand2', activebackground = palet[0]['bg'], activeforeground = '#4f5bd5', command = profile)
+    profile_link.place(x = 0, y = 205)
     
     fechar_popup.bind('<Enter>', x_pop_enter)
     fechar_popup.bind('<Leave>', x_pop_leave)
-    n.bind('<Enter>', n_enter)
-    n.bind('<Leave>', n_leave)
     about_window.bind('<Button-1>', last_click)
     about_window.bind('<B1-Motion>', move_window)
+    profile_link.bind('<Enter>', link_enter)
+    profile_link.bind('<Leave>', link_leave)
 
     about_window.mainloop()
 
@@ -166,10 +195,10 @@ in_bot1 = in_bot1.subsample(6, 6)
 in_bot2 = PhotoImage(file = 'C:\\Users\\Paulo Thiago\\Documents\\MeusProjetos\\InstagramBot\\python-files_pt\\media\\bt_bot_2.png')
 in_bot2 = in_bot2.subsample(6, 6)
 
-ig_icon = Button(top, image = ig, bg = palet[0]['bg'], bd = 0, height = 38, width = 40, activebackground = palet[0]['bg'], activeforeground = palet[0]['fg'], command = about)
+ig_icon = Button(top, image = ig, bg = palet[0]['bg'], bd = 0, height = 38, width = 40, activebackground = palet[0]['bg'], activeforeground = palet[0]['fg'], cursor = 'question_arrow', command = about)
 ig_icon.pack(anchor = NW, side = LEFT)
 
-ig_lbl = Button(top, text = 'Instagram Bot', bd = 0, font = ('Antipasto', 16), bg = palet[0]['bg'], fg = palet[0]['fg'], pady = 2, activebackground = palet[0]['bg'], activeforeground = palet[0]['fg'], command = about)
+ig_lbl = Button(top, text = 'Instagram Bot', bd = 0, font = ('Antipasto', 16), bg = palet[0]['bg'], fg = palet[0]['fg'], pady = 2, activebackground = palet[0]['bg'], activeforeground = palet[0]['fg'], cursor = 'question_arrow', command = about)
 ig_lbl.pack(anchor = NW)
 
 def start():
@@ -422,7 +451,7 @@ def program():
         comment_entry = Entry(top, bg = palet[0]['fg'], bd = 0, width = 24, font = ('Antipasto'), fg = palet[0]['bg'], selectbackground = palet[0]['df_bg'], textvariable = comment_entry_verify)
         comment_entry.place(x = 60, y = 375)
 
-        add_comment = Button(top, text = 'Adicionar', width = 9, bg = palet[0]['bg'], bd = 0, font = ('Antipasto'), fg = palet[0]['fg'], activebackground = palet[0]['df_bg'], activeforeground = palet[0]['fg'], command = adicionar_coment, state = DISABLED)
+        add_comment = Button(top, text = 'Adicionar', width = 9, bg = palet[0]['bg'], bd = 0, font = ('Antipasto'), fg = palet[0]['fg'], activebackground = palet[0]['df_bg'], activeforeground = palet[0]['fg'], cursor = 'hand2', command = adicionar_coment, state = DISABLED)
         add_comment.place(x = 350, y = 370)
 
         add_comment.bind('<Enter>', add_comment_enter)
@@ -441,7 +470,7 @@ def program():
         comments_list.bind('<<ListboxSelect>>', cur_select)
         comments_list.pack()
 
-        remove_coment = Button(c_list_f, text = 'Remover', width = 9, bg = palet[0]['bg'], bd = 0, font = ('Antipasto'), fg = palet[0]['fg'], activebackground = palet[0]['df_bg'], activeforeground = palet[0]['fg'], command = r_comment, state = DISABLED)
+        remove_coment = Button(c_list_f, text = 'Remover', width = 9, bg = palet[0]['bg'], bd = 0, font = ('Antipasto'), fg = palet[0]['fg'], activebackground = palet[0]['df_bg'], activeforeground = palet[0]['fg'], cursor = 'hand2', command = r_comment, state = DISABLED)
         remove_coment.pack(side = BOTTOM, fill = X, before = sb)
 
         remove_coment.bind('<Enter>', remove_coment_enter)
@@ -666,7 +695,7 @@ def program():
     def iniciar_bot_leave(e):
         bt_iniciar_bot.config(image = in_bot1)
 
-    bt_iniciar_bot = Button(top, image = in_bot1, bd = 0, bg = palet[0]['bg'], activebackground = palet[0]['bg'], command = iniciar_bot)
+    bt_iniciar_bot = Button(top, image = in_bot1, bd = 0, bg = palet[0]['bg'], activebackground = palet[0]['bg'], cursor = 'hand2', command = iniciar_bot)
     # bt_iniciar_bot.pack(anchor = SE, side = RIGHT)
     bt_iniciar_bot.place(x = width - 180, y = height - 70)
 
@@ -704,7 +733,7 @@ def welcome_interface():
         a.destroy()
         program()
 
-    avançar = Button(top, image = bt_start_1, compound = CENTER, bd = 0, bg = palet[0]['bg'], activebackground = palet[0]['bg'], command = nxt)
+    avançar = Button(top, image = bt_start_1, compound = CENTER, bd = 0, bg = palet[0]['bg'], activebackground = palet[0]['bg'], command = nxt, cursor = 'hand2')
     avançar.pack(anchor = CENTER, side = BOTTOM, before = ig_wallp_lbl)
 
     a = welcome = Frame(welcome, bg = palet[0]['bg'], height = 80)
