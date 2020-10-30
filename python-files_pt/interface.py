@@ -69,7 +69,7 @@ def managment_window():
     # resize_maximize = PhotoImage(file = 'C:\\Users\\Paulo Thiago\\Documents\\MeusProjetos\\InstagramBot\\python-files_pt\\media\\res_max.png')
     # resize_maximize = resize_maximize.subsample(45, 45)
 
-    maximizar = Button(top, image = maximize, compound = CENTER, pady = 100, height = 36, width = 50, bd = 0, activebackground = palet[0]['df_bg'], bg = palet[0]['bg'], highlightcolor = palet[0]['exit_bg'], state = DISABLED)
+    maximizar = Button(top, image = maximize, compound = CENTER, pady = 100, height = 36, width = 50, bd = 0, activebackground = palet[0]['df_bg'], bg = palet[0]['bg'], highlightcolor = palet[0]['exit_bg'], state = DISABLED, cursor = 'X_cursor')
     maximizar.pack(anchor = NE, side = RIGHT)
 
     minimizar = Button(top, text = '-', bd = 0, bg = palet[0]['bg'], fg = palet[0]['fg'], width = 5, font = ('Antipasto', 15, 'bold'), activebackground = palet[0]['df_bg'], activeforeground = palet[0]['fg'], highlightcolor = palet[0]['exit_bg'], command = minimizing)
@@ -159,21 +159,31 @@ def about():
             
             threading.Thread(target = tg).start()
 
+            profile_link.config(state = DISABLED, cursor = 'X_cursor')
+            about_window.update()
+            
+            for c in range(100):
+                sleep(.1)
+                about_window.update()
+
+            profile_link.config(state = ACTIVE, cursor = 'hand2')
+            about_window.update()
+
         fechar_popup = Button(about_window, text = 'X', bd = 0, bg = palet[0]['bg'], fg = palet[0]['fg'], width = 3, font = ('Antipasto', 15), activebackground = palet[0]['exit_bg'], activeforeground = palet[0]['fg'], highlightcolor = palet[0]['exit_bg'], command = about_window.destroy)
         fechar_popup.pack(anchor = NE, side = RIGHT)
 
         ig_icon = Label(about_window, image = ig, bg = palet[0]['bg'], bd = 0, height = 38, width = 40)
         ig_icon.pack(anchor = NW, side = TOP)
 
-        ig_lbl = Label(about_window, text = 'Instagram Bot', bd = 0, font = ('Antipasto', 16), bg = palet[0]['bg'], fg = palet[0]['fg'], pady = 3)
+        ig_lbl = Label(about_window, text = 'Instagram Comment Bot', bd = 0, font = ('Antipasto', 16), bg = palet[0]['bg'], fg = palet[0]['fg'], pady = 3)
         # ig_lbl.pack(anchor = NW)
         ig_lbl.place(x = 40, y = 5)
         
-        lbl_info = Message(about_window, text = 'InstagramBot       v0.0.1\nPython                v3.8.1\nTkinter                vx.x.x\nPyInstaller            v4.0\nCriado por: Paulo Thiago\nPerfil GitHub:', width = 450, justify = LEFT, bg = palet[0]['bg'], fg = palet[0]['fg'], font = ('Antipasto', 16), pady = 25, padx = 16)
+        lbl_info = Message(about_window, text = 'Python                v3.8.1\nSelenium              v3.141.0\nPyInstaller            v4.0\nTkinter                v8.6\nCriado por: Paulo Thiago\nPerfil GitHub:', width = 450, justify = LEFT, bg = palet[0]['bg'], fg = palet[0]['fg'], font = ('Antipasto', 16), pady = 25, padx = 16)
         lbl_info.pack(anchor = NW, side = TOP, expand = False)
 
         profile_link = Button(about_window, bd = 0, text = 'github.com/def-paulo', font = ('Antipasto', 22), bg = palet[0]['bg'], fg = '#4f5bd5', padx = 8, cursor = 'hand2', activebackground = palet[0]['bg'], activeforeground = '#4f5bd5', command = profile)
-        profile_link.place(x = 0, y = 205)
+        profile_link.place(x = 0, y = 210)
         
         fechar_popup.bind('<Enter>', x_pop_enter)
         fechar_popup.bind('<Leave>', x_pop_leave)
@@ -206,7 +216,7 @@ in_bot2 = in_bot2.subsample(6, 6)
 ig_icon = Button(top, image = ig, bg = palet[0]['bg'], bd = 0, height = 38, width = 40, activebackground = palet[0]['bg'], activeforeground = palet[0]['fg'], cursor = 'question_arrow', command = about)
 ig_icon.pack(anchor = NW, side = LEFT)
 
-ig_lbl = Button(top, text = 'Instagram Bot', bd = 0, font = ('Antipasto', 16), bg = palet[0]['bg'], fg = palet[0]['fg'], pady = 2, activebackground = palet[0]['bg'], activeforeground = palet[0]['fg'], cursor = 'question_arrow', command = about)
+ig_lbl = Button(top, text = 'Instagram Comment Bot', bd = 0, font = ('Antipasto', 16), bg = palet[0]['bg'], fg = palet[0]['fg'], pady = 2, activebackground = palet[0]['bg'], activeforeground = palet[0]['fg'], cursor = 'question_arrow', command = about)
 ig_lbl.pack(anchor = NW)
 
 def start():
@@ -238,6 +248,7 @@ def start():
 def program():
     global cont_show_pass;global comment_radio_var;global user_entry;global passw_entry;global link_entry;global v_comment;global r1;global r2;global comentarios;global comment_entry;global r3;global r4;global lbl;global bt_iniciar_bot;global quant_comments_spinbox;global remove_coment;global comments_list;global view;global lbl1;global lbl2;global lbl3
     cont_show_pass = 0
+    cont_atalho = 0
     comment_radio_var = IntVar()
     ncom_radio_var = IntVar()
     global avançar
@@ -269,7 +280,6 @@ def program():
 
     user_entry = Entry(top, bg = palet[0]['fg'], bd = 0, width = 30, font = ('Antipasto'), fg = palet[0]['bg'], selectbackground = palet[0]['df_bg'])
     user_entry.place(x = 60, y = 130)
-    user_entry.focus_set()
 
     lbl2 = Label(top, text = 'Senha', bg = palet[0]['bg'], fg = palet[0]['fg'], font = ('Antipasto', 16))
     lbl2.place(x = 60, y = 165)
@@ -286,23 +296,23 @@ def program():
     link_entry = Entry(top, bg = palet[0]['fg'], bd = 0, width = 30, font = ('Antipasto'), fg = palet[0]['bg'], selectbackground = palet[0]['df_bg'])
     link_entry.place(x = 60, y = 260)
 
-    def user_key(event):
-        global passw_entry
-        passw_entry.focus_set()
+    # def user_key(event):
+    #     global passw_entry
+    #     passw_entry.focus_set()
 
-    def passw_key(event):
-        global link_entry
-        link_entry.focus_set()
+    # def passw_key(event):
+    #     global link_entry
+    #     link_entry.focus_set()
 
-    user_entry.bind('<Return>', lambda event: passw_entry.focus_set())
-    passw_entry.bind('<Return>', lambda event: link_entry.focus_set())
+    # user_entry.bind('<Return>', passw_entry)
+    # passw_entry.bind('<Return>', link_entry)
 
     def c_unico():
         global comentarios;global v_comment;global r1;global r2;global comment_entry;global lbl4;global comment_entry_verify
 
         v_comment = False
-        r1.config(state = DISABLED)
-        r2.config(state = ACTIVE)
+        r1.config(state = DISABLED, cursor = 'X_cursor')
+        r2.config(state = ACTIVE, cursor = 'hand2')
 
         try:
             comment_entry.destroy()
@@ -345,8 +355,8 @@ def program():
 
         idx = 0
         v_comment = True
-        r1.config(state = ACTIVE)
-        r2.config(state = DISABLED)
+        r1.config(state = ACTIVE, cursor = 'hand2')
+        r2.config(state = DISABLED, cursor = 'X_cursor')
 
         try:
             comment_entry.destroy()
@@ -358,22 +368,24 @@ def program():
         except:
             pass
 
-        def adicionar_coment(event):
+        def adicionar_coment(event = ''):
             global comentarios;global sb
-            comentarios.append(str(comment_entry.get()))
-            comment_entry.delete(0, END)
-            comments_list.insert(END, comentarios[len(comentarios) - 1])
-            sb.config(command = comments_list.yview)
+            if comment_entry.get() != '':
+                comentarios.append(str(comment_entry.get()))
+                comment_entry.delete(0, END)
+                comments_list.insert(END, comentarios[len(comentarios) - 1])
+                sb.config(command = comments_list.yview)
 
         def cur_select(evt):
             global idx
             try:
                 idx = comments_list.curselection()[0]
-                remove_coment.config(state = ACTIVE)
+                remove_coment.config(state = ACTIVE, cursor = 'hand2')
+                comments_list.bind('<Delete>', r_comment)
             except:
                 pass
 
-        def r_comment():
+        def r_comment(event = ''):
             question_window = Toplevel(top)
             question_window.config(bg = palet[0]['bg'])
             question_window.geometry('380x210+466+265')
@@ -381,39 +393,40 @@ def program():
             question_window.overrideredirect(True)
             question_window.attributes('-alpha', 0.95)
 
-            remove_coment.config(state = DISABLED)
+            remove_coment.config(state = DISABLED, cursor = 'X_cursor')
 
             w1 = Frame(question_window, bg = palet[0]['bg'])
             w1.pack(anchor = NW)
             w2 = Frame(question_window, bg = palet[0]['bg'])
             w2.pack(anchor = SE, side = BOTTOM)
 
-            def sim():
+            def sim(event = ''):
                 comentarios.pop(idx)
                 comments_list.delete(idx)
                 question_window.destroy()
+                remove_coment.config(state = DISABLED)
                 print(comentarios)
 
-            def not_or_cancel():
+            def not_or_cancel(event = ''):
                 question_window.destroy()
-                remove_coment.config(state = ACTIVE)
+                remove_coment.config(state = ACTIVE, cursor = 'hand2')
 
-            def x_pop_enter(e):
+            def x_pop_enter(e = ''):
                 fechar_popup.config(bg = palet[0]['exit_bg'])
 
-            def x_pop_leave(e):
+            def x_pop_leave(e = ''):
                 fechar_popup.config(bg = palet[0]['bg'])
 
-            def n_enter(e):
+            def n_enter(e = ''):
                 n.config(bg = palet[0]['df_bg'])
 
-            def n_leave(e):
+            def n_leave(e = ''):
                 n.config(bg = palet[0]['bg'])
 
-            def s_enter(e):
+            def s_enter(e = ''):
                 s.config(bg = palet[0]['df_bg'])
 
-            def s_leave(e):
+            def s_leave(e = ''):
                 s.config(bg = palet[0]['bg'])
 
 
@@ -422,12 +435,30 @@ def program():
 
             s = Button(w2, text = 'Sim', bg = palet[0]['bg'], fg = palet[0]['fg'], activebackground = palet[0]['df_bg'], activeforeground = palet[0]['fg'], bd = 0, width = 10, font = ('Antipasto', 18), pady = 6, padx = 6, command = sim)
             s.pack(anchor = SE, side = BOTTOM)
+
+            n_enter()
             
             lbl_warning1 = Label(question_window, text = 'Você realmente deseja \n   apagar este comentário?', bg = palet[0]['bg'], fg = palet[0]['fg'], font = ('Antipasto', 18), pady = 25)
             lbl_warning1.pack(anchor = NW, side = LEFT, expand = False)
                 
             fechar_popup = Button(question_window, text = 'X', bd = 0, bg = palet[0]['bg'], fg = palet[0]['fg'], width = 3, font = ('Antipasto', 15), activebackground = palet[0]['exit_bg'], activeforeground = palet[0]['fg'], highlightcolor = palet[0]['exit_bg'], command = not_or_cancel)
             fechar_popup.pack(anchor = NE, side = RIGHT, before = lbl_warning1)
+
+            def n_f(event):
+                try:
+                    s_leave()
+                except:
+                    pass
+                n_enter()
+                question_window.bind('<Return>', not_or_cancel)
+
+            def s_f(event):
+                try:
+                    n_leave()
+                except:
+                    pass
+                s_enter()
+                question_window.bind('<Return>', sim)
             
             fechar_popup.bind('<Enter>', x_pop_enter)
             fechar_popup.bind('<Leave>', x_pop_leave)
@@ -435,14 +466,16 @@ def program():
             n.bind('<Leave>', n_leave)
             s.bind('<Enter>', s_enter)
             s.bind('<Leave>', s_leave)
+            question_window.bind('<Left>', s_f)
+            question_window.bind('<Right>', n_f)
 
             question_window.mainloop()
 
         def write_comment(*args):
             if str(comment_entry.get()).strip() == '':
-                add_comment.config(state = DISABLED)
+                add_comment.config(state = DISABLED, cursor = 'X_cursor')
             else:
-                add_comment.config(state = ACTIVE)
+                add_comment.config(state = ACTIVE, cursor = 'hand2')
 
             a = comment_entry.get()
 
@@ -471,7 +504,7 @@ def program():
         comment_entry = Entry(top, bg = palet[0]['fg'], bd = 0, width = 24, font = ('Antipasto'), fg = palet[0]['bg'], selectbackground = palet[0]['df_bg'], textvariable = comment_entry_verify)
         comment_entry.place(x = 60, y = 375)
 
-        add_comment = Button(top, text = 'Adicionar', width = 9, bg = palet[0]['bg'], bd = 0, font = ('Antipasto'), fg = palet[0]['fg'], activebackground = palet[0]['df_bg'], activeforeground = palet[0]['fg'], cursor = 'hand2', command = adicionar_coment, state = DISABLED)
+        add_comment = Button(top, text = 'Adicionar', width = 9, bg = palet[0]['bg'], bd = 0, font = ('Antipasto'), fg = palet[0]['fg'], activebackground = palet[0]['df_bg'], activeforeground = palet[0]['fg'], command = adicionar_coment, state = DISABLED, cursor = 'X_cursor')
         add_comment.place(x = 350, y = 370)
 
         add_comment.bind('<Enter>', add_comment_enter)
@@ -490,7 +523,7 @@ def program():
         comments_list.bind('<<ListboxSelect>>', cur_select)
         comments_list.pack()
 
-        remove_coment = Button(c_list_f, text = 'Remover', width = 9, bg = palet[0]['bg'], bd = 0, font = ('Antipasto'), fg = palet[0]['fg'], activebackground = palet[0]['df_bg'], activeforeground = palet[0]['fg'], cursor = 'hand2', command = r_comment, state = DISABLED)
+        remove_coment = Button(c_list_f, text = 'Remover', width = 9, bg = palet[0]['bg'], bd = 0, font = ('Antipasto'), fg = palet[0]['fg'], activebackground = palet[0]['df_bg'], activeforeground = palet[0]['fg'], command = r_comment, state = DISABLED, cursor = 'X_cursor')
         remove_coment.pack(side = BOTTOM, fill = X, before = sb)
 
         remove_coment.bind('<Enter>', remove_coment_enter)
@@ -501,8 +534,8 @@ def program():
         global limit2;global s2;global s1;global quant_comments_spinbox;global quant_comentarios;global r3;global r4
         s1, s2 = '', ''
         quant_comentarios = True
-        r3.config(state = DISABLED)
-        r4.config(state = ACTIVE)
+        r3.config(state = DISABLED, cursor = 'X_cursor')
+        r4.config(state = ACTIVE, cursor = 'hand2')
 
         try:
             loop.destroy()
@@ -517,25 +550,6 @@ def program():
                     limit2.set(s2[:-1])
                 else:
                     limit2.set(s2[:9])
-            # try:
-            #     s2 = list(s2)
-            #     if s2 != []:
-            #         if len(s2) > 1 and int(s2[0]) > 5:
-            #             s2.pop(0)
-            #             s2.insert(0, '5')
-            #         if int(s2[0]) >= 5:
-            #             if len(s2) >= 2 and int(s2[1]) > 9:
-            #                 s2.pop(1)
-            #                 s2.insert(1, '9')
-            #         if len(s2) == 1:
-            #             s2.insert(0, '0')
-            #     else:
-            #         s2 = ['0', '0']
-
-            # except:
-            #     pass
-
-            
 
         limit2 = StringVar()
 
@@ -562,23 +576,21 @@ def program():
             except:
                 pass
             quant_comentarios = False
-            r4.config(state = DISABLED)
-            r3.config(state = ACTIVE)
+            r4.config(state = DISABLED, cursor = 'X_cursor')
+            r3.config(state = ACTIVE, cursor = 'hand2')
             loop = Label(top, text = '∞', bg = palet[0]['bg'], fg = palet[0]['fg'], font = ('Antipasto', 40))
             loop.place(x = 270, y = 460)
 
-    r1 = Radiobutton(top, text = 'Comentário único', font = ('Antipasto', 16), variable = comment_radio_var, value = 1, bg = palet[0]['bg'], fg = palet[0]['fg'], activebackground = palet[0]['bg'], activeforeground = palet[0]['fg'], command = sel_comment)
+    r1 = Radiobutton(top, text = 'Comentário único', font = ('Antipasto', 16), variable = comment_radio_var, value = 1, bg = palet[0]['bg'], fg = palet[0]['fg'], activebackground = palet[0]['bg'], activeforeground = palet[0]['fg'], command = sel_comment, cursor = 'hand2')
     r1.place(x = 60, y = 300)
     
-    r2 = Radiobutton(top, text = 'Vários comentários', font = ('Antipasto', 16), variable = comment_radio_var, value = 2, bg = palet[0]['bg'], fg = palet[0]['fg'], activebackground = palet[0]['bg'], activeforeground = palet[0]['fg'], command = sel_comment)
+    r2 = Radiobutton(top, text = 'Vários comentários', font = ('Antipasto', 16), variable = comment_radio_var, value = 2, bg = palet[0]['bg'], fg = palet[0]['fg'], activebackground = palet[0]['bg'], activeforeground = palet[0]['fg'], command = sel_comment, cursor = 'hand2')
     r2.place(x = 240, y = 300)
 
-    # c_unico()
-
-    r3 = Radiobutton(top, text = 'Escolher quantidade \nde comentários', font = ('Antipasto', 16), variable = ncom_radio_var, value = 1, bg = palet[0]['bg'], fg = palet[0]['fg'], activebackground = palet[0]['bg'], activeforeground = palet[0]['fg'], command = sel_ncom)
+    r3 = Radiobutton(top, text = 'Escolher quantidade \nde comentários', font = ('Antipasto', 16), variable = ncom_radio_var, value = 1, bg = palet[0]['bg'], fg = palet[0]['fg'], activebackground = palet[0]['bg'], activeforeground = palet[0]['fg'], command = sel_ncom, cursor = 'hand2')
     r3.place(x = 60, y = 410)
     
-    r4 = Radiobutton(top, text = 'Infinito (Até você parar)', font = ('Antipasto', 16), variable = ncom_radio_var, value = 2, bg = palet[0]['bg'], fg = palet[0]['fg'], activebackground = palet[0]['bg'], activeforeground = palet[0]['fg'], command = sel_ncom)
+    r4 = Radiobutton(top, text = 'Infinito (Até você parar)', font = ('Antipasto', 16), variable = ncom_radio_var, value = 2, bg = palet[0]['bg'], fg = palet[0]['fg'], activebackground = palet[0]['bg'], activeforeground = palet[0]['fg'], command = sel_ncom, cursor = 'hand2')
     r4.place(x = 260, y = 420)
 
     def error(msg):
@@ -586,6 +598,7 @@ def program():
         question_window.config(bg = palet[0]['bg'])
         question_window.geometry('380x210+466+265')
         question_window.grab_set()
+        question_window.focus_force()
         question_window.overrideredirect(True)
         question_window.attributes('-alpha', 0.95)
 
@@ -631,24 +644,31 @@ def program():
         n.bind('<Leave>', n_leave)
         question_window.bind('<Button-1>', last_click)
         question_window.bind('<B1-Motion>', move_window)
+        question_window.bind('<Return>', question_window.destroy)
 
         question_window.mainloop()
 
     def iniciar_bot(event = ''):
-        global lbl;global user_entry;global passw_entry;global view;global link_entry;global r1;global r2;global comment_entry;global add_comment;global sb;global lbl_list;global comments_list;global remove_coment;global quant_comments_spinbox;global r3;global r4;global bt_iniciar_bot;global comentarios;global c_list_f;global loop
-        # 
-            # print(f'Nome de usuário: {user_entry.get()}')
-            # print(f'Senha: {passw_entry.get()}')
-            # print(f'Link: {link_entry.get()}')
-            # print(f'Vários comentários?: {v_comment}')
-            # print(f'Comentários limitados?: {quant_comentarios}')
-            # if v_comment == True:
-            #     print(f'Comentários: {comentarios}')
-            # elif v_comment == False:
-            #     print(f'Comentário: {comment_entry.get()}')
-
-            # if quant_comentarios == True:
-            #     print(f'Quantidade de comentários: {quant_comments_spinbox.get()}')
+        global lbl
+        global user_entry
+        global passw_entry
+        global view
+        global link_entry
+        global r1
+        global r2
+        global comment_entry
+        global add_comment
+        global sb
+        global lbl_list
+        global comments_list
+        global remove_coment
+        global quant_comments_spinbox
+        global r3
+        global r4
+        global bt_iniciar_bot
+        global comentarios
+        global c_list_f
+        global loop
 
         if user_entry.get() == '' or passw_entry.get() == '' or link_entry.get() == '' or v_comment == None or quant_comentarios == None or v_comment == True and comentarios == [] or v_comment == False and comment_entry.get() == '' or len(passw_entry.get()) < 6:
             error('Houve algum erro, insira os dados CORRETAMENTE e tente de novo')
@@ -722,7 +742,7 @@ def program():
 
     bt_iniciar_bot.bind('<Enter>', iniciar_bot_enter)
     bt_iniciar_bot.bind('<Leave>', iniciar_bot_leave)
-    top.bind('<Tab>', iniciar_bot)
+    top.bind('<Shift-Return>', iniciar_bot)
 
 def welcome_interface():
     global ig_wallp
@@ -738,7 +758,7 @@ def welcome_interface():
     def animation1():
         global ani_cont
         ig_wallp_lbl.config(state = DISABLED)
-        avançar.config(state = DISABLED)
+        avançar.config(state = DISABLED, cursor = 'X_cursor')
         for ani in range(600, 140, -5):
             if ani_cont == False:
                 break
@@ -746,12 +766,12 @@ def welcome_interface():
             top.update()
             sleep(0.0001)
         ig_wallp_lbl.config(state = ACTIVE)
-        avançar.config(state = ACTIVE)
+        avançar.config(state = ACTIVE, cursor = 'hand2')
 
     def animation2():
         global ani_cont
         ig_wallp_lbl.config(state = DISABLED)
-        avançar.config(state = DISABLED)
+        avançar.config(state = DISABLED, cursor = 'X_cursor')
         for ani2 in range(130, -550, -5):
             if ani_cont == False:
                 break
@@ -760,7 +780,7 @@ def welcome_interface():
             sleep(0.0001)
         sleep(0.1)
         ig_wallp_lbl.config(state = ACTIVE)
-        avançar.config(state = ACTIVE)
+        avançar.config(state = ACTIVE, cursor = 'hand2')
         animation1()
 
 
@@ -773,7 +793,7 @@ def welcome_interface():
     bt_start_2 = PhotoImage(file = 'C:\\Users\\Paulo Thiago\\Documents\\MeusProjetos\\InstagramBot\\python-files_pt\\media\\bt_start_2.png')
     bt_start_2 = bt_start_2.subsample(5, 5)
 
-    ig_wallp_lbl = Button(top, image = ig_wallp, bg = palet[0]['bg'], bd = 0, activebackground = palet[0]['bg'], command = animation2)
+    ig_wallp_lbl = Button(top, image = ig_wallp, bg = palet[0]['bg'], bd = 0, activebackground = palet[0]['bg'], command = animation2, cursor = 'exchange')
     # ig_wallp_lbl.pack()
     ig_wallp_lbl.place(x = 130, y = 130)
 
@@ -798,7 +818,7 @@ def welcome_interface():
 
     avançar.bind('<Enter>', com_enter)
     avançar.bind('<Leave>', com_leave)
-    avançar.bind_all('<Return>', nxt)
+    avançar.bind_all('<Shift-Return>', nxt)
 
     # threading.Thread(target = animation1).start()
     animation1()
@@ -807,7 +827,4 @@ def welcome_interface():
     # a.pack(anchor = S, side = BOTTOM)
 
 welcome_interface()
-# program()
-# start()
-
 top.mainloop()
