@@ -91,7 +91,7 @@ def bot(main_window, window, imagem_aviso, mensagem_aviso, mensagem_iniciando, p
                 x, y = event.x - click_x + question_window.winfo_x(), event.y - click_y + question_window.winfo_y()
                 question_window.geometry(f'+{x}+{y}')
         
-        ok = Button(w2, text = 'Ok', bg = paleta[0]['bg'], fg = paleta[0]['fg'], activebackground = paleta[0]['df_bg'], activeforeground = paleta[0]['fg'], bd = 0, width = 10, font = ('Antipasto', 18), pady = 6, padx = 6, command = sair)
+        ok = Button(w2, text = 'Ok', bg = paleta[0]['bg'], fg = paleta[0]['fg'], activebackground = paleta[0]['df_bg'], activeforeground = aleta[0]['fg'], bd = 0, width = 10, font = ('Antipasto', 18), pady = 6, padx = 6, command = sair)
         ok.pack(anchor = SE, side = RIGHT)
         
         lbl_warning1 = Message(question_window, text = msg, width = 310, bg = paleta[0]['bg'], fg = paleta[0]['fg'], font = ('Antipasto', 17), pady = 25, padx = 16)

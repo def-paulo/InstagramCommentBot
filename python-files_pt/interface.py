@@ -716,7 +716,7 @@ def program():
     def iniciar_bot_leave(e):
         bt_iniciar_bot.config(image = in_bot1)
 
-    bt_iniciar_bot = Button(top, image = in_bot1, bd = 0, bg = palet[0]['bg'], activebackground = palet[0]['bg'], activeforeground = , cursor = 'hand2', command = iniciar_bot)
+    bt_iniciar_bot = Button(top, image = in_bot1, bd = 0, bg = palet[0]['bg'], activebackground = palet[0]['bg'], cursor = 'hand2', command = iniciar_bot)
     # bt_iniciar_bot.pack(anchor = SE, side = RIGHT)
     bt_iniciar_bot.place(x = width - 180, y = height - 70)
 
