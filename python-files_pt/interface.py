@@ -5,7 +5,7 @@ from selenium import webdriver
 import threading
 from PIL import ImageTk, Image
 
-palet = [{'bg':'#141414', 'fg':'#f1f1f1', 'exit_bg':'#ff2f2f', 'df_bg':'#676767'}]
+palet = [{'bg':'#141414', 'fg':'#cfcfcf', 'exit_bg':'#ff2f2f', 'df_bg':'#676767', 'wd_bg':'#1d1d1d', 'bd':'#4d4d4d'}]
 cont_maximizado = 0
 comentarios = []
 v_comment = None
@@ -274,16 +274,18 @@ def program():
         global entry_img1
         global entry_img_lbl
         global entry_img_lbl1
+        global login_img
+        global login_lbl
 
         def pass_show():
             global cont_show_pass
-            cont_show_pass += 1
             if cont_show_pass % 2 != 0:
                 passw_entry.config(show = '')
-                view.config(text = 'o')
+                view.config(text = 'Mostrar')
             else:
                 passw_entry.config(show = '*')
-                view.config(text = 'ø')
+                view.config(text = 'Ocultar')
+            cont_show_pass += 1
 
         cont_click_user = 0
         cont_click_passw = 0
@@ -317,52 +319,74 @@ def program():
                 if cont_start > 1:
                     user_entry.insert(END, 'Telefone, nome de usuário ou email')
 
+        def write1(*args):
+            global passw_entry;global user_entry
+            print(user_entry.get())
+            print('w1')
+
+        def write2(*args):
+            if str(passw_entry.get()) == 'Senha' or str(passw_entry.get()) == '':
+                user_entry.bind('<Button-1>', user_click)
+                passw_entry.bind('<Button-1>', passw_click)
+            else:
+                passw_entry.bind('<Button-1>', lambda e: print)
+
         # lbl = Label(top, text = 'Nome de usuário', bg = palet[0]['bg'], fg = palet[0]['fg'], font = ('Antipasto', 16))
         # lbl.place(x = 60, y = 100)
 
         # lbl1 = Label(top, text = '@', bg = palet[0]['bg'], fg = palet[0]['fg'], font = ('Antipasto', 16))
         # lbl1.place(x = 37, y = 125)
 
-        login_img = PhotoImage(file = 'C:\\Users\\Paulo Thiago\\Documents\\MeusProjetos\\InstagramBot\\python-files_pt\\media\\login_img_character.png')
-        login_img = login_img.subsample(4, 4)
+        login_img = PhotoImage(file = 'C:\\Users\\Paulo Thiago\\Documents\\MeusProjetos\\InstagramBot\\python-files_pt\\media\\login_character.png')
+        login_img = login_img.subsample(12, 12)
         
-        entry_img = PhotoImage(file = 'C:\\Users\\Paulo Thiago\\Documents\\MeusProjetos\\InstagramBot\\python-files_pt\\media\\entry.png')
-        entry_img = entry_img.subsample(4, 6)
+        # entry_img = PhotoImage(file = 'C:\\Users\\Paulo Thiago\\Documents\\MeusProjetos\\InstagramBot\\python-files_pt\\media\\entry.png')
+        # entry_img = entry_img.subsample(4, 6)
 
-        entry_img1 = PhotoImage(file = 'C:\\Users\\Paulo Thiago\\Documents\\MeusProjetos\\InstagramBot\\python-files_pt\\media\\entry.png')
-        entry_img1 = entry_img1.subsample(5, 6)
+        # entry_img1 = PhotoImage(file = 'C:\\Users\\Paulo Thiago\\Documents\\MeusProjetos\\InstagramBot\\python-files_pt\\media\\entry.png')
+        # entry_img1 = entry_img1.subsample(5, 6)
 
         login_lbl = Label(top, image = login_img, bg = palet[0]['bg'])
-        login_lbl.place(x = 130, y = 130)
+        login_lbl.place(x = 242, y = 102)
 
-        # img = Image.open('C:\\Users\\Paulo Thiago\\Documents\\MeusProjetos\\InstagramBot\\python-files_pt\\media\\entry.png')
-        # img = img.resize((740, 60), Image.ANTIALIAS)
-        # entry_img = ImageTk.PhotoImage(img)
+
+        img = Image.open('C:\\Users\\Paulo Thiago\\Documents\\MeusProjetos\\InstagramBot\\python-files_pt\\media\\entry.png')
+        img = img.resize((390, 50), Image.ANTIALIAS)
+        entry_img = ImageTk.PhotoImage(img)
 
         entry_img_lbl = Label(top, image = entry_img, bg = palet[0]['bg'])
         entry_img_lbl.place(x = 142, y = 302)
         
-        entry_img_lbl2 = Label(top, image = entry_img1, bg = palet[0]['bg'])
-        entry_img_lbl2.place(x = 170, y = 370)
+        entry_img_lbl2 = Label(top, image = entry_img, bg = palet[0]['bg'])
+        entry_img_lbl2.place(x = 142, y = 368)
 
-        user_entry = Entry(top, bg = palet[0]['fg'], bd = 0, width = 30, font = ('Antipasto'), fg = palet[0]['bg'], selectbackground = palet[0]['df_bg'])
-        user_entry.place(x = 160, y = 312)
+        # u_f = Frame(top, bg = '#4d4d4d', width = 366, height = 25, relief = SUNKEN, borderwidth = 0)
+        # u_f.place(x = 162, y = 310)
+
+        # user_entry = Entry(top, bg = palet[0]['wd_bg'], bd = 0, width = 30, font = ('Antipasto'), fg = palet[0]['fg'], selectbackground = palet[0]['df_bg'])
+        # user_entry.place(x = 164, y = 312)
+
+        var1 = StringVar()
+        var1.trace('w', write1)
+        
+        var2 = StringVar()
+        var2.trace('w', write2)
+
+        user_entry = Entry(top, bg = palet[0]['wd_bg'], bd = 0, width = 30, font = ('Antipasto'), textvariable = var1, fg = palet[0]['fg'], selectbackground = palet[0]['df_bg'])
+        user_entry.place(x = 164, y = 318)
 
         user_entry.insert(END, 'Telefone, nome de usuário ou email')
 
         # lbl2 = Label(top, text = 'Senha', bg = palet[0]['bg'], fg = palet[0]['fg'], font = ('Antipasto', 16))
         # lbl2.place(x = 60, y = 165)
 
-        passw_entry = Entry(top, bg = palet[0]['fg'], bd = 0, width = 23, font = ('Antipasto'), fg = palet[0]['bg'], selectbackground = palet[0]['df_bg'])
-        passw_entry.place(x = 185, y = 380)
+        passw_entry = Entry(top, bg = palet[0]['wd_bg'], bd = 0, width = 25, font = ('Antipasto'), textvariable = var2, fg = palet[0]['fg'], selectbackground = palet[0]['df_bg'])
+        passw_entry.place(x = 164, y = 384)
 
         passw_entry.insert(END, 'Senha')
 
-        view = Button(top, text = 'ø', bd = 0, bg = palet[0]['bg'], activebackground = palet[0]['bg'], activeforeground = palet[0]['fg'], fg = palet[0]['fg'], font = ('Antipasto', 20), cursor = 'hand2', command = pass_show)
-        view.place(x = 495, y = 363)
-
-        user_entry.bind('<Button-1>', user_click)
-        passw_entry.bind('<Button-1>', passw_click)
+        view = Button(top, text = 'Mostrar', bd = 0, bg = palet[0]['wd_bg'], activebackground = palet[0]['bg'], activeforeground = palet[0]['fg'], fg = palet[0]['fg'], font = ('Antipasto', 12), cursor = 'hand2', command = pass_show)
+        view.place(x = 462, y = 378)
 
 
     def pub():
