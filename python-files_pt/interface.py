@@ -292,16 +292,21 @@ def program():
         global entry_img_lbl1
         global login_img
         global login_lbl
+        global entrar
+        global bt_entrar0
+        global bt_entrar1
+        global bt_entrar2
 
-        def pass_show():
+        def pass_show(event = ''):
             global cont_show_pass
             cont_show_pass += 1
             if cont_show_pass % 2 != 0:
-                passw_entry.config(show = '')
-                view.config(text = 'Ocultar')
-            else:
                 passw_entry.config(show = '*')
                 view.config(text = 'Mostrar')
+            else:
+                passw_entry.config(show = '')
+                view.config(text = 'Ocultar')
+                
 
         cont_click_user = 0
         cont_click_passw = 0
@@ -336,16 +341,37 @@ def program():
                     user_entry.insert(END, 'Telefone, nome de usuário ou email')
 
         def write1(*args):
-            global passw_entry;global user_entry
+            global passw_entry
+            global user_entry
+            global entrar
+            global bt_entrar0
+            global bt_entrar1
+                
             print(user_entry.get())
             print('w1')
 
+            if str(user_entry.get()) == '' or len(str(passw_entry.get())) < 6:
+                entrar.config(image = bt_entrar1, state = DISABLED)
+            else:
+                entrar.config(image = bt_entrar1, state = ACTIVE)
+
         def write2(*args):
+            global passw_entry
+            global user_entry
+            global entrar
+            global bt_entrar0
+            global bt_entrar1
+
             if str(passw_entry.get()) == 'Senha' or str(passw_entry.get()) == '':
                 user_entry.bind('<Button-1>', user_click)
                 passw_entry.bind('<Button-1>', passw_click)
             else:
                 passw_entry.bind('<Button-1>', lambda e: print)
+
+            if str(user_entry.get()) == '' or len(str(passw_entry.get())) < 6:
+                entrar.config(state = DISABLED)
+            else:
+                entrar.config(state = ACTIVE)
 
         # lbl = Label(top, text = 'Nome de usuário', bg = palet[0]['bg'], fg = palet[0]['fg'], font = ('Antipasto', 16))
         # lbl.place(x = 60, y = 100)
@@ -355,6 +381,15 @@ def program():
 
         login_img = PhotoImage(file = 'C:\\Users\\Paulo Thiago\\Documents\\MeusProjetos\\InstagramBot\\python-files_pt\\media\\login_character.png')
         login_img = login_img.subsample(12, 12)
+
+        bt_entrar0 = PhotoImage(file = 'C:\\Users\\Paulo Thiago\\Documents\\MeusProjetos\\InstagramBot\\python-files_pt\\media\\bt_entrar0.png')
+        bt_entrar0 = bt_entrar0.subsample(8, 8)
+
+        bt_entrar1 = PhotoImage(file = 'C:\\Users\\Paulo Thiago\\Documents\\MeusProjetos\\InstagramBot\\python-files_pt\\media\\bt_entrar1.png')
+        bt_entrar1 = bt_entrar1.subsample(8, 8)
+
+        bt_entrar2 = PhotoImage(file = 'C:\\Users\\Paulo Thiago\\Documents\\MeusProjetos\\InstagramBot\\python-files_pt\\media\\bt_entrar2.png')
+        bt_entrar2 = bt_entrar2.subsample(8, 8)
         
         # entry_img = PhotoImage(file = 'C:\\Users\\Paulo Thiago\\Documents\\MeusProjetos\\InstagramBot\\python-files_pt\\media\\entry.png')
         # entry_img = entry_img.subsample(4, 6)
@@ -388,14 +423,7 @@ def program():
         var2 = StringVar()
         var2.trace('w', write2)
 
-        user_entry = Entry(top, 
-            bg = palet[0]['wd_bg'], 
-            bd = 0, 
-            width = 30, 
-            font = ('Antipasto'), 
-            textvariable = var1, 
-            fg = palet[0]['fg'], 
-            selectbackground = palet[0]['df_bg'])
+        user_entry = Entry(top, bg = palet[0]['wd_bg'], bd = 0, width = 30, font = ('Antipasto'), textvariable = var1, fg = palet[0]['fg'], selectbackground = palet[0]['df_bg'])
         
         user_entry.place(x = 164, y = 318)
 
@@ -412,13 +440,59 @@ def program():
         view = Button(top, text = 'Mostrar', bd = 0, bg = palet[0]['wd_bg'], activebackground = palet[0]['bg'], activeforeground = palet[0]['fg'], fg = palet[0]['fg'], font = ('Antipasto', 12), cursor = 'hand2', command = pass_show)
         view.place(x = 462, y = 380)
 
+        def ent_enter(e):
+            entrar.config(image = bt_entrar2)
+
+        def ent_leave(e):
+            entrar.config(image = bt_entrar1)
+        
+        def prox():
+            user_entry.destroy()
+            passw_entry.destroy()
+            entry_img_lbl.destroy()
+            entry_img_lbl2.destroy()
+            login_lbl.destroy()
+            view.destroy()
+            entrar.destroy()
+            pub()
+
+        entrar = Button(top, image = bt_entrar0, compound = CENTER, bd = 0, bg = palet[0]['bg'], activebackground = palet[0]['bg'], cursor = 'hand2', command = prox)
+        # entrar.pack(anchor = CENTER, side = BOTTOM)
+        entrar.place(x = 270, y = 460)
+
+        entrar.bind('<Enter>', ent_enter)
+        entrar.bind('<Leave>', ent_leave)
+        passw_entry.bind('<Button-1>', pass_show)
+
 
     def pub():
+        global cont_show_pass
+        global comment_radio_var
+        global link_entry
+        global v_comment
+        global r1
+        global r2
+        global comentarios
+        global comment_entry
+        global r3
+        global r4
+        global lbl
+        global bt_iniciar_bot
+        global quant_comments_spinbox
+        global remove_coment
+        global comments_list
+        global view
+        global lbl1
+        global lbl2
+        global lbl3
+        global avançar
+        global ig_wallp_lbl
+
         lbl3 = Label(top, text = 'Link da publicação', bg = palet[0]['bg'], fg = palet[0]['fg'], font = ('Antipasto', 16))
-        lbl3.place(x = 60, y = 230)
+        lbl3.place(x = 60, y = 95)
 
         link_entry = Entry(top, bg = palet[0]['fg'], bd = 0, width = 30, font = ('Antipasto'), fg = palet[0]['bg'], selectbackground = palet[0]['df_bg'])
-        link_entry.place(x = 60, y = 260)
+        link_entry.place(x = 60, y = 130)
 
         # def user_key(event):
         #     global passw_entry
@@ -474,10 +548,10 @@ def program():
             comment_entry_verify.trace('w', write_comment)
 
             lbl4 = Label(top, text = 'Comentário', bg = palet[0]['bg'], fg = palet[0]['fg'], font = ('Antipasto', 16))
-            lbl4.place(x = 60, y = 340)
+            lbl4.place(x = 60, y = 230)
 
             comment_entry = Entry(top, bg = palet[0]['fg'], bd = 0, width = 24, font = ('Antipasto'), fg = palet[0]['bg'], selectbackground = palet[0]['df_bg'], textvariable = comment_entry_verify)
-            comment_entry.place(x = 60, y = 375)
+            comment_entry.place(x = 60, y = 265)
 
 
         def varios_c():
@@ -639,16 +713,16 @@ def program():
                 
             
             lbl4 = Label(top, text = 'Comentário', bg = palet[0]['bg'], fg = palet[0]['fg'], font = ('Antipasto', 16))
-            lbl4.place(x = 60, y = 340)
+            lbl4.place(x = 60, y = 230)
 
             comment_entry_verify = StringVar()
             comment_entry_verify.trace('w', write_comment)
 
             comment_entry = Entry(top, bg = palet[0]['fg'], bd = 0, width = 24, font = ('Antipasto'), fg = palet[0]['bg'], selectbackground = palet[0]['df_bg'], textvariable = comment_entry_verify)
-            comment_entry.place(x = 60, y = 375)
+            comment_entry.place(x = 60, y = 265)
 
             add_comment = Button(top, text = 'Adicionar', width = 9, bg = palet[0]['bg'], bd = 0, font = ('Antipasto'), fg = palet[0]['fg'], activebackground = palet[0]['df_bg'], activeforeground = palet[0]['fg'], command = adicionar_coment, state = DISABLED, cursor = 'X_cursor')
-            add_comment.place(x = 350, y = 370)
+            add_comment.place(x = 350, y = 262)
 
             add_comment.bind('<Enter>', add_comment_enter)
             add_comment.bind('<Leave>', add_comment_leave)
@@ -697,7 +771,7 @@ def program():
             limit2 = StringVar()
 
             quant_comments_spinbox = Spinbox(top, from_ = 1, to_ = 100000000, width = 6, bg = palet[0]['bg'], fg = palet[0]['fg'], activebackground = palet[0]['bg'], textvariable = limit2, font = ('Antipasto', 25), selectbackground = palet[0]['bg'], selectforeground = palet[0]['df_bg'], bd = 0, buttonbackground = palet[0]['bg'])
-            quant_comments_spinbox.place(x = 60, y = 480)
+            quant_comments_spinbox.place(x = 60, y = 410)
 
             limit2.trace('w', write2)
 
@@ -722,19 +796,19 @@ def program():
                 r4.config(state = DISABLED, cursor = 'X_cursor')
                 r3.config(state = ACTIVE, cursor = 'hand2')
                 loop = Label(top, text = '∞', bg = palet[0]['bg'], fg = palet[0]['fg'], font = ('Antipasto', 40))
-                loop.place(x = 270, y = 460)
+                loop.place(x = 270, y = 410)
 
         r1 = Radiobutton(top, text = 'Comentário único', font = ('Antipasto', 16), variable = comment_radio_var, value = 1, bg = palet[0]['bg'], fg = palet[0]['fg'], activebackground = palet[0]['bg'], activeforeground = palet[0]['fg'], command = sel_comment, cursor = 'hand2')
-        r1.place(x = 60, y = 300)
+        r1.place(x = 60, y = 180)
         
         r2 = Radiobutton(top, text = 'Vários comentários', font = ('Antipasto', 16), variable = comment_radio_var, value = 2, bg = palet[0]['bg'], fg = palet[0]['fg'], activebackground = palet[0]['bg'], activeforeground = palet[0]['fg'], command = sel_comment, cursor = 'hand2')
-        r2.place(x = 240, y = 300)
+        r2.place(x = 240, y = 180)
 
         r3 = Radiobutton(top, text = 'Escolher quantidade \nde comentários', font = ('Antipasto', 16), variable = ncom_radio_var, value = 1, bg = palet[0]['bg'], fg = palet[0]['fg'], activebackground = palet[0]['bg'], activeforeground = palet[0]['fg'], command = sel_ncom, cursor = 'hand2')
-        r3.place(x = 60, y = 410)
+        r3.place(x = 60, y = 340)
         
-        r4 = Radiobutton(top, text = 'Infinito (Até você parar)', font = ('Antipasto', 16), variable = ncom_radio_var, value = 2, bg = palet[0]['bg'], fg = palet[0]['fg'], activebackground = palet[0]['bg'], activeforeground = palet[0]['fg'], command = sel_ncom, cursor = 'hand2')
-        r4.place(x = 260, y = 420)
+        r4 = Radiobutton(top, text = 'Infinito (Até \nvocê parar)', font = ('Antipasto', 16), variable = ncom_radio_var, value = 2, bg = palet[0]['bg'], fg = palet[0]['fg'], activebackground = palet[0]['bg'], activeforeground = palet[0]['fg'], command = sel_ncom, cursor = 'hand2')
+        r4.place(x = 260, y = 350)
 
         def error(msg):
             question_window = Toplevel(top)
