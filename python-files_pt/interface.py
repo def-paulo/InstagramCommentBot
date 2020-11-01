@@ -221,9 +221,8 @@ ig_lbl = Button(top, text = 'Instagram Comment Bot', bd = 0, font = ('Antipasto'
 ig_lbl.pack(anchor = NW)
 
 def start():
-    global warning_lbl;global palet
-    # w = Frame(top, bg = palet[0]['bg'])
-    # w.pack()
+    global warning_lbl
+    global palet
 
     warning_lbl = Label(top, image = warning, bg = palet[0]['bg'])
     warning_lbl.place(x = 180, y = 50)
@@ -247,18 +246,35 @@ def start():
     bot(root, top, warning_lbl, w_lbl, w1_lbl, palet)
 
 def program():
-    global cont_show_pass;global comment_radio_var;global user_entry;global passw_entry;global link_entry;global v_comment;global r1;global r2;global comentarios;global comment_entry;global r3;global r4;global lbl;global bt_iniciar_bot;global quant_comments_spinbox;global remove_coment;global comments_list;global view;global lbl1;global lbl2;global lbl3
+    global cont_show_pass
+    global comment_radio_var
+    global user_entry
+    global passw_entry
+    global link_entry
+    global v_comment
+    global r1
+    global r2
+    global comentarios
+    global comment_entry
+    global r3
+    global r4
+    global lbl
+    global bt_iniciar_bot
+    global quant_comments_spinbox
+    global remove_coment
+    global comments_list
+    global view
+    global lbl1
+    global lbl2
+    global lbl3
+    global avançar
+    global ig_wallp_lbl
+    
     cont_show_pass = 0
     cont_atalho = 0
     comment_radio_var = IntVar()
     ncom_radio_var = IntVar()
-    global avançar
-    global ig_wallp_lbl
-    # global welcome
-    # global a
 
-    # a.destroy()
-    # welcome.destroy()
     avançar.destroy()
     ig_wallp_lbl.destroy()
 
@@ -279,13 +295,13 @@ def program():
 
         def pass_show():
             global cont_show_pass
+            cont_show_pass += 1
             if cont_show_pass % 2 != 0:
                 passw_entry.config(show = '')
-                view.config(text = 'Mostrar')
+                view.config(text = 'Ocultar')
             else:
                 passw_entry.config(show = '*')
-                view.config(text = 'Ocultar')
-            cont_show_pass += 1
+                view.config(text = 'Mostrar')
 
         cont_click_user = 0
         cont_click_passw = 0
@@ -372,7 +388,15 @@ def program():
         var2 = StringVar()
         var2.trace('w', write2)
 
-        user_entry = Entry(top, bg = palet[0]['wd_bg'], bd = 0, width = 30, font = ('Antipasto'), textvariable = var1, fg = palet[0]['fg'], selectbackground = palet[0]['df_bg'])
+        user_entry = Entry(top, 
+            bg = palet[0]['wd_bg'], 
+            bd = 0, 
+            width = 30, 
+            font = ('Antipasto'), 
+            textvariable = var1, 
+            fg = palet[0]['fg'], 
+            selectbackground = palet[0]['df_bg'])
+        
         user_entry.place(x = 164, y = 318)
 
         user_entry.insert(END, 'Telefone, nome de usuário ou email')
@@ -386,7 +410,7 @@ def program():
         passw_entry.insert(END, 'Senha')
 
         view = Button(top, text = 'Mostrar', bd = 0, bg = palet[0]['wd_bg'], activebackground = palet[0]['bg'], activeforeground = palet[0]['fg'], fg = palet[0]['fg'], font = ('Antipasto', 12), cursor = 'hand2', command = pass_show)
-        view.place(x = 462, y = 378)
+        view.place(x = 462, y = 380)
 
 
     def pub():
@@ -408,7 +432,13 @@ def program():
         # passw_entry.bind('<Return>', link_entry)
 
         def c_unico():
-            global comentarios;global v_comment;global r1;global r2;global comment_entry;global lbl4;global comment_entry_verify
+            global comentarios
+            global v_comment
+            global r1
+            global r2
+            global comment_entry
+            global lbl4
+            global comment_entry_verify
 
             v_comment = False
             r1.config(state = DISABLED, cursor = 'X_cursor')
@@ -451,7 +481,20 @@ def program():
 
 
         def varios_c():
-            global add_comment;global comments_list;global c_list_f;global sb;global lbl_list;global comment_entry_verify;global sb;global idx;global remove_coment;global v_comment;global comment_entry;global r1;global r2;global lbl4
+            global add_comment
+            global comments_list
+            global c_list_f
+            global sb
+            global lbl_list
+            global comment_entry_verify
+            global sb
+            global idx
+            global remove_coment
+            global v_comment
+            global comment_entry
+            global r1
+            global r2
+            global lbl4
 
             idx = 0
             v_comment = True
