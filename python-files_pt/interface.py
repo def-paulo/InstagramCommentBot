@@ -298,6 +298,10 @@ def program():
         global bt_entrar2
         global user_lbl
         global passw_lbl
+        global lbl_tel
+        global lbl_passw
+        global var1
+        global var2
 
         user_lbl, passw_lbl = True, True
 
@@ -305,11 +309,11 @@ def program():
             global cont_show_pass
             cont_show_pass += 1
             if cont_show_pass % 2 != 0:
-                passw_entry.config(show = '*')
-                view.config(text = 'Mostrar')
-            else:
                 passw_entry.config(show = '')
                 view.config(text = 'Ocultar')
+            else:
+                passw_entry.config(show = '*')
+                view.config(text = 'Mostrar')
                 
         cont_click_user = 0
         cont_click_passw = 0
@@ -320,32 +324,38 @@ def program():
             global cont_click_passw
             global cont_start
             global user_lbl
+            global lbl_tel
+            global lbl_passw
 
-            if user_lbl == True:
-                cont_start += 1
-                cont_click_user = 0
-                cont_click_passw += 1
+            user_entry.focus_set()
 
-                if cont_click_passw == 1:
-                    user_entry.delete(0, END)
-                    if cont_start > 1:
-                        passw_entry.insert(END, 'Senha')
+            # lbl_tel.destroy()
+            # print(cont_start)
+
+            # if cont_click_user > 0:
+            #     lbl_passw = Label(top, text = 'Senha', font = ('Antipasto'), bg = palet[0]['wd_bg'], fg = palet[0]['fg'])
+            #     lbl_passw.place(x = 164, y = 384)
+
+            # cont_start += 1
+            # cont_click_user += 1
 
         def passw_click(event = ''):
             global cont_click_user
             global cont_click_passw
             global cont_start
             global passw_lbl
+            global lbl_tel
+            global lbl_passw
 
-            if passw_lbl == True:            
-                cont_start += 1
-                cont_click_passw = 0
-                cont_click_user += 1
+            # print(cont_start)
+            # lbl_passw.destroy()
 
-                if cont_click_user == 1:
-                    passw_entry.delete(0, END)
-                    if cont_start > 1:
-                        user_entry.insert(END, 'Telefone, nome de usuário ou email')
+            # if cont_click_passw > 0:
+            #     lbl_tel = Label(top, text = 'Telefone, nome de usuário ou email', font = ('Antipasto'), bg = palet[0]['wd_bg'], fg = palet[0]['fg'])
+            #     lbl_tel.place(x = 164, y = 318)
+
+            # cont_start += 1
+            # cont_click_passw += 1
 
         def write1(*args):
             global passw_entry
@@ -354,19 +364,32 @@ def program():
             global bt_entrar0
             global bt_entrar1
             global user_lbl
-                
-            print(user_entry.get())
-            print('w1')
+            global lbl_tel
 
-            if str(user_entry.get()) == '':
-                user_lbl = True
-            else:
-                user_lbl = False
+            # if len(str(user_entry.get())) >= 1:
+            #     lbl_tel.destroy()
 
-            if str(user_entry.get()) == '' or len(str(passw_entry.get())) < 6:
-                entrar.config(image = bt_entrar1, state = DISABLED)
+            # if len(str(user_entry.get())) == 0:
+            #     lbl_tel = Label(top, text = 'Senha', font = ('Antipasto'), bg = palet[0]['wd_bg'], fg = palet[0]['fg'])
+            #     lbl_tel.place(x = 164, y = 384)
+
+            if len(str(user_entry.get())) > 0:
+                lbl_tel.destroy()
             else:
-                entrar.config(image = bt_entrar1, state = ACTIVE)
+                lbl_tel = Label(top, text = 'Senha', font = ('Antipasto'), bg = palet[0]['wd_bg'], fg = palet[0]['fg'])
+                lbl_tel.place(x = 164, y = 384)
+                top.update()
+
+
+            # if str(user_entry.get()) == '':
+            #     user_lbl = True
+            # else:
+            #     user_lbl = False
+
+            # if str(user_entry.get()) == '' or len(str(passw_entry.get())) < 6:
+            #     entrar.config(image = bt_entrar1, state = DISABLED)
+            # else:
+            #     entrar.config(image = bt_entrar1, state = ACTIVE)
 
         def write2(*args):
             global passw_entry
@@ -441,15 +464,21 @@ def program():
         
         user_entry.place(x = 164, y = 318)
 
-        user_entry.insert(END, 'Telefone, nome de usuário ou email')
+        # user_entry.insert(END, 'Telefone, nome de usuário ou email')
+
+        lbl_tel = Label(top, text = 'Telefone, nome de usuário ou email', font = ('Antipasto'), bg = palet[0]['wd_bg'], fg = palet[0]['fg'])
+        lbl_tel.place(x = 164, y = 318)
 
         # lbl2 = Label(top, text = 'Senha', bg = palet[0]['bg'], fg = palet[0]['fg'], font = ('Antipasto', 16))
         # lbl2.place(x = 60, y = 165)
 
-        passw_entry = Entry(top, bg = palet[0]['wd_bg'], bd = 0, width = 25, font = ('Antipasto'), textvariable = var2, fg = palet[0]['fg'], selectbackground = palet[0]['df_bg'])
+        passw_entry = Entry(top, bg = palet[0]['wd_bg'], bd = 0, width = 25, font = ('Antipasto'), textvariable = var2, fg = palet[0]['fg'], selectbackground = palet[0]['df_bg'], show = '*')
         passw_entry.place(x = 164, y = 384)
 
-        passw_entry.insert(END, 'Senha')
+        lbl_passw = Label(top, text = 'Senha', font = ('Antipasto'), bg = palet[0]['wd_bg'], fg = palet[0]['fg'])
+        lbl_passw.place(x = 164, y = 384)
+
+        # passw_entry.insert(END, 'Senha')
 
         view = Button(top, text = 'Mostrar', bd = 0, bg = palet[0]['wd_bg'], activebackground = palet[0]['bg'], activeforeground = palet[0]['fg'], fg = palet[0]['fg'], font = ('Antipasto', 12), cursor = 'hand2', command = pass_show)
         view.place(x = 462, y = 380)
@@ -476,7 +505,8 @@ def program():
 
         entrar.bind('<Enter>', ent_enter)
         entrar.bind('<Leave>', ent_leave)
-        passw_entry.bind('<Button-1>', pass_show)
+        lbl_tel.bind('<Button-1>', user_click)
+        lbl_passw.bind('<Button-1>', passw_click)
 
 
     def pub():
