@@ -296,6 +296,10 @@ def program():
         global bt_entrar0
         global bt_entrar1
         global bt_entrar2
+        global user_lbl
+        global passw_lbl
+
+        user_lbl, passw_lbl = True, True
 
         def pass_show(event = ''):
             global cont_show_pass
@@ -307,7 +311,6 @@ def program():
                 passw_entry.config(show = '')
                 view.config(text = 'Ocultar')
                 
-
         cont_click_user = 0
         cont_click_passw = 0
         cont_start = 0
@@ -316,29 +319,33 @@ def program():
             global cont_click_user
             global cont_click_passw
             global cont_start
+            global user_lbl
 
-            cont_start += 1
-            cont_click_user = 0
-            cont_click_passw += 1
+            if user_lbl == True:
+                cont_start += 1
+                cont_click_user = 0
+                cont_click_passw += 1
 
-            if cont_click_passw == 1:
-                user_entry.delete(0, END)
-                if cont_start > 1:
-                    passw_entry.insert(END, 'Senha')
+                if cont_click_passw == 1:
+                    user_entry.delete(0, END)
+                    if cont_start > 1:
+                        passw_entry.insert(END, 'Senha')
 
         def passw_click(event = ''):
             global cont_click_user
             global cont_click_passw
             global cont_start
-            
-            cont_start += 1
-            cont_click_passw = 0
-            cont_click_user += 1
+            global passw_lbl
 
-            if cont_click_user == 1:
-                passw_entry.delete(0, END)
-                if cont_start > 1:
-                    user_entry.insert(END, 'Telefone, nome de usuário ou email')
+            if passw_lbl == True:            
+                cont_start += 1
+                cont_click_passw = 0
+                cont_click_user += 1
+
+                if cont_click_user == 1:
+                    passw_entry.delete(0, END)
+                    if cont_start > 1:
+                        user_entry.insert(END, 'Telefone, nome de usuário ou email')
 
         def write1(*args):
             global passw_entry
@@ -346,9 +353,15 @@ def program():
             global entrar
             global bt_entrar0
             global bt_entrar1
+            global user_lbl
                 
             print(user_entry.get())
             print('w1')
+
+            if str(user_entry.get()) == '':
+                user_lbl = True
+            else:
+                user_lbl = False
 
             if str(user_entry.get()) == '' or len(str(passw_entry.get())) < 6:
                 entrar.config(image = bt_entrar1, state = DISABLED)
@@ -361,6 +374,7 @@ def program():
             global entrar
             global bt_entrar0
             global bt_entrar1
+            global passw_lbl
 
             if str(passw_entry.get()) == 'Senha' or str(passw_entry.get()) == '':
                 user_entry.bind('<Button-1>', user_click)
