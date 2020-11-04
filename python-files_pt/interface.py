@@ -460,9 +460,8 @@ def program():
         global remove_coment
         global comments_list
         global view
-        global lbl1
-        global lbl2
         global lbl3
+        global lbl4
         global avançar
         global ig_wallp_lbl
         global usuário
@@ -854,7 +853,7 @@ def program():
             global c_list_f
             global loop
 
-            if link_entry.get() == '' or v_comment == None or quant_comentarios == None or v_comment == True and comentarios == [] or v_comment == False and comment_entry.get() == '' or len(passw_entry.get()) < 6:
+            if link_entry.get() == '' or v_comment == None or quant_comentarios == None or v_comment == True and comentarios == [] or v_comment == False and comment_entry.get() == '':
                 error('Houve algum erro, insira os dados CORRETAMENTE e tente de novo')
             else:
                 def var():
@@ -881,7 +880,6 @@ def program():
                     variaveis.close()
 
                 var()
-                view.destroy()
                 link_entry.destroy()
                 r1.destroy()
                 r2.destroy()
@@ -889,9 +887,6 @@ def program():
                 r3.destroy()
                 r4.destroy()
                 bt_iniciar_bot.destroy()
-                lbl.destroy()
-                lbl1.destroy()
-                lbl2.destroy()
                 lbl3.destroy()
                 lbl4.destroy()
                 try:
