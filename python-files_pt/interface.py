@@ -223,6 +223,7 @@ ig_lbl.pack(anchor = NW)
 def start():
     global warning_lbl
     global palet
+    
 
     warning_lbl = Label(top, image = warning, bg = palet[0]['bg'])
     warning_lbl.place(x = 180, y = 50)
@@ -269,6 +270,8 @@ def program():
     global lbl3
     global avançar
     global ig_wallp_lbl
+    global usuário
+    global senha
     
     cont_show_pass = 0
     cont_atalho = 0
@@ -296,14 +299,13 @@ def program():
         global bt_entrar0
         global bt_entrar1
         global bt_entrar2
-        global user_lbl
-        global passw_lbl
         global lbl_tel
         global lbl_passw
         global var1
         global var2
-
-        user_lbl, passw_lbl = True, True
+        global cont_entrar
+        global usuário
+        global senha
 
         def pass_show(event = ''):
             global cont_show_pass
@@ -314,48 +316,6 @@ def program():
             else:
                 passw_entry.config(show = '*')
                 view.config(text = 'Mostrar')
-                
-        cont_click_user = 0
-        cont_click_passw = 0
-        cont_start = 0
-
-        def user_click(event = ''):
-            global cont_click_user
-            global cont_click_passw
-            global cont_start
-            global user_lbl
-            global lbl_tel
-            global lbl_passw
-
-            user_entry.focus_set()
-
-            # lbl_tel.destroy()
-            # print(cont_start)
-
-            # if cont_click_user > 0:
-            #     lbl_passw = Label(top, text = 'Senha', font = ('Antipasto'), bg = palet[0]['wd_bg'], fg = palet[0]['fg'])
-            #     lbl_passw.place(x = 164, y = 384)
-
-            # cont_start += 1
-            # cont_click_user += 1
-
-        def passw_click(event = ''):
-            global cont_click_user
-            global cont_click_passw
-            global cont_start
-            global passw_lbl
-            global lbl_tel
-            global lbl_passw
-
-            # print(cont_start)
-            # lbl_passw.destroy()
-
-            # if cont_click_passw > 0:
-            #     lbl_tel = Label(top, text = 'Telefone, nome de usuário ou email', font = ('Antipasto'), bg = palet[0]['wd_bg'], fg = palet[0]['fg'])
-            #     lbl_tel.place(x = 164, y = 318)
-
-            # cont_start += 1
-            # cont_click_passw += 1
 
         def write1(*args):
             global passw_entry
@@ -363,33 +323,15 @@ def program():
             global entrar
             global bt_entrar0
             global bt_entrar1
-            global user_lbl
-            global lbl_tel
 
-            # if len(str(user_entry.get())) >= 1:
-            #     lbl_tel.destroy()
-
-            # if len(str(user_entry.get())) == 0:
-            #     lbl_tel = Label(top, text = 'Senha', font = ('Antipasto'), bg = palet[0]['wd_bg'], fg = palet[0]['fg'])
-            #     lbl_tel.place(x = 164, y = 384)
-
-            if len(str(user_entry.get())) > 0:
-                lbl_tel.destroy()
-            else:
-                lbl_tel = Label(top, text = 'Senha', font = ('Antipasto'), bg = palet[0]['wd_bg'], fg = palet[0]['fg'])
-                lbl_tel.place(x = 164, y = 384)
+            if user_entry.get() != '' and len(passw_entry.get()) >= 6:
+                entrar.config(state = ACTIVE, cursor = 'hand2')
+                entrar.bind('<Enter>', ent_enter)
+                entrar.bind('<Leave>', ent_leave)
                 top.update()
-
-
-            # if str(user_entry.get()) == '':
-            #     user_lbl = True
-            # else:
-            #     user_lbl = False
-
-            # if str(user_entry.get()) == '' or len(str(passw_entry.get())) < 6:
-            #     entrar.config(image = bt_entrar1, state = DISABLED)
-            # else:
-            #     entrar.config(image = bt_entrar1, state = ACTIVE)
+            else:
+                entrar.config(state = DISABLED, cursor = 'X_cursor')
+                top.update()
 
         def write2(*args):
             global passw_entry
@@ -397,24 +339,16 @@ def program():
             global entrar
             global bt_entrar0
             global bt_entrar1
-            global passw_lbl
 
-            if str(passw_entry.get()) == 'Senha' or str(passw_entry.get()) == '':
-                user_entry.bind('<Button-1>', user_click)
-                passw_entry.bind('<Button-1>', passw_click)
+            if user_entry.get() != '' and len(passw_entry.get()) >= 6:
+                entrar.config(state = ACTIVE, cursor = 'hand2')
+                entrar.bind('<Enter>', ent_enter)
+                entrar.bind('<Leave>', ent_leave)
+                top.update()
             else:
-                passw_entry.bind('<Button-1>', lambda e: print)
+                entrar.config(state = DISABLED, cursor = 'X_cursor')
+                top.update()
 
-            if str(user_entry.get()) == '' or len(str(passw_entry.get())) < 6:
-                entrar.config(state = DISABLED)
-            else:
-                entrar.config(state = ACTIVE)
-
-        # lbl = Label(top, text = 'Nome de usuário', bg = palet[0]['bg'], fg = palet[0]['fg'], font = ('Antipasto', 16))
-        # lbl.place(x = 60, y = 100)
-
-        # lbl1 = Label(top, text = '@', bg = palet[0]['bg'], fg = palet[0]['fg'], font = ('Antipasto', 16))
-        # lbl1.place(x = 37, y = 125)
 
         login_img = PhotoImage(file = 'C:\\Users\\Paulo Thiago\\Documents\\MeusProjetos\\InstagramBot\\python-files_pt\\media\\login_character.png')
         login_img = login_img.subsample(12, 12)
@@ -443,10 +377,10 @@ def program():
         entry_img = ImageTk.PhotoImage(img)
 
         entry_img_lbl = Label(top, image = entry_img, bg = palet[0]['bg'])
-        entry_img_lbl.place(x = 142, y = 302)
+        entry_img_lbl.place(x = 142, y = 324)
         
         entry_img_lbl2 = Label(top, image = entry_img, bg = palet[0]['bg'])
-        entry_img_lbl2.place(x = 142, y = 368)
+        entry_img_lbl2.place(x = 142, y = 410)
 
         # u_f = Frame(top, bg = '#4d4d4d', width = 366, height = 25, relief = SUNKEN, borderwidth = 0)
         # u_f.place(x = 162, y = 310)
@@ -462,26 +396,26 @@ def program():
 
         user_entry = Entry(top, bg = palet[0]['wd_bg'], bd = 0, width = 30, font = ('Antipasto'), textvariable = var1, fg = palet[0]['fg'], selectbackground = palet[0]['df_bg'])
         
-        user_entry.place(x = 164, y = 318)
+        user_entry.place(x = 164, y = 340)
 
         # user_entry.insert(END, 'Telefone, nome de usuário ou email')
 
-        lbl_tel = Label(top, text = 'Telefone, nome de usuário ou email', font = ('Antipasto'), bg = palet[0]['wd_bg'], fg = palet[0]['fg'])
-        lbl_tel.place(x = 164, y = 318)
+        lbl_tel = Label(top, text = 'Telefone, nome de usuário ou email', font = ('Antipasto', 13), bg = palet[0]['bg'], fg = palet[0]['fg'])
+        lbl_tel.place(x = 158, y = 300)
 
         # lbl2 = Label(top, text = 'Senha', bg = palet[0]['bg'], fg = palet[0]['fg'], font = ('Antipasto', 16))
         # lbl2.place(x = 60, y = 165)
 
         passw_entry = Entry(top, bg = palet[0]['wd_bg'], bd = 0, width = 25, font = ('Antipasto'), textvariable = var2, fg = palet[0]['fg'], selectbackground = palet[0]['df_bg'], show = '*')
-        passw_entry.place(x = 164, y = 384)
+        passw_entry.place(x = 164, y = 428)
 
-        lbl_passw = Label(top, text = 'Senha', font = ('Antipasto'), bg = palet[0]['wd_bg'], fg = palet[0]['fg'])
-        lbl_passw.place(x = 164, y = 384)
+        lbl_passw = Label(top, text = 'Senha', font = ('Antipasto', 13), bg = palet[0]['bg'], fg = palet[0]['fg'])
+        lbl_passw.place(x = 158, y = 388)
 
         # passw_entry.insert(END, 'Senha')
 
         view = Button(top, text = 'Mostrar', bd = 0, bg = palet[0]['wd_bg'], activebackground = palet[0]['bg'], activeforeground = palet[0]['fg'], fg = palet[0]['fg'], font = ('Antipasto', 12), cursor = 'hand2', command = pass_show)
-        view.place(x = 462, y = 380)
+        view.place(x = 462, y = 422)
 
         def ent_enter(e):
             entrar.config(image = bt_entrar2)
@@ -490,6 +424,10 @@ def program():
             entrar.config(image = bt_entrar1)
         
         def prox():
+            global usuario
+            global senha
+            usuario = str(user_entry.get())
+            senha = str(passw_entry.get())
             user_entry.destroy()
             passw_entry.destroy()
             entry_img_lbl.destroy()
@@ -497,16 +435,12 @@ def program():
             login_lbl.destroy()
             view.destroy()
             entrar.destroy()
+            lbl_tel.destroy()
+            lbl_passw.destroy()
             pub()
 
-        entrar = Button(top, image = bt_entrar0, compound = CENTER, bd = 0, bg = palet[0]['bg'], activebackground = palet[0]['bg'], cursor = 'hand2', command = prox)
-        # entrar.pack(anchor = CENTER, side = BOTTOM)
-        entrar.place(x = 270, y = 460)
-
-        entrar.bind('<Enter>', ent_enter)
-        entrar.bind('<Leave>', ent_leave)
-        lbl_tel.bind('<Button-1>', user_click)
-        lbl_passw.bind('<Button-1>', passw_click)
+        entrar = Button(top, image = bt_entrar1, compound = CENTER, bd = 0, bg = palet[0]['bg'], activebackground = palet[0]['bg'], cursor = 'X_cursor', command = prox, state = DISABLED)
+        entrar.place(x = 270, y = 482)
 
 
     def pub():
@@ -531,23 +465,14 @@ def program():
         global lbl3
         global avançar
         global ig_wallp_lbl
+        global usuário
+        global senha
 
         lbl3 = Label(top, text = 'Link da publicação', bg = palet[0]['bg'], fg = palet[0]['fg'], font = ('Antipasto', 16))
         lbl3.place(x = 60, y = 95)
 
         link_entry = Entry(top, bg = palet[0]['fg'], bd = 0, width = 30, font = ('Antipasto'), fg = palet[0]['bg'], selectbackground = palet[0]['df_bg'])
         link_entry.place(x = 60, y = 130)
-
-        # def user_key(event):
-        #     global passw_entry
-        #     passw_entry.focus_set()
-
-        # def passw_key(event):
-        #     global link_entry
-        #     link_entry.focus_set()
-
-        # user_entry.bind('<Return>', passw_entry)
-        # passw_entry.bind('<Return>', link_entry)
 
         def c_unico():
             global comentarios
@@ -911,8 +836,6 @@ def program():
 
         def iniciar_bot(event = ''):
             global lbl
-            global user_entry
-            global passw_entry
             global view
             global link_entry
             global r1
@@ -931,13 +854,13 @@ def program():
             global c_list_f
             global loop
 
-            if user_entry.get() == '' or passw_entry.get() == '' or link_entry.get() == '' or v_comment == None or quant_comentarios == None or v_comment == True and comentarios == [] or v_comment == False and comment_entry.get() == '' or len(passw_entry.get()) < 6:
+            if link_entry.get() == '' or v_comment == None or quant_comentarios == None or v_comment == True and comentarios == [] or v_comment == False and comment_entry.get() == '' or len(passw_entry.get()) < 6:
                 error('Houve algum erro, insira os dados CORRETAMENTE e tente de novo')
             else:
                 def var():
                     variaveis = open('C:\\Users\\Paulo Thiago\\Documents\\MeusProjetos\\InstagramBot\\python-files_pt\\variables.txt', 'w')
-                    variaveis.write(f'{user_entry.get()}\n') # Nome de usuário
-                    variaveis.write(f'{passw_entry.get()}\n') # Senha
+                    variaveis.write(f'{usuario}\n') # Nome de usuário
+                    variaveis.write(f'{senha}\n') # Senha
                     variaveis.write(f'{link_entry.get()}\n') # Link do post
                     variaveis.write(f'{v_comment}\n') # Comentário único ou vários
                     variaveis.write(f'{quant_comentarios}\n') # Comentários limitados ou ilimitados
@@ -958,8 +881,6 @@ def program():
                     variaveis.close()
 
                 var()
-                user_entry.destroy()
-                passw_entry.destroy()
                 view.destroy()
                 link_entry.destroy()
                 r1.destroy()
