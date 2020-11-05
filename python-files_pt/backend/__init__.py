@@ -7,9 +7,13 @@ import os
 import threading
 
 def bot(main_window, window, imagem_aviso, mensagem_aviso, mensagem_iniciando, paleta):
-    global comentarios;global cont_coment
+    global comentarios
+    global cont_coment
+    global aviso_senha
+
     comentarios = []
     cont_coment = 0
+    aviso_senha = None
 
     def atualizar_janela():
         main_window.update()
@@ -148,7 +152,7 @@ def bot(main_window, window, imagem_aviso, mensagem_aviso, mensagem_iniciando, p
             window.destroy()
             driver.close()
         
-        if not aviso_senha:
+        if aviso_senha == None:
             time.sleep(12)
             try:
                 abrir_post()
