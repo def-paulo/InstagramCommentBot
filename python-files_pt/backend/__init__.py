@@ -9,11 +9,9 @@ import threading
 def bot(main_window, window, imagem_aviso, mensagem_aviso, mensagem_iniciando, paleta):
     global comentarios
     global cont_coment
-    global aviso_senha
 
     comentarios = []
     cont_coment = 0
-    aviso_senha = None
 
     def atualizar_janela():
         main_window.update()
@@ -137,6 +135,7 @@ def bot(main_window, window, imagem_aviso, mensagem_aviso, mensagem_iniciando, p
         global post_id
 
         post_id = None
+        aviso_senha = None
         driver = webdriver.Firefox(executable_path = 'C:\\Users\\Paulo Thiago\\Downloads\\scripts\\python_curso_em_video\\Exercicios e Ideias\\Exercicios extras\\InstagramBot\\python-files_pt\\geckodrive\\geckodriver.exe')
         print(f'Usuário: {usuario} | Senha: {senha}')
         driver.get('https://instagram.com')
