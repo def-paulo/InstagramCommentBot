@@ -4,6 +4,7 @@ from backend import bot
 from selenium import webdriver
 import threading
 from PIL import ImageTk, Image
+import sys
 
 palet = [{'bg':'#141414', 'fg':'#cfcfcf', 'exit_bg':'#ff2f2f', 'df_bg':'#676767', 'wd_bg':'#1d1d1d', 'bd':'#4d4d4d'}]
 cont_maximizado = 0
@@ -12,6 +13,9 @@ v_comment = None
 width, height = 700, 550
 quant_comentarios = None
 click_x, click_y = 0, 0
+
+for param in sys.argv:
+    print(param)
 
 def managment_window():
     global cont_maximizado;global maximizar;global top;global fechar;global maximize;global resize_maximize;global minimizar;global palet;global click_x;global click_y
@@ -86,7 +90,7 @@ def managment_window():
     move_area.bind('<B1-Motion>', move_window)
 
 root = Tk()
-root.iconbitmap('C:\\Users\\Paulo Thiago\\Documents\\MeusProjetos\\InstagramBot\\python-files_pt\\media\\instagram.ico')
+root.iconbitmap('C:\\Users\\Paulo Thiago\\Documents\\MeusProjetos\\InstagramBot\\python-files_pt\\media\\mascote.ico')
 root.attributes('-alpha', 0.0)
 root.title('Instagram Bot')
 root.config(bg = palet[0]['bg'])
@@ -202,8 +206,8 @@ def about():
 
 managment_window()
 
-ig = PhotoImage(file = 'C:\\Users\\Paulo Thiago\\Documents\\MeusProjetos\\InstagramBot\\python-files_pt\\media\\instagram.png')
-ig = ig.subsample(13, 13)
+ig = PhotoImage(file = 'C:\\Users\\Paulo Thiago\\Documents\\MeusProjetos\\InstagramBot\\python-files_pt\\media\\mascote.png')
+ig = ig.subsample(64, 64)
 
 warning = PhotoImage(file = 'C:\\Users\\Paulo Thiago\\Documents\\MeusProjetos\\InstagramBot\\python-files_pt\\media\\warning.png')
 warning = warning.subsample(4, 4)
@@ -240,7 +244,7 @@ def start():
         for ani in range(0, 4):
             w1_lbl.config(text = f'O bot está sendo iniciado{" ." * ani}')
             top.update()
-            sleep(.3)
+            sleep(.4)
 
     w1_lbl.config(text = 'O bot está sendo iniciado')
     bot(root, top, fechar, warning_lbl, w_lbl, w1_lbl, palet)
@@ -926,13 +930,11 @@ def program():
 
 def welcome_interface():
     global ig_wallp
-    # global welcome
     global avançar
     global ig_wallp_lbl
-    # global a
     global ani_cont
-    # welcome = Frame(top, bg = palet[0]['bg'])
-    # welcome.pack(anchor = CENTER, side = RIGHT)
+    global param
+
     ani_cont = None
 
     def animation1():
@@ -1000,11 +1002,13 @@ def welcome_interface():
     avançar.bind('<Leave>', com_leave)
     avançar.bind_all('<Shift-Return>', nxt)
 
-    # threading.Thread(target = animation1).start()
-    animation1()
+    if param != 'False':
+        animation1()
 
-    # a = welcome = Frame(top, bg = palet[0]['bg'], height = 80)
-    # a.pack(anchor = S, side = BOTTOM)
+if param != 'False':
+    welcome_interface()
+else:
+    welcome_interface()
+    program()
 
-welcome_interface()
 top.mainloop()

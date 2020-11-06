@@ -247,12 +247,12 @@ def bot(main_window, window, x, imagem_aviso, mensagem_aviso, mensagem_iniciando
 
         def parar(event = ''):
             global driver
+            main_window.destroy()
             try:
                 driver.close()
             except:
                 pass
-            main_window.destroy()
-            os.system('python python-files_pt\\interface.py')
+            os.system('python python-files_pt\\interface.py False')
 
 
         stop1 = PhotoImage(file = 'C:\\Users\\Paulo Thiago\\Downloads\\scripts\\python_curso_em_video\\Exercicios e Ideias\\Exercicios extras\\InstagramBot\\python-files_pt\\media\\stop_1.png')
