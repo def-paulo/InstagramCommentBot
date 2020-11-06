@@ -1,8 +1,8 @@
 paulothiago.py
 i5775666162023
-https://www.instagram.com/asd121sqsdqasd
+https://www.instagram.com/p/CAYfX_jlXGb/
 False
 True
 []
-asd
-3
+test
+2

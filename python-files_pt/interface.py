@@ -224,16 +224,15 @@ def start():
     global warning_lbl
     global palet
     
-
     warning_lbl = Label(top, image = warning, bg = palet[0]['bg'])
     warning_lbl.place(x = 180, y = 50)
 
-    w_lbl = Message(top, text = 'Não interrompa o bot enquanto ele estiver em execução. Se quiser encerrá-lo clique no botão "Parar e Voltar ao início"', bg = palet[0]['bg'], fg = palet[0]['fg'], font = ('Antipasto', 20), justify = CENTER, width = 500)
+    w_lbl = Message(top, text = 'Não interrompa o bot enquanto ele estiver em execução. Se quiser encerrá-lo clique no botão "Parar e Voltar ao início" ou pressione a tecla "Esc".', bg = palet[0]['bg'], fg = palet[0]['fg'], font = ('Antipasto', 20), justify = CENTER, width = 500)
     w_lbl.place(x = 76, y = 298)
 
     w1_lbl = Label(top, text = 'O bot está sendo iniciado', font = ('Antipasto', 18), bg = palet[0]['bg'], fg = palet[0]['fg'], pady = 70)
     # w1_lbl.pack(anchor = S, side = BOTTOM)
-    w1_lbl.place(x = 183, y = 405)
+    w1_lbl.place(x = 183, y = 435)
     top.update()
     sleep(1)
 
@@ -244,7 +243,7 @@ def start():
             sleep(.3)
 
     w1_lbl.config(text = 'O bot está sendo iniciado')
-    bot(root, top, warning_lbl, w_lbl, w1_lbl, palet)
+    bot(root, top, fechar, warning_lbl, w_lbl, w1_lbl, palet)
 
 def program():
     global cont_show_pass
@@ -467,7 +466,7 @@ def program():
         global usuário
         global senha
 
-        lbl3 = Label(top, text = 'Link da publicação', bg = palet[0]['bg'], fg = palet[0]['fg'], font = ('Antipasto', 16))
+        lbl3 = Label(top, text = 'Link da publicação (Link completo com "https://www.")', bg = palet[0]['bg'], fg = palet[0]['fg'], font = ('Antipasto', 13))
         lbl3.place(x = 60, y = 95)
 
         link_entry = Entry(top, bg = palet[0]['fg'], bd = 0, width = 30, font = ('Antipasto'), fg = palet[0]['bg'], selectbackground = palet[0]['df_bg'])
