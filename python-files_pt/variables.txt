@@ -1,8 +1,8 @@
-a
-123456
-passw_entry.bind('<Return>', prox)
+paulothiago.py
+i54747
+asdasdasd
+False
 True
-True
-asd-good-test
-
-1
+[]
+asda
+3

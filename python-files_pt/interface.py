@@ -15,7 +15,7 @@ quant_comentarios = None
 click_x, click_y = 0, 0
 
 for param in sys.argv:
-    print(param)
+    pass
 
 def managment_window():
     global cont_maximizado;global maximizar;global top;global fechar;global maximize;global resize_maximize;global minimizar;global palet;global click_x;global click_y
@@ -317,7 +317,7 @@ def program():
                 passw_entry.config(show = '')
                 view.config(text = 'Ocultar')
             else:
-                passw_entry.config(show = '*')
+                passw_entry.config(show = '•')
                 view.config(text = 'Mostrar')
 
         def write1(*args):
@@ -411,7 +411,7 @@ def program():
         # lbl2 = Label(top, text = 'Senha', bg = palet[0]['bg'], fg = palet[0]['fg'], font = ('Antipasto', 16))
         # lbl2.place(x = 60, y = 165)
 
-        passw_entry = Entry(top, bg = palet[0]['wd_bg'], bd = 0, width = 25, font = ('Antipasto'), textvariable = var2, fg = palet[0]['fg'], selectbackground = palet[0]['df_bg'], show = '*')
+        passw_entry = Entry(top, bg = palet[0]['wd_bg'], bd = 0, width = 25, font = ('Antipasto'), textvariable = var2, fg = palet[0]['fg'], selectbackground = palet[0]['df_bg'], show = '•')
         passw_entry.place(x = 164, y = 428)
 
         lbl_passw = Label(top, text = 'Senha', font = ('Antipasto', 13), bg = palet[0]['bg'], fg = palet[0]['fg'])
