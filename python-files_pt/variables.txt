@@ -1,8 +1,8 @@
-paulothiago.py
-i5775666162023
-https://www.instagram.com/p/CAYfX_jlXGb/
-False
+a
+123456
+passw_entry.bind('<Return>', prox)
 True
-[]
-test
-2
+True
+asd-good-test
+
+1

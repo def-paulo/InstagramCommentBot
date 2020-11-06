@@ -327,6 +327,7 @@ def program():
                 entrar.config(state = ACTIVE, cursor = 'hand2')
                 entrar.bind('<Enter>', ent_enter)
                 entrar.bind('<Leave>', ent_leave)
+                passw_entry.bind('<Return>', prox)
                 top.update()
             else:
                 entrar.config(state = DISABLED, cursor = 'X_cursor')
@@ -343,6 +344,7 @@ def program():
                 entrar.config(state = ACTIVE, cursor = 'hand2')
                 entrar.bind('<Enter>', ent_enter)
                 entrar.bind('<Leave>', ent_leave)
+                passw_entry.bind('<Return>', prox)
                 top.update()
             else:
                 entrar.config(state = DISABLED, cursor = 'X_cursor')
@@ -422,7 +424,7 @@ def program():
         def ent_leave(e):
             entrar.config(image = bt_entrar1)
         
-        def prox():
+        def prox(event = ''):
             global usuario
             global senha
             usuario = str(user_entry.get())

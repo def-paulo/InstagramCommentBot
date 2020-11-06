@@ -247,11 +247,11 @@ def bot(main_window, window, x, imagem_aviso, mensagem_aviso, mensagem_iniciando
 
         def parar(event = ''):
             global driver
-            main_window.destroy()
             try:
                 driver.close()
             except:
                 pass
+            main_window.destroy()
             os.system('python python-files_pt\\interface.py')
 
 
