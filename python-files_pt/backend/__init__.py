@@ -133,9 +133,11 @@ def bot(main_window, window, imagem_aviso, mensagem_aviso, mensagem_iniciando, p
         global contador
         global aviso_senha
         global post_id
+        global aviso_link
 
         post_id = None
         aviso_senha = None
+        aviso_link = None
         driver = webdriver.Firefox(executable_path = 'C:\\Users\\Paulo Thiago\\Downloads\\scripts\\python_curso_em_video\\Exercicios e Ideias\\Exercicios extras\\InstagramBot\\python-files_pt\\geckodrive\\geckodriver.exe')
         print(f'Usuário: {usuario} | Senha: {senha}')
         driver.get('https://instagram.com')
@@ -144,8 +146,9 @@ def bot(main_window, window, imagem_aviso, mensagem_aviso, mensagem_iniciando, p
         try:
             aviso_senha = driver.find_element_by_class_name('eiCW-')
         except:
+            print(aviso_senha)
             print('Chegou até a publicação')
-                        
+
             if link[0:26] != 'https://www.instagram.com/':
                 print('Link da publicação incorreto :/')
                 error('!LINK DA PUBLICAÇÃO INCORRETO! Insira os dados CORRETAMENTE e tente de novo')
@@ -153,6 +156,7 @@ def bot(main_window, window, imagem_aviso, mensagem_aviso, mensagem_iniciando, p
                 driver.close()
             else:
                 time.sleep(12)
+                
                 try:
                     abrir_post()
                 except:
@@ -160,15 +164,26 @@ def bot(main_window, window, imagem_aviso, mensagem_aviso, mensagem_iniciando, p
                     error('!LINK DA PUBLICAÇÃO INCORRETO! Insira os dados CORRETAMENTE e tente de novo')
                     window.destroy()
                     driver.close()
+                
+                try:
+                    aviso_link = driver.find_element_by_class_name('_7UhW9      x-6xq    qyrsm KV-D4          uL8Hv     l4b0S    ')
+                except:
+                    abrir_post()
                 finally:
+                    if aviso_link != None:
+                        print('Link da publicação incorreto :/')
+                        error('!LINK DA PUBLICAÇÃO INCORRETO! Insira os dados CORRETAMENTE e tente de novo')
+                        window.destroy()
+                        driver.close()
                     time.sleep(randint(7, 14))
                     comentando()
         finally:
-            print('É a senha ou usuário :/')
-            error('!USUÁRIO OU SENHA INCORRETOS! Insira os dados CORRETAMENTE e tente de novo')
-            # window.attri butes('-alpha', 0.0)
-            window.destroy()
-            driver.close()
+            if aviso_senha != None:
+                print('É a senha ou usuário :/')
+                error('!USUÁRIO OU SENHA INCORRETOS! Insira os dados CORRETAMENTE e tente de novo')
+                # window.attri butes('-alpha', 0.0)
+                window.destroy()
+                driver.close()
 
     def logando():
         global campo_usuario
