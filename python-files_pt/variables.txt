@@ -1,8 +1,8 @@
 paulothiago.py
 i5775666162023
-https://instagram.com
+asd
 False
 True
 []
-*Test boT*
-3
+good
+2

@@ -853,7 +853,7 @@ def program():
             global c_list_f
             global loop
 
-            if link_entry.get()[0:34] != 'https://instagram.com' or v_comment == None or quant_comentarios == None or v_comment == True and comentarios == [] or v_comment == False and comment_entry.get() == '':
+            if link_entry.get() == '' or v_comment == None or quant_comentarios == None or v_comment == True and comentarios == [] or v_comment == False and comment_entry.get() == '':
                 error('Houve algum erro, insira os dados CORRETAMENTE e tente de novo')
             else:
                 def var():
