@@ -1,8 +1,0 @@
-a
-123456
-passw_entry.bind('<Return>', prox)
-True
-True
-asd-good-test
-
-1
