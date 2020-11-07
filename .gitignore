@@ -124,3 +124,4 @@ dmypy.json
 # Pyre type checker
 .pyre/
 python-files_pt/variables.txt
+python-files_pt/variables.txt
