@@ -83,6 +83,7 @@ def bot(main_window, window, x, imagem_aviso, mensagem_aviso, mensagem_iniciando
 
         def sair(event = ''):
             main_window.destroy()
+            os.system(f'cd {os.getcwd()}')
             os.system('python python-files_pt\\interface.py')
 
         def last_click(event):
@@ -141,8 +142,8 @@ def bot(main_window, window, x, imagem_aviso, mensagem_aviso, mensagem_iniciando
         aviso_senha = None
         aviso_link = None
         
-        # opt = webdriver.FirefoxOptions()
-        # opt.add_argument('-headless')
+        opt = webdriver.FirefoxOptions()
+        opt.add_argument('-headless')
         # driver = webdriver.Firefox(options = opt, executable_path = 'C:\\Users\\Paulo Thiago\\Downloads\\scripts\\python_curso_em_video\\Exercicios e Ideias\\Exercicios extras\\InstagramBot\\python-files_pt\\geckodrive\\geckodriver.exe')
 
         driver = webdriver.Firefox(executable_path = 'C:\\Users\\Paulo Thiago\\Downloads\\scripts\\python_curso_em_video\\Exercicios e Ideias\\Exercicios extras\\InstagramBot\\python-files_pt\\geckodrive\\geckodriver.exe')
@@ -256,6 +257,7 @@ def bot(main_window, window, x, imagem_aviso, mensagem_aviso, mensagem_iniciando
                 driver.close()
             except:
                 pass
+            os.system(f'cd {os.getcwd()}')
             os.system('python python-files_pt\\interface.py False')
 
 
@@ -343,4 +345,5 @@ def bot(main_window, window, x, imagem_aviso, mensagem_aviso, mensagem_iniciando
     new_window(main_window, window, x, imagem_aviso, mensagem_aviso, mensagem_iniciando, paleta)
 
 if __name__ == '__main__':
+    os.system(f'cd {os.getcwd()}')
     os.system('python python-files_pt\\interface.py')
