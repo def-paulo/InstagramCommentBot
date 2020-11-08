@@ -18,7 +18,16 @@ for param in sys.argv:
     pass
 
 def managment_window():
-    global cont_maximizado;global maximizar;global top;global fechar;global maximize;global resize_maximize;global minimizar;global palet;global click_x;global click_y
+    global cont_maximizado
+    global maximizar
+    global top
+    global fechar
+    global maximize
+    global resize_maximize
+    global minimizar
+    global palet
+    global click_x
+    global click_y
 
     def x_enter(e):
         fechar.config(bg = palet[0]['exit_bg'])
@@ -53,7 +62,9 @@ def managment_window():
         # top.deiconify()
 
     def last_click(event):
-        global click_x;global click_y
+        global click_x
+        global click_y
+
         click_x = event.x
         click_y = event.y
         print(click_y)
@@ -148,7 +159,9 @@ def about():
             profile_link.config(font = ('Antipasto', 22))
 
         def last_click(event):
-            global click_x;global click_y
+            global click_x
+            global click_y
+            
             click_x = event.x
             click_y = event.y
 
@@ -564,7 +577,9 @@ def program():
                 pass
 
             def adicionar_coment(event = ''):
-                global comentarios;global sb
+                global comentarios
+                global sb
+                
                 if comment_entry.get() != '':
                     comentarios.append(str(comment_entry.get()))
                     comment_entry.delete(0, END)
@@ -726,7 +741,14 @@ def program():
             comment_entry.bind('<Return>', adicionar_coment)
 
         def quant_coment():
-            global limit2;global s2;global s1;global quant_comments_spinbox;global quant_comentarios;global r3;global r4
+            global limit2
+            global s2
+            global s1
+            global quant_comments_spinbox
+            global quant_comentarios
+            global r3
+            global r4
+            
             s1, s2 = '', ''
             quant_comentarios = True
             r3.config(state = DISABLED, cursor = 'X_cursor')
@@ -738,7 +760,9 @@ def program():
                 pass
 
             def write2(*args):
-                global s2;global s1;global quant_comments_spinbox
+                global s2
+                global s1
+                global quant_comments_spinbox
 
                 if len(s2) > 0:
                     if not s2[-1].isdigit():
@@ -762,7 +786,11 @@ def program():
                 varios_c()
 
         def sel_ncom():
-            global quant_comentarios;global r3;global r4;global loop
+            global quant_comentarios
+            global r3
+            global r4
+            global loop
+
             if ncom_radio_var.get() == 1:
                 quant_coment()
             elif ncom_radio_var.get() == 2:
@@ -815,7 +843,9 @@ def program():
                 n.config(bg = palet[0]['bg'])
 
             def last_click(event):
-                global click_x;global click_y
+                global click_x
+                global click_y
+
                 click_x = event.x
                 click_y = event.y
 
