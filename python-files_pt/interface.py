@@ -335,6 +335,7 @@ def program():
                 top.update()
             else:
                 entrar.config(state = DISABLED, cursor = 'X_cursor')
+                passw_entry.bind('<Return>', un_prox)
                 top.update()
 
         def write2(*args):
@@ -352,6 +353,7 @@ def program():
                 top.update()
             else:
                 entrar.config(state = DISABLED, cursor = 'X_cursor')
+                passw_entry.bind('<Return>', un_prox)
                 top.update()
 
 
@@ -443,6 +445,9 @@ def program():
             lbl_tel.destroy()
             lbl_passw.destroy()
             pub()
+
+        def un_prox(event = ''):
+            pass
 
         entrar = Button(top, image = bt_entrar1, compound = CENTER, bd = 0, bg = palet[0]['bg'], activebackground = palet[0]['bg'], cursor = 'X_cursor', command = prox, state = DISABLED)
         entrar.place(x = 270, y = 482)
