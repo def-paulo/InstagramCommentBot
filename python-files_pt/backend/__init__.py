@@ -140,8 +140,12 @@ def bot(main_window, window, x, imagem_aviso, mensagem_aviso, mensagem_iniciando
         post_id = None
         aviso_senha = None
         aviso_link = None
+        
+        # opt = webdriver.FirefoxOptions()
+        # opt.add_argument('-headless')
+        # driver = webdriver.Firefox(options = opt, executable_path = 'C:\\Users\\Paulo Thiago\\Downloads\\scripts\\python_curso_em_video\\Exercicios e Ideias\\Exercicios extras\\InstagramBot\\python-files_pt\\geckodrive\\geckodriver.exe')
+
         driver = webdriver.Firefox(executable_path = 'C:\\Users\\Paulo Thiago\\Downloads\\scripts\\python_curso_em_video\\Exercicios e Ideias\\Exercicios extras\\InstagramBot\\python-files_pt\\geckodrive\\geckodriver.exe')
-        print(f'Usuário: {usuario} | Senha: {senha}')
         driver.get('https://instagram.com')
         time.sleep(10)
         logando()
