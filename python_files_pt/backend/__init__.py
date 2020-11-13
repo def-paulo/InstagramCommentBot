@@ -1,6 +1,7 @@
 # PT-BR
 # !& código usando UTF-8 !&
 # !& repositório https://github.com/def-paulo/InstagramCommentBot !&
+# !& obs.: se o programa não estiver carregando as imagens ou tiver algum problema com diretórios tente remover o "os.getcwd()" e especificar o caminho completo do arquivo !&
 
 from tkinter import *
 import time
@@ -35,7 +36,7 @@ def bot(main_window, window, x, imagem_aviso, mensagem_aviso, mensagem_iniciando
         global comentario_unico
         global num_comentarios
 
-        f = open('C:\\Users\\Paulo Thiago\\Documents\\MeusProjetos\\InstagramBot\\python_files_pt\\variables.txt', 'r')
+        f = open(os.getcwd()+'\\python_files_pt\\variables.txt', 'r')
         file = f.readlines()
         
         usuario = file[0].strip()
@@ -77,20 +78,23 @@ def bot(main_window, window, x, imagem_aviso, mensagem_aviso, mensagem_iniciando
         def x_pop_enter(e):
                 fechar_popup.config(bg = paleta[0]['exit_bg'])
 
+
         def x_pop_leave(e):
             fechar_popup.config(bg = paleta[0]['bg'])
+
 
         def n_enter(e):
             ok.config(bg = paleta[0]['df_bg'])
 
+
         def n_leave(e):
             ok.config(bg = paleta[0]['bg'])
+            
 
         def sair(event = ''):
             main_window.destroy()
             os.system(f'cd {os.getcwd()} & python python_files_pt\\interface.py')
-            # subprocess.Popen(f'cd {os.getcwd()}', shell = True)
-            # subprocess.Popen('python python_files_pt\\interface.py', shell = True)
+
 
         def last_click(event):
             global click_x
@@ -99,10 +103,13 @@ def bot(main_window, window, x, imagem_aviso, mensagem_aviso, mensagem_iniciando
             click_x = event.x
             click_y = event.y
 
+
         def move_window(event):
             if 32 >= click_y >= 0:
                 x, y = event.x - click_x + question_window.winfo_x(), event.y - click_y + question_window.winfo_y()
                 question_window.geometry(f'+{x}+{y}')
+
+
         
         ok = Button(w2, text = 'Ok', bg = paleta[0]['bg'], fg = paleta[0]['fg'], activebackground = paleta[0]['df_bg'], activeforeground = paleta[0]['fg'], bd = 0, width = 10, font = ('Antipasto', 18), pady = 6, padx = 6, command = sair)
         ok.pack(anchor = SE, side = RIGHT)
@@ -114,7 +121,7 @@ def bot(main_window, window, x, imagem_aviso, mensagem_aviso, mensagem_iniciando
         fechar_popup.pack(anchor = NE, side = RIGHT, before = lbl_warning1)
 
         mixer.init()
-        mixer.music.load('C:\\Users\\Paulo Thiago\\Documents\\MeusProjetos\\InstagramBot\\python_files_pt\\media\\songs\\error.mp3')
+        mixer.music.load(os.getcwd()+'\\python_files_pt\\media\\songs\\error.mp3')
         mixer.music.play()
         
         fechar_popup.bind('<Enter>', x_pop_enter)
@@ -156,9 +163,8 @@ def bot(main_window, window, x, imagem_aviso, mensagem_aviso, mensagem_iniciando
         
         opt = webdriver.FirefoxOptions()
         opt.add_argument('-headless')
-        # driver = webdriver.Firefox(options = opt, executable_path = 'C:\\Users\\Paulo Thiago\\Documents\\MeusProjetos\\InstagramBot\\python_files_pt\\geckodrive\\geckodriver.exe')
 
-        driver = webdriver.Firefox(executable_path = 'C:\\Users\\Paulo Thiago\\Documents\\MeusProjetos\\InstagramBot\\python_files_pt\\geckodrive\\geckodriver.exe') # Especifique o caminho completo, Ex.: 'C:\\Users\\root\\documents\\InstagramBot\\python_files_pt\\'
+        driver = webdriver.Firefox(executable_path = os.getcwd()+'\\python_files_pt\\geckodrive\\geckodriver.exe')
         driver.get('https://instagram.com')
         time.sleep(10)
         logando()
@@ -184,17 +190,6 @@ def bot(main_window, window, x, imagem_aviso, mensagem_aviso, mensagem_iniciando
                         error('!LINK DA PUBLICAÇÃO INCORRETO! Insira os dados CORRETAMENTE e tente de novo')
                         window.destroy()
                         driver.close()
-                    # try:
-                    #     aviso_link = driver.find_element_by_class_name('SCxLW  o64aR ')
-                    #     print('aviso_link is defined!', aviso_link)
-                    # except:
-                    #     time.sleep(randint(7, 14))
-                    #     comentando()
-                    # finally:
-                    #     if aviso_link != None:
-                    #         error('!LINK DA PUBLICAÇÃO INCORRETO! Insira os dados CORRETAMENTE e tente de novo')
-                    #         window.destroy()
-                    #         driver.close()
         finally:
             if aviso_senha != None:
                 error('!USUÁRIO OU SENHA INCORRETOS! Insira os dados CORRETAMENTE e tente de novo')
@@ -239,7 +234,7 @@ def bot(main_window, window, x, imagem_aviso, mensagem_aviso, mensagem_iniciando
         mensagem_aviso.destroy()
         mensagem_iniciando.destroy()
 
-        main_window.iconbitmap('C:\\Users\\Paulo Thiago\\Documents\\MeusProjetos\\InstagramBot\\python_files_pt\\media\\mascote.ico') # Especifique o caminho completo, Ex.: 'C:\\Users\\root\\documents\\InstagramBot\\python_files_pt\\'
+        main_window.iconbitmap(os.getcwd()+'\\python_files_pt\\media\\mascote.ico')
 
         space_contador = Frame(window, bg = paleta[0]['bg'], width = 80)
         space_contador.pack(anchor = W, side = LEFT)
@@ -272,18 +267,15 @@ def bot(main_window, window, x, imagem_aviso, mensagem_aviso, mensagem_iniciando
             except:
                 pass
             os.system(f'cd {os.getcwd()} & python python_files_pt\\interface.py')
-            # subprocess.Popen(f'cd {os.getcwd()}', shell = True)
-            # subprocess.Popen('python python_files_pt\\interface.py False', shell = True)
 
 
-        stop1 = PhotoImage(file = 'C:\\Users\\Paulo Thiago\\Documents\\MeusProjetos\\InstagramBot\\python_files_pt\\media\\stop_1.png') # Especifique o caminho completo, Ex.: 'C:\\Users\\root\\documents\\InstagramBot\\python_files_pt\\'
+        stop1 = PhotoImage(file = os.getcwd()+'\\python_files_pt\\media\\stop_1.png')
         stop1 = stop1.subsample(4, 4)
 
-        stop2 = PhotoImage(file = 'C:\\Users\\Paulo Thiago\\Documents\\MeusProjetos\\InstagramBot\\python_files_pt\\media\\stop_2.png') # Especifique o caminho completo, Ex.: 'C:\\Users\\root\\documents\\InstagramBot\\python_files_pt\\'
+        stop2 = PhotoImage(file = os.getcwd()+'\\python_files_pt\\media\\stop_2.png')
         stop2 = stop2.subsample(4, 4)
         
         stop = Button(window, image = stop1, bg = paleta[0]['bg'], bd = 0, font = ('Antipasto', 16), command = parar, activebackground = paleta[0]['bg'], cursor = 'hand2')
-        # stop.pack(anchor = S, side = BOTTOM)
         stop.place(x = 216, y = 482)
 
         x.config(command = fechar)
@@ -324,14 +316,13 @@ def bot(main_window, window, x, imagem_aviso, mensagem_aviso, mensagem_iniciando
                             lbl_sucess_final = Label(window, text = 'Comentários publicados com sucesso!', bg = paleta[0]['bg'], fg = '#0dff90', font = ('Antipasto', 22))
                             lbl_sucess_final.place(x = 125, y = 380)
                             mixer.init()
-                            mixer.music.load('C:\\Users\\Paulo Thiago\\Documents\\MeusProjetos\\InstagramBot\\python_files_pt\\media\\songs\\sucess.mp3')
+                            mixer.music.load(os.getcwd()+'\\python_files_pt\\media\\songs\\sucess.mp3')
                             mixer.music.play()
                             break
 
                     driver.find_element_by_class_name('Ypffh').click()
                     campo_comentario = driver.find_element_by_class_name('Ypffh')
                     campo_comentario.clear()
-                    # campo_comentario.send_keys(username)
                     time.sleep(randint(3, 6))
                     
                     if file[3].strip() == 'True':
@@ -364,5 +355,3 @@ def bot(main_window, window, x, imagem_aviso, mensagem_aviso, mensagem_iniciando
 
 if __name__ == '__main__':
     os.system(f'cd {os.getcwd()} & python python_files_pt\\interface.py')
-    # subprocess.Popen(f'cd {os.getcwd()}', shell = True)
-    # subprocess.Popen('python python_files_pt\\interface.py', shell = True)
