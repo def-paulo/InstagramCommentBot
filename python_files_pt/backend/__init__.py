@@ -30,7 +30,7 @@ def bot(main_window, window, x, imagem_aviso, mensagem_aviso, mensagem_iniciando
         global comentario_unico
         global num_comentarios
 
-        f = open('C:\\Users\\Paulo Thiago\\Documents\\MeusProjetos\\InstagramBot\\python-files_pt\\variables.txt', 'r')
+        f = open('C:\\Users\\Paulo Thiago\\Documents\\MeusProjetos\\InstagramBot\\python_files_pt\\variables.txt', 'r')
         file = f.readlines()
         
         usuario = file[0].strip()
@@ -83,9 +83,9 @@ def bot(main_window, window, x, imagem_aviso, mensagem_aviso, mensagem_iniciando
 
         def sair(event = ''):
             main_window.destroy()
-            os.system(f'cd {os.getcwd()} & python python-files_pt\\interface.py')
+            os.system(f'cd {os.getcwd()} & python python_files_pt\\interface.py')
             # subprocess.Popen(f'cd {os.getcwd()}', shell = True)
-            # subprocess.Popen('python python-files_pt\\interface.py', shell = True)
+            # subprocess.Popen('python python_files_pt\\interface.py', shell = True)
 
         def last_click(event):
             global click_x
@@ -147,9 +147,9 @@ def bot(main_window, window, x, imagem_aviso, mensagem_aviso, mensagem_iniciando
         
         opt = webdriver.FirefoxOptions()
         opt.add_argument('-headless')
-        # driver = webdriver.Firefox(options = opt, executable_path = 'C:\\Users\\Paulo Thiago\\Downloads\\scripts\\python_curso_em_video\\Exercicios e Ideias\\Exercicios extras\\InstagramBot\\python-files_pt\\geckodrive\\geckodriver.exe')
+        # driver = webdriver.Firefox(options = opt, executable_path = 'C:\\Users\\Paulo Thiago\\Downloads\\scripts\\python_curso_em_video\\Exercicios e Ideias\\Exercicios extras\\InstagramBot\\python_files_pt\\geckodrive\\geckodriver.exe')
 
-        driver = webdriver.Firefox(executable_path = 'C:\\Users\\Paulo Thiago\\Downloads\\scripts\\python_curso_em_video\\Exercicios e Ideias\\Exercicios extras\\InstagramBot\\python-files_pt\\geckodrive\\geckodriver.exe')
+        driver = webdriver.Firefox(executable_path = 'C:\\Users\\Paulo Thiago\\Downloads\\scripts\\python_curso_em_video\\Exercicios e Ideias\\Exercicios extras\\InstagramBot\\python_files_pt\\geckodrive\\geckodriver.exe')
         driver.get('https://instagram.com')
         time.sleep(10)
         logando()
@@ -230,7 +230,7 @@ def bot(main_window, window, x, imagem_aviso, mensagem_aviso, mensagem_iniciando
         mensagem_aviso.destroy()
         mensagem_iniciando.destroy()
 
-        main_window.iconbitmap('C:\\Users\\Paulo Thiago\\Documents\\MeusProjetos\\InstagramBot\\python-files_pt\\media\\mascote.ico')
+        main_window.iconbitmap('C:\\Users\\Paulo Thiago\\Documents\\MeusProjetos\\InstagramBot\\python_files_pt\\media\\mascote.ico')
 
         space_contador = Frame(window, bg = paleta[0]['bg'], width = 80)
         space_contador.pack(anchor = W, side = LEFT)
@@ -262,15 +262,15 @@ def bot(main_window, window, x, imagem_aviso, mensagem_aviso, mensagem_iniciando
                 driver.close()
             except:
                 pass
-            os.system(f'cd {os.getcwd()} & python python-files_pt\\interface.py')
+            os.system(f'cd {os.getcwd()} & python python_files_pt\\interface.py')
             # subprocess.Popen(f'cd {os.getcwd()}', shell = True)
-            # subprocess.Popen('python python-files_pt\\interface.py False', shell = True)
+            # subprocess.Popen('python python_files_pt\\interface.py False', shell = True)
 
 
-        stop1 = PhotoImage(file = 'C:\\Users\\Paulo Thiago\\Downloads\\scripts\\python_curso_em_video\\Exercicios e Ideias\\Exercicios extras\\InstagramBot\\python-files_pt\\media\\stop_1.png')
+        stop1 = PhotoImage(file = 'C:\\Users\\Paulo Thiago\\Downloads\\scripts\\python_curso_em_video\\Exercicios e Ideias\\Exercicios extras\\InstagramBot\\python_files_pt\\media\\stop_1.png')
         stop1 = stop1.subsample(4, 4)
 
-        stop2 = PhotoImage(file = 'C:\\Users\\Paulo Thiago\\Downloads\\scripts\\python_curso_em_video\\Exercicios e Ideias\\Exercicios extras\\InstagramBot\\python-files_pt\\media\\stop_2.png')
+        stop2 = PhotoImage(file = 'C:\\Users\\Paulo Thiago\\Downloads\\scripts\\python_curso_em_video\\Exercicios e Ideias\\Exercicios extras\\InstagramBot\\python_files_pt\\media\\stop_2.png')
         stop2 = stop2.subsample(4, 4)
         
         stop = Button(window, image = stop1, bg = paleta[0]['bg'], bd = 0, font = ('Antipasto', 16), command = parar, activebackground = paleta[0]['bg'], cursor = 'hand2')
@@ -351,6 +351,6 @@ def bot(main_window, window, x, imagem_aviso, mensagem_aviso, mensagem_iniciando
     new_window(main_window, window, x, imagem_aviso, mensagem_aviso, mensagem_iniciando, paleta)
 
 if __name__ == '__main__':
-    os.system(f'cd {os.getcwd()} & python python-files_pt\\interface.py')
+    os.system(f'cd {os.getcwd()} & python python_files_pt\\interface.py')
     # subprocess.Popen(f'cd {os.getcwd()}', shell = True)
-    # subprocess.Popen('python python-files_pt\\interface.py', shell = True)
+    # subprocess.Popen('python python_files_pt\\interface.py', shell = True)
