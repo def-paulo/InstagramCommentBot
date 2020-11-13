@@ -1,10 +1,14 @@
+# !& código usando UTF-8 !&
+# !& repositório https://github.com/def-paulo/InstagramCommentBot !&
+
 from tkinter import *
 from time import sleep
-from python_files_pt.backend import bot
 from selenium import webdriver
+from backend import bot
 import threading
 from PIL import ImageTk, Image
 import sys
+from pygame import mixer
 
 palet = [{'bg':'#141414', 'fg':'#cfcfcf', 'exit_bg':'#ff2f2f', 'df_bg':'#676767', 'wd_bg':'#1d1d1d', 'bd':'#4d4d4d'}]
 cont_maximizado = 0
@@ -79,10 +83,10 @@ def managment_window():
     fechar = Button(top, text = 'X', bd = 0, bg = palet[0]['bg'], fg = palet[0]['fg'], width = 5, font = ('Antipasto', 15), activebackground = palet[0]['exit_bg'], activeforeground = palet[0]['fg'], highlightcolor = palet[0]['exit_bg'], command = root.destroy)
     fechar.pack(anchor = NE, side = RIGHT)
 
-    maximize = PhotoImage(file = 'C:\\Users\\Paulo Thiago\\Documents\\MeusProjetos\\InstagramBot\\python_files_pt\\media\\max.png') # Especifique o caminho completo, Ex.: C:\\Users\\root\\documents\\InstagramBot\\python_files_pt\\
+    maximize = PhotoImage(file = 'C:\\Users\\Paulo Thiago\\Documents\\MeusProjetos\\InstagramBot\\python_files_pt\\media\\max.png') # Especifique o caminho completo, Ex.: 'C:\\Users\\root\\documents\\InstagramBot\\python_files_pt\\'
     maximize = maximize.subsample(45, 45)
 
-    # resize_maximize = PhotoImage(file = 'C:\\Users\\Paulo Thiago\\Documents\\MeusProjetos\\InstagramBot\\python_files_pt\\media\\res_max.png') # Especifique o caminho completo, Ex.: C:\\Users\\root\\documents\\InstagramBot\\python_files_pt\\
+    # resize_maximize = PhotoImage(file = 'C:\\Users\\Paulo Thiago\\Documents\\MeusProjetos\\InstagramBot\\python_files_pt\\media\\res_max.png') # Especifique o caminho completo, Ex.: 'C:\\Users\\root\\documents\\InstagramBot\\python_files_pt\\'
     # resize_maximize = resize_maximize.subsample(45, 45)
 
     maximizar = Button(top, image = maximize, compound = CENTER, pady = 100, height = 36, width = 50, bd = 0, activebackground = palet[0]['df_bg'], bg = palet[0]['bg'], highlightcolor = palet[0]['exit_bg'], state = DISABLED, cursor = 'X_cursor')
@@ -101,7 +105,7 @@ def managment_window():
     move_area.bind('<B1-Motion>', move_window)
 
 root = Tk()
-root.iconbitmap('C:\\Users\\Paulo Thiago\\Documents\\MeusProjetos\\InstagramBot\\python_files_pt\\media\\mascote.ico') # Especifique o caminho completo, Ex.: C:\\Users\\root\\documents\\InstagramBot\\python_files_pt\\
+root.iconbitmap('C:\\Users\\Paulo Thiago\\Documents\\MeusProjetos\\InstagramBot\\python_files_pt\\media\\mascote.ico') # Especifique 'o caminho completo, Ex.: C:\\Users\\root\\documents\\InstagramBot\\python_files_pt\\'
 root.attributes('-alpha', 0.0)
 root.title('Instagram Bot')
 root.config(bg = palet[0]['bg'])
@@ -136,7 +140,7 @@ def about():
         about_window.config(highlightbackground = palet[0]['fg'])
         # about_window.attributes('-alpha', 0.95)
 
-        bg_img = PhotoImage(file = 'C:\\Users\\Paulo Thiago\\Documents\\MeusProjetos\\InstagramBot\\python_files_pt\\media\\about_bg.png') # Especifique o caminho completo, Ex.: C:\\Users\\root\\documents\\InstagramBot\\python_files_pt\\
+        bg_img = PhotoImage(file = 'C:\\Users\\Paulo Thiago\\Documents\\MeusProjetos\\InstagramBot\\python_files_pt\\media\\about_bg.png') # Especifique o caminho completo, Ex.: 'C:\\Users\\root\\documents\\InstagramBot\\python_files_pt\\'
 
         bg = Label(about_window, image = bg_img, bg = palet[0]['bg'])
         bg.place(x = 0, y = 0)
@@ -172,7 +176,8 @@ def about():
 
         def profile():
             def tg():
-                driver = webdriver.Firefox(executable_path = 'C:\\Users\\Paulo Thiago\\Downloads\\scripts\\python_curso_em_video\\Exercicios e Ideias\\Exercicios extras\\InstagramBot\\python_files_pt\\geckodrive\\geckodriver.exe')
+                global driver
+                driver = webdriver.Firefox(executable_path = 'C:\\Users\\Paulo Thiago\\Documents\\MeusProjetos\\InstagramBot\\python_files_pt\\geckodrive\\geckodriver.exe')
                 driver.get('https://github.com/def-paulo')
             
             threading.Thread(target = tg).start()
@@ -219,16 +224,16 @@ def about():
 
 managment_window()
 
-ig = PhotoImage(file = 'C:\\Users\\Paulo Thiago\\Documents\\MeusProjetos\\InstagramBot\\python_files_pt\\media\\mascote.png') # Especifique o caminho completo, Ex.: C:\\Users\\root\\documents\\InstagramBot\\python_files_pt\\
+ig = PhotoImage(file = 'C:\\Users\\Paulo Thiago\\Documents\\MeusProjetos\\InstagramBot\\python_files_pt\\media\\mascote.png') # Especifique o caminho completo, Ex.: 'C:\\Users\\root\\documents\\InstagramBot\\python_files_pt\\'
 ig = ig.subsample(64, 64)
 
-warning = PhotoImage(file = 'C:\\Users\\Paulo Thiago\\Documents\\MeusProjetos\\InstagramBot\\python_files_pt\\media\\warning.png') # Especifique o caminho completo, Ex.: C:\\Users\\root\\documents\\InstagramBot\\python_files_pt\\
+warning = PhotoImage(file = 'C:\\Users\\Paulo Thiago\\Documents\\MeusProjetos\\InstagramBot\\python_files_pt\\media\\warning.png') # Especifique o caminho completo, Ex.: 'C:\\Users\\root\\documents\\InstagramBot\\python_files_pt\\'
 warning = warning.subsample(4, 4)
 
-in_bot1 = PhotoImage(file = 'C:\\Users\\Paulo Thiago\\Documents\\MeusProjetos\\InstagramBot\\python_files_pt\\media\\bt_bot_1.png') # Especifique o caminho completo, Ex.: C:\\Users\\root\\documents\\InstagramBot\\python_files_pt\\
+in_bot1 = PhotoImage(file = 'C:\\Users\\Paulo Thiago\\Documents\\MeusProjetos\\InstagramBot\\python_files_pt\\media\\bt_bot_1.png') # Especifique o caminho completo, Ex.: 'C:\\Users\\root\\documents\\InstagramBot\\python_files_pt\\'
 in_bot1 = in_bot1.subsample(6, 6)
 
-in_bot2 = PhotoImage(file = 'C:\\Users\\Paulo Thiago\\Documents\\MeusProjetos\\InstagramBot\\python_files_pt\\media\\bt_bot_2.png') # Especifique o caminho completo, Ex.: C:\\Users\\root\\documents\\InstagramBot\\python_files_pt\\
+in_bot2 = PhotoImage(file = 'C:\\Users\\Paulo Thiago\\Documents\\MeusProjetos\\InstagramBot\\python_files_pt\\media\\bt_bot_2.png') # Especifique o caminho completo, Ex.: 'C:\\Users\\root\\documents\\InstagramBot\\python_files_pt\\'
 in_bot2 = in_bot2.subsample(6, 6)
 
 ig_icon = Button(top, image = ig, bg = palet[0]['bg'], bd = 0, height = 38, width = 40, activebackground = palet[0]['bg'], activeforeground = palet[0]['fg'], cursor = 'question_arrow', command = about)
@@ -370,29 +375,29 @@ def program():
                 top.update()
 
 
-        login_img = PhotoImage(file = 'C:\\Users\\Paulo Thiago\\Documents\\MeusProjetos\\InstagramBot\\python_files_pt\\media\\login_character.png') # Especifique o caminho completo, Ex.: C:\\Users\\root\\documents\\InstagramBot\\python_files_pt\\
+        login_img = PhotoImage(file = 'C:\\Users\\Paulo Thiago\\Documents\\MeusProjetos\\InstagramBot\\python_files_pt\\media\\login_character.png') # Especifique o caminho completo, Ex.: 'C:\\Users\\root\\documents\\InstagramBot\\python_files_pt\\'
         login_img = login_img.subsample(12, 12)
 
-        bt_entrar0 = PhotoImage(file = 'C:\\Users\\Paulo Thiago\\Documents\\MeusProjetos\\InstagramBot\\python_files_pt\\media\\bt_entrar0.png') # Especifique o caminho completo, Ex.: C:\\Users\\root\\documents\\InstagramBot\\python_files_pt\\
+        bt_entrar0 = PhotoImage(file = 'C:\\Users\\Paulo Thiago\\Documents\\MeusProjetos\\InstagramBot\\python_files_pt\\media\\bt_entrar0.png') # Especifique o caminho completo, Ex.: 'C:\\Users\\root\\documents\\InstagramBot\\python_files_pt\\'
         bt_entrar0 = bt_entrar0.subsample(8, 8)
 
-        bt_entrar1 = PhotoImage(file = 'C:\\Users\\Paulo Thiago\\Documents\\MeusProjetos\\InstagramBot\\python_files_pt\\media\\bt_entrar1.png') # Especifique o caminho completo, Ex.: C:\\Users\\root\\documents\\InstagramBot\\python_files_pt\\
+        bt_entrar1 = PhotoImage(file = 'C:\\Users\\Paulo Thiago\\Documents\\MeusProjetos\\InstagramBot\\python_files_pt\\media\\bt_entrar1.png') # Especifique o caminho completo, Ex.: 'C:\\Users\\root\\documents\\InstagramBot\\python_files_pt\\'
         bt_entrar1 = bt_entrar1.subsample(8, 8)
 
-        bt_entrar2 = PhotoImage(file = 'C:\\Users\\Paulo Thiago\\Documents\\MeusProjetos\\InstagramBot\\python_files_pt\\media\\bt_entrar2.png') # Especifique o caminho completo, Ex.: C:\\Users\\root\\documents\\InstagramBot\\python_files_pt\\
+        bt_entrar2 = PhotoImage(file = 'C:\\Users\\Paulo Thiago\\Documents\\MeusProjetos\\InstagramBot\\python_files_pt\\media\\bt_entrar2.png') # Especifique o caminho completo, Ex.: 'C:\\Users\\root\\documents\\InstagramBot\\python_files_pt\\'
         bt_entrar2 = bt_entrar2.subsample(8, 8)
         
-        # entry_img = PhotoImage(file = 'C:\\Users\\Paulo Thiago\\Documents\\MeusProjetos\\InstagramBot\\python_files_pt\\media\\entry.png') # Especifique o caminho completo, Ex.: C:\\Users\\root\\documents\\InstagramBot\\python_files_pt\\
+        # entry_img = PhotoImage(file = 'C:\\Users\\Paulo Thiago\\Documents\\MeusProjetos\\InstagramBot\\python_files_pt\\media\\entry.png') # Especifique o caminho completo, Ex.: 'C:\\Users\\root\\documents\\InstagramBot\\python_files_pt\\'
         # entry_img = entry_img.subsample(4, 6)
 
-        # entry_img1 = PhotoImage(file = 'C:\\Users\\Paulo Thiago\\Documents\\MeusProjetos\\InstagramBot\\python_files_pt\\media\\entry.png') # Especifique o caminho completo, Ex.: C:\\Users\\root\\documents\\InstagramBot\\python_files_pt\\
+        # entry_img1 = PhotoImage(file = 'C:\\Users\\Paulo Thiago\\Documents\\MeusProjetos\\InstagramBot\\python_files_pt\\media\\entry.png') # Especifique o caminho completo, Ex.: 'C:\\Users\\root\\documents\\InstagramBot\\python_files_pt\\'
         # entry_img1 = entry_img1.subsample(5, 6)
 
         login_lbl = Label(top, image = login_img, bg = palet[0]['bg'])
         login_lbl.place(x = 242, y = 102)
 
 
-        img = Image.open('C:\\Users\\Paulo Thiago\\Documents\\MeusProjetos\\InstagramBot\\python_files_pt\\media\\entry.png') # Especifique o caminho completo, Ex.: C:\\Users\\root\\documents\\InstagramBot\\python_files_pt\\
+        img = Image.open('C:\\Users\\Paulo Thiago\\Documents\\MeusProjetos\\InstagramBot\\python_files_pt\\media\\entry.png') # Especifique o caminho completo, Ex.: 'C:\\Users\\root\\documents\\InstagramBot\\python_files_pt\\'
         img = img.resize((390, 50), Image.ANTIALIAS)
         entry_img = ImageTk.PhotoImage(img)
 
@@ -862,6 +867,10 @@ def program():
             
             fechar_popup = Button(question_window, text = 'X', bd = 0, bg = palet[0]['bg'], fg = palet[0]['fg'], width = 3, font = ('Antipasto', 15), activebackground = palet[0]['exit_bg'], activeforeground = palet[0]['fg'], highlightcolor = palet[0]['exit_bg'], command = question_window.destroy)
             fechar_popup.pack(anchor = NE, side = RIGHT, before = lbl_warning1)
+
+            mixer.init()
+            mixer.music.load('C:\\Users\\Paulo Thiago\\Documents\\MeusProjetos\\InstagramBot\\python_files_pt\\media\\songs\\error.mp3')
+            mixer.music.play()
             
             fechar_popup.bind('<Enter>', x_pop_enter)
             fechar_popup.bind('<Leave>', x_pop_leave)
@@ -897,7 +906,7 @@ def program():
                 error('Houve algum erro, insira os dados CORRETAMENTE e tente de novo')
             else:
                 def var():
-                    variaveis = open('C:\\Users\\Paulo Thiago\\Documents\\MeusProjetos\\InstagramBot\\python_files_pt\\variables.txt', 'w') # Especifique o caminho completo, Ex.: C:\\Users\\root\\documents\\InstagramBot\\python_files_pt\\
+                    variaveis = open('C:\\Users\\Paulo Thiago\\Documents\\MeusProjetos\\InstagramBot\\python_files_pt\\variables.txt', 'w') # Especifique o caminho completo,' Ex.: C:\\Users\\root\\documents\\InstagramBot\\python_files_pt\\'
                     variaveis.write(f'{usuario}\n') # Nome de usuário
                     variaveis.write(f'{senha}\n') # Senha
                     variaveis.write(f'{link_entry.get()}\n') # Link do post
@@ -1001,13 +1010,13 @@ def welcome_interface():
         animation1()
 
 
-    ig_wallp = PhotoImage(file = 'C:\\Users\\Paulo Thiago\\Documents\\MeusProjetos\\InstagramBot\\python_files_pt\\media\\title.png') # Especifique o caminho completo, Ex.: C:\\Users\\root\\documents\\InstagramBot\\python_files_pt\\
+    ig_wallp = PhotoImage(file = 'C:\\Users\\Paulo Thiago\\Documents\\MeusProjetos\\InstagramBot\\python_files_pt\\media\\title.png') # Especifique o caminho completo, Ex.: 'C:\\Users\\root\\documents\\InstagramBot\\python_files_pt\\'
     ig_wallp = ig_wallp.subsample(6, 6)
 
-    bt_start_1 = PhotoImage(file = 'C:\\Users\\Paulo Thiago\\Documents\\MeusProjetos\\InstagramBot\\python_files_pt\\media\\bt_start_1.png') # Especifique o caminho completo, Ex.: C:\\Users\\root\\documents\\InstagramBot\\python_files_pt\\
+    bt_start_1 = PhotoImage(file = 'C:\\Users\\Paulo Thiago\\Documents\\MeusProjetos\\InstagramBot\\python_files_pt\\media\\bt_start_1.png') # Especifique o caminho completo, Ex.: 'C:\\Users\\root\\documents\\InstagramBot\\python_files_pt\\'
     bt_start_1 = bt_start_1.subsample(5, 5)
 
-    bt_start_2 = PhotoImage(file = 'C:\\Users\\Paulo Thiago\\Documents\\MeusProjetos\\InstagramBot\\python_files_pt\\media\\bt_start_2.png') # Especifique o caminho completo, Ex.: C:\\Users\\root\\documents\\InstagramBot\\python_files_pt\\
+    bt_start_2 = PhotoImage(file = 'C:\\Users\\Paulo Thiago\\Documents\\MeusProjetos\\InstagramBot\\python_files_pt\\media\\bt_start_2.png') # Especifique o caminho completo, Ex.: 'C:\\Users\\root\\documents\\InstagramBot\\python_files_pt\\'
     bt_start_2 = bt_start_2.subsample(5, 5)
 
     ig_wallp_lbl = Button(top, image = ig_wallp, bg = palet[0]['bg'], bd = 0, activebackground = palet[0]['bg'], command = animation2, cursor = 'exchange')

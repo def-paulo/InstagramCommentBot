@@ -5,6 +5,7 @@ from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 import os
 import threading
+from pygame import mixer
 
 def bot(main_window, window, x, imagem_aviso, mensagem_aviso, mensagem_iniciando, paleta):
     global comentarios
@@ -107,6 +108,10 @@ def bot(main_window, window, x, imagem_aviso, mensagem_aviso, mensagem_iniciando
         
         fechar_popup = Button(question_window, text = 'X', bd = 0, bg = paleta[0]['bg'], fg = paleta[0]['fg'], width = 3, font = ('Antipasto', 15), activebackground = paleta[0]['exit_bg'], activeforeground = paleta[0]['fg'], highlightcolor = paleta[0]['exit_bg'], command = sair)
         fechar_popup.pack(anchor = NE, side = RIGHT, before = lbl_warning1)
+
+        mixer.init()
+        mixer.music.load('C:\\Users\\Paulo Thiago\\Documents\\MeusProjetos\\InstagramBot\\python_files_pt\\media\\songs\\error.mp3')
+        mixer.music.play()
         
         fechar_popup.bind('<Enter>', x_pop_enter)
         fechar_popup.bind('<Leave>', x_pop_leave)
@@ -147,9 +152,9 @@ def bot(main_window, window, x, imagem_aviso, mensagem_aviso, mensagem_iniciando
         
         opt = webdriver.FirefoxOptions()
         opt.add_argument('-headless')
-        # driver = webdriver.Firefox(options = opt, executable_path = 'C:\\Users\\Paulo Thiago\\Downloads\\scripts\\python_curso_em_video\\Exercicios e Ideias\\Exercicios extras\\InstagramBot\\python_files_pt\\geckodrive\\geckodriver.exe')
+        # driver = webdriver.Firefox(options = opt, executable_path = 'C:\\Users\\Paulo Thiago\\Documents\\MeusProjetos\\InstagramBot\\python_files_pt\\geckodrive\\geckodriver.exe')
 
-        driver = webdriver.Firefox(executable_path = 'C:\\Users\\Paulo Thiago\\Downloads\\scripts\\python_curso_em_video\\Exercicios e Ideias\\Exercicios extras\\InstagramBot\\python_files_pt\\geckodrive\\geckodriver.exe')
+        driver = webdriver.Firefox(executable_path = 'C:\\Users\\Paulo Thiago\\Documents\\MeusProjetos\\InstagramBot\\python_files_pt\\geckodrive\\geckodriver.exe') # Especifique o caminho completo, Ex.: 'C:\\Users\\root\\documents\\InstagramBot\\python_files_pt\\'
         driver.get('https://instagram.com')
         time.sleep(10)
         logando()
@@ -230,7 +235,7 @@ def bot(main_window, window, x, imagem_aviso, mensagem_aviso, mensagem_iniciando
         mensagem_aviso.destroy()
         mensagem_iniciando.destroy()
 
-        main_window.iconbitmap('C:\\Users\\Paulo Thiago\\Documents\\MeusProjetos\\InstagramBot\\python_files_pt\\media\\mascote.ico')
+        main_window.iconbitmap('C:\\Users\\Paulo Thiago\\Documents\\MeusProjetos\\InstagramBot\\python_files_pt\\media\\mascote.ico') # Especifique o caminho completo, Ex.: 'C:\\Users\\root\\documents\\InstagramBot\\python_files_pt\\'
 
         space_contador = Frame(window, bg = paleta[0]['bg'], width = 80)
         space_contador.pack(anchor = W, side = LEFT)
@@ -267,10 +272,10 @@ def bot(main_window, window, x, imagem_aviso, mensagem_aviso, mensagem_iniciando
             # subprocess.Popen('python python_files_pt\\interface.py False', shell = True)
 
 
-        stop1 = PhotoImage(file = 'C:\\Users\\Paulo Thiago\\Downloads\\scripts\\python_curso_em_video\\Exercicios e Ideias\\Exercicios extras\\InstagramBot\\python_files_pt\\media\\stop_1.png')
+        stop1 = PhotoImage(file = 'C:\\Users\\Paulo Thiago\\Documents\\MeusProjetos\\InstagramBot\\python_files_pt\\media\\stop_1.png') # Especifique o caminho completo, Ex.: 'C:\\Users\\root\\documents\\InstagramBot\\python_files_pt\\'
         stop1 = stop1.subsample(4, 4)
 
-        stop2 = PhotoImage(file = 'C:\\Users\\Paulo Thiago\\Downloads\\scripts\\python_curso_em_video\\Exercicios e Ideias\\Exercicios extras\\InstagramBot\\python_files_pt\\media\\stop_2.png')
+        stop2 = PhotoImage(file = 'C:\\Users\\Paulo Thiago\\Documents\\MeusProjetos\\InstagramBot\\python_files_pt\\media\\stop_2.png') # Especifique o caminho completo, Ex.: 'C:\\Users\\root\\documents\\InstagramBot\\python_files_pt\\'
         stop2 = stop2.subsample(4, 4)
         
         stop = Button(window, image = stop1, bg = paleta[0]['bg'], bd = 0, font = ('Antipasto', 16), command = parar, activebackground = paleta[0]['bg'], cursor = 'hand2')
@@ -314,6 +319,9 @@ def bot(main_window, window, x, imagem_aviso, mensagem_aviso, mensagem_iniciando
                         if cont_coment == num_comentarios:
                             lbl_sucess_final = Label(window, text = 'Comentários publicados com sucesso!', bg = paleta[0]['bg'], fg = '#0dff90', font = ('Antipasto', 22))
                             lbl_sucess_final.place(x = 125, y = 380)
+                            mixer.init()
+                            mixer.music.load('C:\\Users\\Paulo Thiago\\Documents\\MeusProjetos\\InstagramBot\\python_files_pt\\media\\songs\\sucess.mp3')
+                            mixer.music.play()
                             break
 
                     driver.find_element_by_class_name('Ypffh').click()
