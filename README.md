@@ -1,6 +1,10 @@
 # Instagram Comment Bot
 
 ![GitHub repo size](https://img.shields.io/github/repo-size/def-paulo/InstagramCommentBot?style=plastic)
+![GitHub language count](https://img.shields.io/github/languages/count/def-paulo/InstagramCommentBot?style=plastic)
+![GitHub top language](https://img.shields.io/github/languages/top/def-paulo/InstagramCommentBot?style=plastic)
+![GitHub pull requests](https://img.shields.io/github/issues-pr-raw/def-paulo/InstagramCommentBot?style=plastic)
+![GitHub closed pull requests](https://img.shields.io/github/issues-pr-closed-raw/def-paulo/InstagramCommentBot?style=plastic)
 
 # <p align = "center">
 #  <img width = "512" height = "512" scr = "python_files_pt/media/title.png">
