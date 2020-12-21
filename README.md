@@ -5,7 +5,7 @@
 ![GitHub top language](https://img.shields.io/github/languages/top/def-paulo/InstagramCommentBot?style=plastic)
 
 <p align = "center">
- <img width = "512" height = "512" scr = "https://github.com/def-paulo/InstagramCommentBot/tree/main/python_files_pt/media/title.png">
+ <img width = "512" height = "512" scr = "/main/python_files_pt/media/title.png">
 </p>
 
 # "O que é?", "Para que serve?"
