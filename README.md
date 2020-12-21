@@ -1,7 +1,7 @@
 # Instagram Comment Bot
 
 <p align = "center">
-  <img width = "512" height = "512" scr = "python_files_pt/media/mascote.png">
+  <img width = "512" height = "512" scr = "python_files_pt/media/title.png">
 </p>
 
 # "O que é?", "Para que serve?"
