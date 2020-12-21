@@ -4,7 +4,7 @@
 ![GitHub language count](https://img.shields.io/github/languages/count/def-paulo/InstagramCommentBot?style=plastic)
 ![GitHub top language](https://img.shields.io/github/languages/top/def-paulo/InstagramCommentBot?style=plastic)
 
-[My image](https://github.com/def-paulo/InstagramCommentBot/tree/main/python_files_pt/media/title.png)
+![Alt text](https://github.com/def-paulo/InstagramCommentBot/blob/main/python_files_pt/media/title.png?raw=true "Optional Title")
 
 <p align = "center">
  <img width = "512" height = "512" scr = "/main/python_files_pt/media/title.png">
