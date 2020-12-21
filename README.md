@@ -4,6 +4,7 @@
 ![GitHub language count](https://img.shields.io/github/languages/count/def-paulo/InstagramCommentBot?style=plastic)
 ![GitHub top language](https://img.shields.io/github/languages/top/def-paulo/InstagramCommentBot?style=plastic)
 
+![Alt text](https://github.com/def-paulo/InstagramCommentBot/blob/main/python_files_pt/media/mascote.png?raw=true "Optional Title")
 ![Alt text](https://github.com/def-paulo/InstagramCommentBot/blob/main/python_files_pt/media/title.png?raw=true "Optional Title")
 
 # "O que é?", "Para que serve?"
